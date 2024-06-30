@@ -7,9 +7,9 @@
     },
     "tasks": [
         {
-            "label": "Test",
+            "label": "Build",
             "type": "process",
-            "command": ".scripts/test.sh",
+            "command": "./build.sh",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
