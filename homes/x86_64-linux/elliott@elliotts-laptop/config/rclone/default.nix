@@ -65,7 +65,7 @@ rec {
       [Google]
       type = drive
       token = @token-Google@
-      team_drive = 
+      team_drive =
 
       [DropBox]
       type = dropbox
