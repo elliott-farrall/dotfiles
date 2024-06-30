@@ -41,10 +41,7 @@ rec {
 
   home.activation = builtins.mapAttrs
     (secret: _: lib.hm.dag.entryAfter [ "linkGeneration" "agenix" ] /*sh*/''
-      secret=$(cat "${config.age.secrets.${secret}.path}")
-      file=${config.xdg.configHome}/rclone/rclone.conf
-
-      run ${pkgs.gnused}/bin/sed -i "s#@${secret}@#$secret#" "$file"
+      run ${pkgs.replace-secret}/bin/replace-secret "@${secret}" "${config.age.secrets.${secret}.path}" "${config.xdg.configHome}/rclone/rclone.conf"
     '')
     age.secrets;
 
@@ -65,7 +62,7 @@ rec {
       [Google]
       type = drive
       token = @token-Google@
-      team_drive = 
+      team_drive =
 
       [DropBox]
       type = dropbox
