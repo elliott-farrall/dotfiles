@@ -41,7 +41,10 @@ rec {
 
   home.activation = builtins.mapAttrs
     (secret: _: lib.hm.dag.entryAfter [ "linkGeneration" "agenix" ] /*sh*/''
-      run ${pkgs.replace-secret}/bin/replace-secret "@${secret}" "${config.age.secrets.${secret}.path}" "${config.xdg.configHome}/rclone/rclone.conf"
+      secret=$(cat "${config.age.secrets.${secret}.path}")
+      file=${config.xdg.configHome}/rclone/rclone.conf
+
+      run ${pkgs.gnused}/bin/sed -i "s#@${secret}@#$secret#" "$file"
     '')
     age.secrets;
 
