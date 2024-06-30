@@ -13,7 +13,7 @@ lib.pre-commit-hooks.x86_64-linux.run {
 
     editorconfig-checker = {
       enable = true;
-      types_or = [ "nix" "ssh" ];
+      types_or = [ "nix" "shell" ];
     };
 
     nil.enable = true;

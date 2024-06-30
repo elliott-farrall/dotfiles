@@ -8,58 +8,62 @@ get_gen() {
 
 
 
-# Get branch name 
+# Get branch name
 branch=$(git branch --show-current)
 
-# Lock flake inputs
-nix flake lock --option warn-dirty false
-
-# Commit all changes
-git commit -aq --allow-empty
-
-# If commit fails, exit
-if [ $? -ne 0 ]; then
-    exit 1
-fi
-
-# Run nixos-rebuild
 case "$branch" in
     main)
+        # Merge dev into main
+        git merge dev --no-ff -m "Merge 'dev' into 'main'"
+
+        # If merge fails, exit
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+
+        # Run nixos-rebuild
         nh os switch .
-        ;;
-    dev)
-        nh os test .
-        ;;
-    *)
-        # Default commands for any other branch
-        echo "ERROR: Unknown branch!"
-        git reset -q HEAD~
-        exit 1
-        ;;
-esac
 
-# If nixos-rebuild fails, undo the commit and exit
-if [ $? -ne 0 ]; then
-    git reset -q HEAD~
-    exit 1
-fi
+        # If nixos-rebuild fails, undo the commit and exit
+        if [ $? -ne 0 ]; then
+            git reset -q HEAD~
+            exit 1
+        fi
 
-# Create tag and push
-case "$branch" in
-    main)
+        # Create tag and push
         new_gen=$(get_gen)
         git tag -f "gen-$new_gen" -m "NixOS configuration for generation $new_gen"
+        git push -fq --follow-tags
         ;;
     dev)
+        # Lock flake inputs
+        nix flake lock --option warn-dirty false
+
+        # Commit all changes
+        git commit -aq --allow-empty
+
+        # If commit fails, exit
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+
+        # Run nixos-rebuild
+        nh os test .
+
+        # If nixos-rebuild fails, undo the commit and exit
+        if [ $? -ne 0 ]; then
+            git reset -q HEAD~
+            exit 1
+        fi
+
+        # Create tag and push
         git tag -f "dev" -m "NixOS configuration in development"
+        git push -fq --follow-tags
         ;;
     *)
-        # Default commands for any other branch
         echo "ERROR: Unknown branch!"
-        git reset -q HEAD~
         exit 1
         ;;
 esac
-git push -fq --follow-tags
 
 exit 0
