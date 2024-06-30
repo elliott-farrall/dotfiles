@@ -12,8 +12,8 @@ lib.pre-commit-hooks.x86_64-linux.run {
     };
 
     editorconfig-checker = {
-      enable = false;
-      excludes = [ "\\.age" ];
+      enable = true;
+      types_or = [ "nix" "ssh" ];
     };
 
     nil.enable = true;

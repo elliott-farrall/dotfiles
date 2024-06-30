@@ -15,7 +15,6 @@ branch=$(git branch --show-current)
 nix flake lock --option warn-dirty false
 
 # Commit all changes
-git add .
 git commit -aq --allow-empty
 
 # If commit fails, exit
