@@ -7,9 +7,9 @@
     },
     "tasks": [
         {
-            "label": "Switch",
+            "label": "Test",
             "type": "process",
-            "command": ".scripts/switch.sh",
+            "command": ".scripts/test.sh",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
