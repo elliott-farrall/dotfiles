@@ -1,2 +1,2 @@
-# NixOS-New
+# NixOS
 Repo for personal NixOS configuration.

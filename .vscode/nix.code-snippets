@@ -1,0 +1,14 @@
+{
+    "Module Arguments" : {
+		"description": "Standard mdoule arguments",
+		"scope": "nix",
+		"prefix": "%args",
+		"body": [
+			"{ config",
+			", lib",
+			", pkgs",
+			", ...",
+			"}:"
+		]
+	}
+}

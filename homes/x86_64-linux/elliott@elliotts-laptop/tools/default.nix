@@ -1,0 +1,10 @@
+{ ...
+}:
+
+{
+  imports = [
+    ./direnv
+    ./nix
+    ./scripts
+  ];
+}

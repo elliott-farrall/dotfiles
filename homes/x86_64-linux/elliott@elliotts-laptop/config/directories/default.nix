@@ -1,0 +1,10 @@
+{ ...
+}:
+
+{
+  imports = [
+    ./gtk
+    ./xdg
+    ./xresources
+  ];
+}

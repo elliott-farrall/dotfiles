@@ -1,0 +1,28 @@
+diff --git a/meson.build b/meson.build
+index 5bb7643..c73b346 100644
+--- a/meson.build
++++ b/meson.build
+@@ -32,23 +32,6 @@ configure_file(
+   install_dir: datadir + '/dbus-1/services'
+ )
+ 
+-# Systemd service unit
+-systemd = dependency('systemd', required: false)
+-if get_option('systemd-service')
+-  if systemd.found()
+-    systemd_service_install_dir = systemd.get_variable(pkgconfig :'systemduserunitdir')
+-  else
+-    systemd_service_install_dir = join_paths(libdir, 'systemd', 'user')
+-  endif
+-
+-  configure_file(
+-    configuration: conf_data,
+-    input: 'services/systemd/swaync.service.in',
+-    output: '@BASENAME@',
+-    install_dir: systemd_service_install_dir
+-  )
+-endif
+-
+ # Zsh completion
+ if get_option('zsh-completions')
+   zsh_files = files(
