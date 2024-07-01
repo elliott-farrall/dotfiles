@@ -61,7 +61,6 @@
     ];
 
     systems.modules = with inputs; [
-      home-manager.nixosModules.home-manager
       agenix.nixosModules.default
     ];
     homes.modules = with inputs; [
