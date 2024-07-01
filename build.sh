@@ -14,7 +14,7 @@ branch=$(git branch --show-current)
 case "$branch" in
     main)
         # Merge dev into main
-        git merge refs/remotes/origin/dev --no-ff -m "Merge 'dev' into 'main'"
+        git merge refs/remotes/origin/dev --ff-only
 
         # If merge fails, exit
         if [ $? -ne 0 ]; then
