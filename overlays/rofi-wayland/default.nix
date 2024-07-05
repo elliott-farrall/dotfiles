@@ -3,7 +3,7 @@
 
 final: prev:
 {
-  rofi-wayland = prev.rofi-wayland.overrideAttrs (attrs: {
+  rofi-wayland-unwrapped = prev.rofi-wayland-unwrapped.overrideAttrs (attrs: {
     src = prev.fetchFromGitHub {
       owner = "lbonn";
       repo = "rofi";
