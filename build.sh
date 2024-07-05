@@ -33,7 +33,8 @@ case "$branch" in
         # Create tag and push
         new_gen=$(get_gen)
         git tag -f "gen-$new_gen" -m "NixOS configuration for generation $new_gen"
-        git push -fq --follow-tags
+        git push -fq "gen-$new_gen"
+        git push -q
         ;;
     dev)
         # Lock flake inputs
@@ -58,7 +59,8 @@ case "$branch" in
 
         # Create tag and push
         git tag -f "dev" -m "NixOS configuration in development"
-        git push -fq --follow-tags
+        git push -fq "dev"
+        git push -q
         ;;
     *)
         echo "ERROR: Unknown branch!"
