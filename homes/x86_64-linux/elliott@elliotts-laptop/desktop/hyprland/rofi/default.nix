@@ -20,7 +20,7 @@
     cycle = true;
     extraConfig = {
       sidebar-mode = true;
-      modes = [ "drun" ];
+      modes = [ "drun" "window" ];
       display-drun = " 󰵆  Apps ";
       display-run = "   Run ";
       display-window = "   Window";
