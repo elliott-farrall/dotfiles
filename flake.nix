@@ -2,6 +2,14 @@
 
 {
   inputs = {
+    # For when https://github.com/NixOS/nix/pull/8892 gets merged
+    flake-schemas = {
+      url = "github:DeterminateSystems/flake-schemas";
+    };
+    extra-schemas = {
+      url = "github:ElliottSullingeFarrall/extra-schemas";
+    };
+
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,47 +54,37 @@
     };
   };
 
-  outputs = inputs: inputs.snowfall-lib.mkFlake {
-    inherit inputs;
-    src = ./.;
+  outputs = inputs: inputs.snowfall-lib.mkFlake
+    {
+      inherit inputs;
+      src = ./.;
 
-    channels-config = {
-      allowUnfree = true;
-    };
-
-    overlays = with inputs; [
-      snowfall-flake.overlays.default
-      agenix.overlays.default
-      catnerd.overlays.default
-    ];
-
-    systems.modules = with inputs; [
-      agenix.nixosModules.default
-    ];
-    homes.modules = with inputs; [
-      agenix.homeManagerModules.default
-    ];
-
-    systems.hosts = {
-      "elliotts-laptop" = {
-        modules = with inputs; [
-          nixos-hardware.nixosModules.framework-12th-gen-intel
-          catnerd.nixosModules.catnerd
-        ];
+      channels-config = {
+        allowUnfree = true;
       };
-    };
-    homes.users = {
-      "elliott@elliotts-laptop" = {
-        modules = with inputs; [
-          catnerd.homeModules.catnerd
-        ];
-      };
-      "greeter@elliotts-laptop" = {
-        modules = with inputs; [
-          catnerd.homeModules.catnerd
-        ];
-      };
-    };
 
-  };
+      overlays = with inputs; [
+        snowfall-flake.overlays.default
+        agenix.overlays.default
+        catnerd.overlays.default
+      ];
+
+      systems.modules.nixos = with inputs; [
+        agenix.nixosModules.default
+        catnerd.nixosModules.catnerd
+      ];
+      homes.modules = with inputs; [
+        agenix.homeManagerModules.default
+        catnerd.homeModules.catnerd
+      ];
+
+      systems.hosts = {
+        "elliotts-laptop" = {
+          modules = with inputs; [
+            nixos-hardware.nixosModules.framework-12th-gen-intel
+          ];
+        };
+      };
+
+    } // { schemas = inputs.flake-schemas.schemas // inputs.extra-schemas.schemas; };
 }
