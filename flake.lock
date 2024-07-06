@@ -557,6 +557,32 @@
         "type": "github"
       }
     },
+    "rofi-plugins": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
+        ],
+        "snowfall-lib": [
+          "snowfall-lib"
+        ]
+      },
+      "locked": {
+        "lastModified": 1720279124,
+        "narHash": "sha256-N5UPdWjGm26Su7nTE29w0iQoSNk8BimYIy0Y2H0qHZw=",
+        "owner": "ElliottSullingeFarrall",
+        "repo": "rofi-plugins",
+        "rev": "53abbd07002c32cfc268e3f2a7adeedff6a40e6b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ElliottSullingeFarrall",
+        "repo": "rofi-plugins",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -568,6 +594,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "pre-commit-hooks": "pre-commit-hooks_2",
+        "rofi-plugins": "rofi-plugins",
         "snowfall-flake": "snowfall-flake",
         "snowfall-lib": "snowfall-lib_2"
       }

@@ -48,6 +48,14 @@
       };
     };
 
+    rofi-plugins = {
+      url = "github:ElliottSullingeFarrall/rofi-plugins";
+      inputs = {
+        snowfall-lib.follows = "snowfall-lib";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     ldz-apps = {
       url = "github:ElliottSullingeFarrall/LDZ-Apps/legacy";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +75,7 @@
         snowfall-flake.overlays.default
         agenix.overlays.default
         catnerd.overlays.default
+        rofi-plugins.overlays.default
       ];
 
       systems.modules.nixos = with inputs; [
