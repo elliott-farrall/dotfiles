@@ -14,14 +14,10 @@
 
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland.override {
-      plugins = with pkgs.rofi-plugins; [
-        rofi-logout
-      ];
-    };
-    # plugins = with pkgs.rofi-plugins; [
-    #   rofi-logout
-    # ];
+    package = pkgs.rofi-wayland;
+    plugins = with pkgs.rofi-plugins; [
+      rofi-logout
+    ];
     terminal = "${pkgs.kitty}/bin/kitty";
 
     cycle = true;

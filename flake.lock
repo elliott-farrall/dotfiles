@@ -570,11 +570,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720279124,
-        "narHash": "sha256-N5UPdWjGm26Su7nTE29w0iQoSNk8BimYIy0Y2H0qHZw=",
+        "lastModified": 1720286317,
+        "narHash": "sha256-81vfK2CkTPIyLwDUVKTJQujoIr9C3v3x/CvSVKQOS0c=",
         "owner": "ElliottSullingeFarrall",
         "repo": "rofi-plugins",
-        "rev": "53abbd07002c32cfc268e3f2a7adeedff6a40e6b",
+        "rev": "f81c071b7f69d12518e986c58e4f647ca61634ff",
         "type": "github"
       },
       "original": {
