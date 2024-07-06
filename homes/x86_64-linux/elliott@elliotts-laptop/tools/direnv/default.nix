@@ -5,15 +5,13 @@
 {
   programs.direnv = {
     enable = true;
+    silent = true;
     config = {
+      global.warn_timeout = 0;
       whitelist.prefix = [
         "${config.xdg.dataHome}/repos"
       ];
     };
-  };
-
-  home.sessionVariables = {
-    DIRENV_LOG_FORMAT = "";
-    DIRENV_WARN_TIMEOUT = 0;
+    nix-direnv.enable = true;
   };
 }
