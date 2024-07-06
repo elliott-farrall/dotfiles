@@ -5,6 +5,8 @@
 }:
 
 mkShell {
+  name = "nixos";
+
   inherit (inputs.self.checks.x86_64-linux.pre-commit) shellHook;
   buildInputs = inputs.self.checks.x86_64-linux.pre-commit.enabledPackages;
 
