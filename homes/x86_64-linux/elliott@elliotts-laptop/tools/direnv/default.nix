@@ -1,8 +1,16 @@
-{ ...
+{ config
+, ...
 }:
 
 {
-  programs.direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    config = {
+      whitelist.prefix = [
+        "${config.xdg.dataHome}/repos"
+      ];
+    };
+  };
 
   home.sessionVariables = {
     DIRENV_LOG_FORMAT = "";
