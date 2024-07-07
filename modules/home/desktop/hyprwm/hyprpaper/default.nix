@@ -16,7 +16,7 @@ in
         splash = false;
 
         preload = [ "${./wallpaper.jpg}" ];
-        wallpaper = [ "${./wallpaper.jpg}" ];
+        wallpaper = [ ",${./wallpaper.jpg}" ];
       };
     };
   };
