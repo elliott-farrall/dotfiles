@@ -9,6 +9,7 @@
     ./boot
     ./dconf
     ./devices
+    ./gpg
     ./locale
     ./network
     ./nix

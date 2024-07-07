@@ -20,11 +20,11 @@
 
     homeDirectory = "/home/elliott";
 
-    sessionVariables = {
-      # ANDROID_USER_HOME = "${config.xdg.dataHome}/android";
-      DOCKER_CONFIG = "${config.xdg.configHome}/docker";
-      GNUPGHOME = "${config.xdg.dataHome}/gnupg";
-    };
+    # sessionVariables = {
+    #   ANDROID_USER_HOME = "${config.xdg.dataHome}/android";
+    #   DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+    #   GNUPGHOME = "${config.xdg.dataHome}/gnupg";
+    # };
     # shellAliases = {
     #   adb = "HOME=$XDG_DATA_HOME/android adb";
     # };
