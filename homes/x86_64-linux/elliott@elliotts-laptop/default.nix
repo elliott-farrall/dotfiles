@@ -13,13 +13,7 @@
   inherit (osConfig) catnerd;
   inherit (osConfig) desktop locker;
 
-  programs.home-manager.enable = true;
-
-  home = {
-    stateVersion = "23.05";
-
-    homeDirectory = "/home/elliott";
-  };
+  home = { inherit (osConfig.system) stateVersion; };
 
   gtk.gtk3.bookmarks = [
     "file://${config.home.homeDirectory}/OneDrive/Documents/University%20of%20Surrey/PG"
