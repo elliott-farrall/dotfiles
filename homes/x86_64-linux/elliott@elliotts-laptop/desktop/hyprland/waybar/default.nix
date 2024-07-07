@@ -102,7 +102,7 @@
           printf '{"tooltip": "Lock"}'
         '';
         return-type = "json";
-        on-click = "${pkgs.gtklock}/bin/gtklock";
+        on-click = "loginctl lock-session";
       };
 
       "idle_inhibitor" = {

@@ -77,7 +77,7 @@
         "SUPER, mouse:273, resizewindow"
       ];
       bindl = [
-        ", switch:Lid Switch, exec, ${pkgs.gtklock}/bin/gtklock"
+        ", switch:Lid Switch, exec, loginctl lock-session"
       ];
 
       misc = {
