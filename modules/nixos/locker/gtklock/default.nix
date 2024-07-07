@@ -16,7 +16,7 @@ in
   config = lib.mkIf enable {
     services.systemd-lock-handler.enable = true;
 
-    systemd.user.services.gtklock = {
+    systemd.user.services.systemd-lock-handler-gtklock = {
       unitConfig = {
         Description = "Screen locker for Wayland";
         OnSuccess = "unlock.target";

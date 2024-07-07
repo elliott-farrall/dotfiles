@@ -1,6 +1,7 @@
 { config
 , lib
 , pkgs
+, inputs
 , ...
 }:
 
@@ -24,28 +25,33 @@ in
       };
     };
 
+    environment.etc."greetd/environments".text = ''
+      hyprwm
+    '';
+
     users.users.greeter = {
       isSystemUser = lib.mkForce false;
       isNormalUser = true;
     };
     home-manager.users.greeter = {
-      gtk.enable = true;
-
-      home.packages = [
-        (pkgs.writeShellScriptBin "hyprwm" ''
-          ${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1
-        '')
+      imports = with inputs; [
+        catnerd.homeModules.catnerd
       ];
+      inherit (config) catnerd;
+
+      home = {
+        inherit (config.system) stateVersion;
+
+        packages = [
+          (pkgs.writeShellScriptBin "hyprwm" "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1")
+        ];
+      };
 
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {
           exec-once = [
             "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit"
-          ];
-          monitor = [
-            "eDP-1, 2256x1504@60, auto, 1.333333"
-            ", preferred, auto, auto"
           ];
           input = {
             kb_layout = "gb";
@@ -55,6 +61,8 @@ in
           };
         };
       };
+
+      gtk.enable = true;
     };
   };
 }

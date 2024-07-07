@@ -15,9 +15,7 @@ in
 
   config = lib.mkIf enable {
     home.packages = [
-      (pkgs.writeShellScriptBin "hyprwm" ''
-        ${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1
-      '')
+      (pkgs.writeShellScriptBin "hyprwm" "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1")
     ];
 
     gtk.enable = true;

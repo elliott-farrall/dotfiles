@@ -148,7 +148,7 @@ in
           tooltip-format-charging = "Charging ({capacity}%)";
           tooltip-format-not-charging = "Not Charging ({capacity}%)";
           tooltip-format-plugged = "Plugged In ({capacity}%)";
-          on-click = "${pkgs.rofi-wayland}/bin/rofi -show power-menu -modi 'power-menu:rofi-power-menu --choices=lockscreen/logout/reboot/shutdown'";
+          on-click = "${config.programs.rofi.finalPackage}/bin/rofi -show power-menu -modi 'power-menu:rofi-power-menu --choices=lockscreen/logout/reboot/shutdown'";
         };
 
         "network#status" = {

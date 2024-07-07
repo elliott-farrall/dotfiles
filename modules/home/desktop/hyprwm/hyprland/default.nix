@@ -22,11 +22,6 @@ in
           "${pkgs.hyprpaper}/bin/hyprpaper"
         ];
 
-        monitor = [
-          "eDP-1, 2256x1504@60, auto, 1.333333"
-          ", preferred, auto, auto"
-        ];
-
         general = {
           layout = "dwindle";
           gaps_in = 10;
@@ -47,7 +42,7 @@ in
         gestures.workspace_swipe = true;
 
         bindr = [
-          "SUPER, SUPER_L, exec, pkill rofi || ${pkgs.rofi-wayland}/bin/rofi -show drun"
+          "SUPER, SUPER_L, exec, pkill rofi || ${config.programs.rofi.finalPackage}/bin/rofi -show drun"
 
           "Caps_Lock, Caps_Lock, exec, ${pkgs.swayosd}/bin/swayosd-client --caps-lock"
           ", Scroll_Lock, exec, ${pkgs.swayosd}/bin/swayosd-client --scroll-lock"
