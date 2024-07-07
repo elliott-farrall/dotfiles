@@ -17,7 +17,6 @@ in
       settings = {
         exec-once = [
           "${pkgs.waybar}/bin/waybar"
-          "${pkgs.swaynotificationcenter}/bin/swaync"
           "${pkgs.swayosd}/bin/swayosd-server"
           "${pkgs.hyprpaper}/bin/hyprpaper"
         ];
