@@ -4,7 +4,6 @@
 {
   imports = [
     ./config
-    ./desktop
     ./users
 
     ./hardware-configuration.nix
@@ -16,6 +15,10 @@
     useUserPackages = true;
     backupFileExtension = "old";
   };
+
+  desktop.hyprwm.enable = true;
+  locker.gtklock.enable = true;
+  greeter.gtkgreet.enable = true;
 
   catnerd = {
     enable = true;

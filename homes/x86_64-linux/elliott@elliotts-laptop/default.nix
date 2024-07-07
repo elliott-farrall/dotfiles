@@ -7,11 +7,11 @@
   imports = [
     ./apps
     ./config
-    ./desktop
     ./tools
   ];
 
   inherit (osConfig) catnerd;
+  inherit (osConfig) desktop locker;
 
   programs.home-manager.enable = true;
 
