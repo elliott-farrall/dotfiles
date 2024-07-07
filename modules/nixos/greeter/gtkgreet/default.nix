@@ -31,6 +31,12 @@ in
     home-manager.users.greeter = {
       gtk.enable = true;
 
+      home.packages = [
+        (pkgs.writeShellScriptBin "hyprwm" ''
+          ${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1
+        '')
+      ];
+
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {
