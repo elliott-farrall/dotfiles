@@ -8,7 +8,6 @@
     ./nix
     ./rclone
     ./secrets
-    ./shell
     ./ssh
   ];
 }

@@ -271,7 +271,7 @@ in
 
         "custom/media" = {
           on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
-          exec = "${pkgs.writeShellScript "music_panel" ''
+          exec = "${pkgs.writeShellScript "music_panel" /*sh*/''
             # Inspired by:
             # https://github.com/Alexays/Waybar/discussions/2006
 

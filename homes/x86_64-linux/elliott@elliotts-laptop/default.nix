@@ -11,7 +11,7 @@
   ];
 
   inherit (osConfig) catnerd;
-  inherit (osConfig) desktop locker;
+  inherit (osConfig) shell desktop locker;
 
   home = { inherit (osConfig.system) stateVersion; };
 

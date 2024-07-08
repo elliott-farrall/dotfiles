@@ -1,6 +1,4 @@
-{ config
-, lib
-, ...
+{ ...
 }:
 
 {
@@ -18,6 +16,7 @@
     backupFileExtension = "old";
   };
 
+  shell.zsh.enable = true;
   desktop.hyprwm.enable = true;
   locker.gtklock.enable = true;
   greeter.gtkgreet.enable = true;

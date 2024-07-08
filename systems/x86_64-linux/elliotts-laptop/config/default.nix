@@ -14,7 +14,6 @@
     ./network
     ./nix
     ./peripherals
-    ./shell
     ./vfs
     ./video
     ./virtualisation

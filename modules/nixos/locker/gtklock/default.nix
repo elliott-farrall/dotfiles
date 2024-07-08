@@ -25,7 +25,7 @@ in
       };
       serviceConfig = {
         Type = "forking";
-        ExecStart = "${pkgs.gtklock}/bin/gtklock";
+        ExecStart = "${pkgs.gtklock}/bin/gtklock -d";
         Restart = "on-failure";
         RestartSec = 0;
       };
