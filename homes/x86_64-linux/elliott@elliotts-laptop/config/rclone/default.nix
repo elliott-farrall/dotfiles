@@ -44,12 +44,12 @@ rec {
       secret=$(cat "${config.age.secrets.${secret}.path}")
       file=${config.xdg.configHome}/rclone/rclone.conf
 
-      run ${pkgs.replace-secret}/bin/replace-secret @${secret}@ ${config.age.secrets.${secret}.path} $file
+      run ${pkgs.gnused}/bin/sed -i "s#@${secret}@#$secret#" "$file"
     '')
     age.secrets;
 
   xdg.configFile."rclone/rclone.conf" = {
-    text = ''
+    text = /*toml*/''
       [Work]
       type = onedrive
       token = @token-Work@
