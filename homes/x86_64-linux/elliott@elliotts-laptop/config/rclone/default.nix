@@ -44,7 +44,7 @@ rec {
       secret=$(cat "${config.age.secrets.${secret}.path}")
       file=${config.xdg.configHome}/rclone/rclone.conf
 
-      run ${pkgs.gnused}/bin/sed -i "s#@${secret}@#$secret#" "$file"
+      run ${pkgs.replace-secret}/bin/replace-secret @${secret}@ ${config.age.secrets.${secret}.path} $file
     '')
     age.secrets;
 
@@ -76,7 +76,7 @@ rec {
 
   systemd.user.mounts = builtins.listToAttrs (map
     (remote: {
-      name = lib.strings.removePrefix "-" "${builtins.replaceStrings [ "/" ] [ "-" ] "${config.home.homeDirectory}/${remote}"}";
+      name = lib.internal.mkMountName "${config.home.homeDirectory}/${remote}";
       value = {
         Unit = {
           Description = "Mount for ${config.home.homeDirectory}/${remote}";
@@ -100,7 +100,7 @@ rec {
   # Automount units not working as user units
   # systemd.user.automounts = builtins.listToAttrs (map
   #   (remote: {
-  #     name = lib.strings.removePrefix "-" "${builtins.replaceStrings [ "/" ] [ "-" ] "${config.home.homeDirectory}/${remote}"}";
+  #     name = lib.internal.mkMountName "${config.home.homeDirectory}/${remote}";
   #     value = {
   #       Unit = {
   #         Description = "Automount for ${config.home.homeDirectory}/${remote}";
