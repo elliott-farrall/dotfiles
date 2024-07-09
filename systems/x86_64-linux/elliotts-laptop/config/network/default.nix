@@ -1,9 +1,10 @@
-{ ...
+{ host
+, ...
 }:
 
 {
   networking = {
-    hostName = "elliotts-laptop";
+    hostName = host;
     networkmanager.enable = true;
   };
 
