@@ -1,15 +1,19 @@
 let
-  key_dir = "/run/media/elliott/ESF-USB/Keys";
+  systems = {
+    elliotts-laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJgnRcttMN98rmRJEqafrsxvtiGrWT/iGJH6thNE/1wZ";
+  };
 
-  elliott = builtins.readFile "${key_dir}/users/elliott/id_ed25519.pub";
-  users = [ elliott ];
+  users = {
+    elliott = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC6ZP8YiM5PTp6ZrgVVdJq8UVifTK8IvEiKN5i1vTnMX";
+  };
 
-  elliotts-laptop = builtins.readFile "${key_dir}/systems/elliotts-laptop/ssh_host_ed25519_key.pub";
-  systems = [ elliotts-laptop ];
-
-  keys = users ++ systems;
+  keys = builtins.attrValues systems ++ builtins.attrValues users;
 in
 {
+
+  /* ----------------------------- User Passwords ----------------------------- */
+
+  "systems/x86_64-linux/elliotts-laptop/users/elliott/password.age".publicKeys = keys;
 
   /* ------------------------------- GitHub PAT ------------------------------- */
 

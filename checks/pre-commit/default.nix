@@ -8,7 +8,7 @@ lib.pre-commit-hooks.x86_64-linux.run {
   hooks = {
     gptcommit = {
       enable = true;
-      excludes = [ "\\.age" ];
+      types = [ "nix" ];
     };
 
     editorconfig-checker = {
