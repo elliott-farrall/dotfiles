@@ -82,7 +82,7 @@ in
         };
         Service = {
           Type = "notify";
-          ExecStartPre = "-/usr/bin/env mkdir -p ${config.home.homeDirectory}/${remote}";
+          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${config.home.homeDirectory}/${remote}";
           ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote}: ${config.home.homeDirectory}/${remote} --allow-other --file-perms 0777 --vfs-cache-mode writes";
           ExecStop = "${pkgs.fuse}/bin/fusermount -u ${config.home.homeDirectory}/${remote}";
         };
