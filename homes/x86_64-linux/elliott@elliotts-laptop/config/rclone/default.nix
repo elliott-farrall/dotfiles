@@ -83,7 +83,7 @@ in
           Type = "fuse.rclonefs";
           What = "${remote}:";
           Where = "${config.home.homeDirectory}/${remote}";
-          Options = lib.concatStringsSep "," [ "allow_other" "file_mode=0777" "vfs-cache-mode=writes" ];
+          Options = lib.concatStringsSep "," [ "allow_other" "file_perms=0777" "vfs-cache-mode=writes" ];
           ExecSearchPath = "${pkgs.rclone}/bin/:/run/wrappers/bin/";
         };
         Install = {
