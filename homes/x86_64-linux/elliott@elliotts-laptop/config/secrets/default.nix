@@ -9,5 +9,5 @@
     secretsMountPoint = "${config.xdg.dataHome}/agenix.d";
   };
 
-  home.activation.agenix = lib.hm.dag.entryAnywhere config.systemd.user.services.agenix.Service.ExecStart;
+  # home.activation.agenix = lib.hm.dag.entryAnywhere config.systemd.user.services.agenix.Service.ExecStart;
 }

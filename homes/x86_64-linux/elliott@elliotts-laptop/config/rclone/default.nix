@@ -16,37 +16,43 @@ rec {
     id-Work = {
       file = ./id-Work.age;
       path = "${config.xdg.configHome}/rclone/id-Work";
+      substitutions = [ "${config.xdg.configHome}/rclone/rclone.conf" ];
     };
     id-OneDrive = {
       file = ./id-OneDrive.age;
       path = "${config.xdg.configHome}/rclone/id-OneDrive";
+      substitutions = [ "${config.xdg.configHome}/rclone/rclone.conf" ];
     };
     token-Work = {
       file = ./token-Work.age;
       path = "${config.xdg.configHome}/rclone/token-Work";
+      substitutions = [ "${config.xdg.configHome}/rclone/rclone.conf" ];
     };
     token-OneDrive = {
       file = ./token-OneDrive.age;
       path = "${config.xdg.configHome}/rclone/token-OneDrive";
+      substitutions = [ "${config.xdg.configHome}/rclone/rclone.conf" ];
     };
     token-Google = {
       file = ./token-Google.age;
       path = "${config.xdg.configHome}/rclone/token-Google";
+      substitutions = [ "${config.xdg.configHome}/rclone/rclone.conf" ];
     };
     token-DropBox = {
       file = ./token-DropBox.age;
       path = "${config.xdg.configHome}/rclone/token-DropBox";
+      substitutions = [ "${config.xdg.configHome}/rclone/rclone.conf" ];
     };
   };
 
-  home.activation = builtins.mapAttrs
-    (secret: _: lib.hm.dag.entryAfter [ "linkGeneration" "agenix" ] /*sh*/''
-      secret=$(cat "${config.age.secrets.${secret}.path}")
-      file=${config.xdg.configHome}/rclone/rclone.conf
+  # home.activation = builtins.mapAttrs
+  #   (secret: _: lib.hm.dag.entryAfter [ "linkGeneration" "agenix" ] /*sh*/''
+  #     secret=$(cat "${config.age.secrets.${secret}.path}")
+  #     file=${config.xdg.configHome}/rclone/rclone.conf
 
-      run ${pkgs.gnused}/bin/sed -i "s#@${secret}@#$secret#" "$file"
-    '')
-    age.secrets;
+  #     run ${pkgs.gnused}/bin/sed -i "s#@${secret}@#$secret#" "$file"
+  #   '')
+  #   age.secrets;
 
   xdg.configFile."rclone/rclone.conf" = {
     text = /*toml*/''

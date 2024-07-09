@@ -34,7 +34,7 @@
       url = "github:NixOS/nixos-hardware";
     };
     agenix = {
-      url = "github:ryantm/agenix";
+      url = "github:ElliottSullingeFarrall/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
