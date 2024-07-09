@@ -83,7 +83,7 @@ in
           Type = "fuse.rclonefs";
           What = "${remote}:";
           Where = "${config.home.homeDirectory}/${remote}";
-          Options = [ "allow_other" "umask=000" "vfs-cache-mode=writes" ];
+          Options = [ "allow_other" "file_mode=0777" "vfs-cache-mode=writes" ];
           ExecSearchPath = "${pkgs.rclone}/bin/:/run/wrappers/bin/";
         };
         Install = {
