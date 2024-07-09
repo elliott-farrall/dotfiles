@@ -71,28 +71,51 @@ in
     force = true;
   };
 
-  systemd.user.mounts = builtins.listToAttrs (map
+  systemd.user.services = builtins.listToAttrs (map
     (remote: {
       name = lib.internal.mkMountName "${config.home.homeDirectory}/${remote}";
       value = {
         Unit = {
           Description = "Mount for ${config.home.homeDirectory}/${remote}";
           After = [ "network-online.target" ];
+          Wants = [ "network-online.target" ];
         };
-        Mount = {
-          Type = "fuse.rclonefs";
-          What = "${remote}:";
-          Where = "${config.home.homeDirectory}/${remote}";
-          Options = lib.concatStringsSep "," [ "allow_other" "file_perms=0777" "vfs-cache-mode=writes" ];
-          ExecSearchPath = "${pkgs.rclone}/bin/:/run/wrappers/bin/";
+        Service = {
+          Type = "notify";
+          ExecStartPre = "/usr/bin/env mkdir -p ${config.home.homeDirectory}/${remote}";
+          ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote}: ${config.home.homeDirectory}/${remote} --allow-other --umask 022 --vfs-cache-mode writes";
+          ExecStop = "${pkgs.fuse}/bin/fusermount -u ${config.home.homeDirectory}/${remote}";
         };
         Install = {
-          # Since we are not using automount
           WantedBy = [ "default.target" ];
         };
       };
     })
     mounts);
+
+  # Unmount not working for FUSE without sudo
+  # systemd.user.mounts = builtins.listToAttrs (map
+  #   (remote: {
+  #     name = lib.internal.mkMountName "${config.home.homeDirectory}/${remote}";
+  #     value = {
+  #       Unit = {
+  #         Description = "Mount for ${config.home.homeDirectory}/${remote}";
+  #         After = [ "network-online.target" ];
+  #       };
+  #       Mount = {
+  #         Type = "fuse.rclonefs";
+  #         What = "${remote}:";
+  #         Where = "${config.home.homeDirectory}/${remote}";
+  #         Options = lib.concatStringsSep "," [ "allow_other" "file_perms=0777" "vfs-cache-mode=writes" ];
+  #         ExecSearchPath = "${pkgs.rclone}/bin/:/run/wrappers/bin/";
+  #       };
+  #       Install = {
+  #         # Since we are not using automount
+  #         WantedBy = [ "default.target" ];
+  #       };
+  #     };
+  #   })
+  #   mounts);
 
   # Automount units not working as user units
   # systemd.user.automounts = builtins.listToAttrs (map
