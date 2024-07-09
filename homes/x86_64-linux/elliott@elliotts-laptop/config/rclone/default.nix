@@ -83,7 +83,7 @@ in
         Service = {
           Type = "notify";
           ExecStartPre = "/usr/bin/env mkdir -p ${config.home.homeDirectory}/${remote}";
-          ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote}: ${config.home.homeDirectory}/${remote} --allow-other --umask 022 --vfs-cache-mode writes";
+          ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote}: ${config.home.homeDirectory}/${remote} --allow-other --file-perms 0777 --vfs-cache-mode writes";
           ExecStop = "${pkgs.fuse}/bin/fusermount -u ${config.home.homeDirectory}/${remote}";
         };
         Install = {
