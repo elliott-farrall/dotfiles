@@ -7,7 +7,7 @@
 let
   mounts = [ "Work" "OneDrive" "Google" "DropBox" ];
 in
-rec {
+{
   home.packages = with pkgs; [
     rclone
   ];
@@ -44,15 +44,6 @@ rec {
       substitutions = [ "${config.xdg.configHome}/rclone/rclone.conf" ];
     };
   };
-
-  # home.activation = builtins.mapAttrs
-  #   (secret: _: lib.hm.dag.entryAfter [ "linkGeneration" "agenix" ] /*sh*/''
-  #     secret=$(cat "${config.age.secrets.${secret}.path}")
-  #     file=${config.xdg.configHome}/rclone/rclone.conf
-
-  #     run ${pkgs.gnused}/bin/sed -i "s#@${secret}@#$secret#" "$file"
-  #   '')
-  #   age.secrets;
 
   xdg.configFile."rclone/rclone.conf" = {
     text = /*toml*/''
