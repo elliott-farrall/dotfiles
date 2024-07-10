@@ -5,7 +5,7 @@
 
 let
   cfg = config.desktop.hyprwm;
-  enable = cfg.enable;
+  inherit (cfg) enable;
 in
 {
   config = lib.mkIf enable {

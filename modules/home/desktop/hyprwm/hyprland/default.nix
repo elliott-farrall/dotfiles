@@ -6,7 +6,7 @@
 
 let
   cfg = config.desktop.hyprwm;
-  enable = cfg.enable;
+  inherit (cfg) enable;
 in
 {
   config = lib.mkIf enable {
@@ -66,7 +66,7 @@ in
           ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
           ", XF86MonBrightnessDown, exec, ${pkgs.swayosd}/bin/swayosd-client --brightness lower"
           ", XF86MonBrightnessUp, exec, ${pkgs.swayosd}/bin/swayosd-client --brightness raise"
-          # Super_L+p         -> Presntation mode
+          # Super_L+p         -> Presentation mode
           # XF86RFKill        -> Airplane mode
           # Print             -> Screenshot
           # XF86AudioMedia    -> Settings?

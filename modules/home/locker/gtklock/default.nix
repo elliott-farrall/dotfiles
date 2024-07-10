@@ -6,7 +6,7 @@
 
 let
   cfg = config.locker.gtklock;
-  enable = cfg.enable;
+  inherit (cfg) enable;
 in
 {
   options = {

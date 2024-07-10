@@ -6,11 +6,11 @@
 
 let
   cfg = config.desktop.hyprwm;
-  enable = cfg.enable;
+  inherit (cfg) enable;
 in
 {
   options = {
-    desktop.hyprwm.enable = lib.mkEnableOption "hyprwm dekstop";
+    desktop.hyprwm.enable = lib.mkEnableOption "hyprwm desktop";
   };
 
   config = lib.mkIf enable {

@@ -7,7 +7,7 @@
 
 let
   cfg = config.greeter.gtkgreet;
-  enable = cfg.enable;
+  inherit (cfg) enable;
 in
 {
   options = {

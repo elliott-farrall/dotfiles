@@ -5,7 +5,7 @@
 
 let
   cfg = config.shell.zsh;
-  enable = cfg.enable;
+  inherit (cfg) enable;
 in
 {
   options = {
