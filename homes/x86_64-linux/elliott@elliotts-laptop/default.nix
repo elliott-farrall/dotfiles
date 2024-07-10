@@ -14,7 +14,10 @@
 
   inherit (osConfig) shell desktop locker;
 
-  home = { inherit (osConfig.system) stateVersion; };
+  home.sessionVariables = {
+    EDITOR = "code -w";
+    VISUAL = "code";
+  };
 
   gtk.gtk3.bookmarks = [
     "file://${config.home.homeDirectory}/OneDrive/Documents/University%20of%20Surrey/PG"

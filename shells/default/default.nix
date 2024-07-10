@@ -18,6 +18,4 @@ mkShell {
     fup-repl
     snowfallorg.flake
   ];
-
-  EDITOR = "code -w";
 }

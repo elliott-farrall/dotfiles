@@ -20,14 +20,10 @@ in
       settings = {
         default_session = {
           user = "greeter";
-          command = "hyprwm";
+          command = "${pkgs.cage}/bin/cage gtkgreet";
         };
       };
     };
-
-    environment.etc."greetd/environments".text = ''
-      hyprwm
-    '';
 
     users.users.greeter = {
       isSystemUser = lib.mkForce false;
@@ -39,13 +35,9 @@ in
       ];
       inherit (config) catnerd;
 
-      home = {
-        inherit (config.system) stateVersion;
-
-        packages = [
-          (pkgs.writeShellScriptBin "hyprwm" "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1")
-        ];
-      };
+      home.packages = [
+        (pkgs.writeShellScriptBin "hyprwm" "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1")
+      ];
 
       wayland.windowManager.hyprland = {
         enable = true;

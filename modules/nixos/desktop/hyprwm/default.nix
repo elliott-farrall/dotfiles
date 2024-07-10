@@ -13,6 +13,10 @@ in
   };
 
   config = lib.mkIf enable {
+    environment.etc."greetd/environments".text = lib.mkIf config.services.greetd.enable ''
+      hyprwm
+    '';
+
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       WLR_NO_HARDWARE_CURSORS = "1"; # Causes warning in vscode

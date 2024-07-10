@@ -9,7 +9,10 @@
     ./hardware-configuration.nix
   ];
 
-  system.stateVersion = "23.05";
+  version = {
+    nix = "latest";
+    nixos = "23.05";
+  };
 
   home-manager = {
     useUserPackages = true;
