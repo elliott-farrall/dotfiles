@@ -20,7 +20,7 @@ in
       settings = {
         default_session = {
           user = "greeter";
-          command = "${pkgs.hyprland}/bin/Hyprland -c /etc/xdg/hypr/hyprland.conf > /dev/null 2>&1";
+          command = "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1";
         };
       };
     };
