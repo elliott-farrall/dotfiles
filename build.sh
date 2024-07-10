@@ -11,38 +11,32 @@ branch=$(git branch --show-current)
 
 case "$branch" in
 main)
-    # Merge dev into main
-    git merge dev --ff-only
+    # Create pr
+    gh pr create --base main --head dev --title "dev -> main" --body "Automated PR to merge dev into main"
+    pr_url=$?
 
-    # If merge fails, exit
-    if [ $? -ne 0 ]; then
-        exit 1
-    fi
-
-    # Run nixos-rebuild
+    # Run nixos-rebuild in pr branch
+    gh pr checkout "$(basename "$pr_url")"
     nh os switch .
 
-    # If nixos-rebuild fails, undo the commit and exit
+    # If nixos-rebuild fails, delete the pr and exit
     if [ $? -ne 0 ]; then
-        git reset -q HEAD~
+        gh pr close "$(basename "$pr_url")"
+        git checkout main
         exit 1
     fi
+
+    # Merge pr
+    gh pr merge "$(basename "$pr_url")" --auto --squash --delete-branch
 
     # Create tag
     new_gen=$(get_gen)
-    git tag -f "$(hostname) ($new_gen)" -m "NixOS configuration for generation $new_gen"
+    git tag -f "$(hostname)@$new_gen" -m "NixOS configuration for generation $new_gen"
     git push -fq --tags
 
-    # Push changes
-    git push -q
-
-    # Delete the dev branch
-    git branch -D dev
-    gh repo delete-branch dev
-
     # Recreate the dev branch
-    git checkout -b dev
-    git push -u origin dev
+    git checkout -bq dev
+    git push -uq origin dev
     ;;
 dev)
     # Lock flake inputs
