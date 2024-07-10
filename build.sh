@@ -36,11 +36,11 @@ main)
     # Create tag
     new_gen=$(get_gen)
     git tag -f "$(hostname)@$new_gen" -m "NixOS configuration for generation $new_gen"
-    git push -fq --tags
+    git push -qf --tags
 
     # Recreate the dev branch
-    git checkout -bq dev
-    git push -uq origin dev
+    git checkout -qb dev
+    git push -qu origin dev
     ;;
 dev)
     # Lock flake inputs
