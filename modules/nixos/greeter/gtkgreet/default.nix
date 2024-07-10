@@ -20,7 +20,7 @@ in
       settings = {
         default_session = {
           user = "greeter";
-          command = "${pkgs.cage}/bin/cage gtkgreet";
+          command = "${pkgs.cage}/bin/cage ${pkgs.greetd.gtkgreet}/bin/gtkgreet";
         };
       };
     };
