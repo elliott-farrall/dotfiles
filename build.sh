@@ -20,18 +20,19 @@ main)
     fi
 
     # Run nixos-rebuild in pr branch
-    gh pr checkout "$(basename "$pr_url")"
+    gh pr checkout "$(basename "$pr_url")" >/dev/null 2>&1
     nh os switch .
 
     # If nixos-rebuild fails, delete the pr and exit
     if [ $? -ne 0 ]; then
         gh pr close "$(basename "$pr_url")"
-        git checkout main
+        git checkout -q main
         exit 1
     fi
 
-    # Merge pr
+    # Merge pr and delete dev branch
     gh pr merge "$(basename "$pr_url")" --auto --squash --delete-branch
+    git branch -qD dev
 
     # Create tag
     new_gen=$(get_gen)
