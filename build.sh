@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell --quiet -i zsh -p nh
+#!nix-shell --quiet -i zsh -p nh -p gh
 
 # Function to get the current generation
 get_gen() {
@@ -30,7 +30,7 @@ main)
 
     # Create tag
     new_gen=$(get_gen)
-    git tag -f "gen-$new_gen" -m "NixOS configuration for generation $new_gen"
+    git tag -f "$(hostname) ($new_gen)" -m "NixOS configuration for generation $new_gen"
     git push -fq --tags
 
     # Push changes
@@ -38,7 +38,7 @@ main)
 
     # Delete the dev branch
     git branch -D dev
-    git push origin --delete dev
+    gh repo delete-branch dev
 
     # Recreate the dev branch
     git checkout -b dev
