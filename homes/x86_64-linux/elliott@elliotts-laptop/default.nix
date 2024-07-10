@@ -16,7 +16,7 @@
 
   home.sessionVariables = {
     EDITOR = "code -w";
-    VISUAL = "code";
+    VISUAL = "code -w";
   };
 
   gtk.gtk3.bookmarks = [
