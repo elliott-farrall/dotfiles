@@ -1,8 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell --quiet -i zsh -p nh
 
-export VISUAL="code -w"
-
 # Function to get the current generation
 get_gen() {
     sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | awk '/current/ {print $1}'

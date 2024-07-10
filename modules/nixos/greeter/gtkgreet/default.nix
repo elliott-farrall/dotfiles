@@ -20,7 +20,7 @@ in
       settings = {
         default_session = {
           user = "greeter";
-          command = "${pkgs.cage}/bin/cage -m last ${pkgs.greetd.gtkgreet}/bin/gtkgreet";
+          command = "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1";
         };
       };
     };
@@ -35,6 +35,13 @@ in
       ];
       inherit (config) catnerd;
 
+      wayland.windowManager.hyprland = {
+        enable = true;
+        settings = {
+          exec-once = [ "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit" ];
+          misc.disable_hyprland_logo = true;
+        };
+      };
       gtk.enable = true;
     };
   };
