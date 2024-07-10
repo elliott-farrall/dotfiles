@@ -24,10 +24,13 @@ lib.pre-commit-hooks.x86_64-linux.run {
     nil.enable = true;
     nixpkgs-fmt.enable = true;
     deadnix.enable = false;
-    statix.enable = false;
+    statix.enable = true;
 
     beautysh.enable = true;
     shellcheck.enable = true;
     shfmt.enable = true;
+
+    check-toml.enable = true;
+    taplo.enable = true;
   };
 }
