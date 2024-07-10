@@ -12,6 +12,8 @@ final: prev:
 
     buildInputs = attrs.buildInputs ++ [ prev.krb5 ];
 
+    commandLineArgs = "--ozone-platform=wayland";
+
     postInstall = (attrs.postInstall or "") + ''
       ln -s $out/bin/code-insiders $out/bin/code
     '';
