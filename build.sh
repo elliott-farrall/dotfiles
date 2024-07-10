@@ -39,7 +39,10 @@ main)
     # Create tag
     new_gen=$(get_gen)
     git tag -f "gen-$new_gen" -m "NixOS configuration for generation $new_gen"
-    git push -fq --tags && git push -q
+    git push -fq --tags
+
+    # Push changes
+    git push -q
     ;;
 dev)
     # Lock flake inputs
@@ -62,6 +65,9 @@ dev)
         git reset -q HEAD~
         exit 1
     fi
+
+    # Push changes
+    git push -q
     ;;
 *)
     echo "ERROR: Unknown branch!"
