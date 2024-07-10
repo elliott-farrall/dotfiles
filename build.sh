@@ -28,14 +28,6 @@ main)
         exit 1
     fi
 
-    # Delete the dev branch
-    git branch -D dev
-    git push origin --delete dev
-
-    # Recreate the dev branch
-    git checkout -b dev
-    git push -u origin dev
-
     # Create tag
     new_gen=$(get_gen)
     git tag -f "gen-$new_gen" -m "NixOS configuration for generation $new_gen"
@@ -43,6 +35,14 @@ main)
 
     # Push changes
     git push -q
+
+    # Delete the dev branch
+    git branch -D dev
+    git push origin --delete dev
+
+    # Recreate the dev branch
+    git checkout -b dev
+    git push -u origin dev
     ;;
 dev)
     # Lock flake inputs

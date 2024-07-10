@@ -109,12 +109,4 @@
 
   programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite = { "code" = "󰨞"; };
 
-  /* -------------------------------------------------------------------------- */
-  /*                                   Patches                                  */
-  /* -------------------------------------------------------------------------- */
-
-  home.shellAliases = {
-    code = "NIXOS_OZONE_WL= code"; # Fixes unknown option warinings caused by NIXOS_OZONE_WL=1
-  };
-
 }
