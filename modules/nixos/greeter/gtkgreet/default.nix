@@ -26,9 +26,7 @@ in
     };
 
     environment.etc."xdg/hypr/hyprland.conf".text = ''
-      exec-once = [
-        "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit"
-      ]
+      exec-once = ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; hyprctl dispatch exit
       misc {
         disable_hyprland_logo = true;
       }
