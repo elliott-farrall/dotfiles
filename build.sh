@@ -32,7 +32,6 @@ main)
 
     # Merge pr and delete dev branch
     gh pr merge "$(basename "$pr_url")" --auto --squash --delete-branch
-    git branch -qD dev
 
     # Create tag
     new_gen=$(get_gen)
@@ -40,8 +39,8 @@ main)
     git push -qf --tags
 
     # Recreate the dev branch
-    git checkout -qb dev
-    git push -qu origin dev
+    # git checkout -qb dev
+    # git push -qu origin dev
     ;;
 dev)
     # Lock flake inputs

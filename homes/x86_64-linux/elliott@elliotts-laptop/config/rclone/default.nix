@@ -85,6 +85,9 @@ in
           ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${config.home.homeDirectory}/${remote}";
           ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote}: ${config.home.homeDirectory}/${remote} --allow-other --file-perms 0777 --vfs-cache-mode writes";
           ExecStop = "${pkgs.fuse}/bin/fusermount -u ${config.home.homeDirectory}/${remote}";
+          Restart = "on-failure";
+          RestartSec = "10s";
+          Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         };
         Install = {
           WantedBy = [ "default.target" ];
