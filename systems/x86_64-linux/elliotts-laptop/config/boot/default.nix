@@ -23,4 +23,6 @@
 
     plymouth.enable = true;
   };
+
+  services.kmscon.enable = true;
 }
