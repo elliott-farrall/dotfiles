@@ -15,11 +15,6 @@ in
       xwayland.enable = true;
 
       settings = {
-        exec-once = [
-          "${pkgs.waybar}/bin/waybar"
-          "${pkgs.swayosd}/bin/swayosd-server"
-        ];
-
         general = {
           layout = "dwindle";
           gaps_in = 10;

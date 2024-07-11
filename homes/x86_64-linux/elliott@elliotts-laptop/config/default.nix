@@ -9,6 +9,5 @@
     ./rclone
     ./secrets
     ./ssh
-    ./theme
   ];
 }
