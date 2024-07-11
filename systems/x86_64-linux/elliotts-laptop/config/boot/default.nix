@@ -1,5 +1,4 @@
 { lib
-, pkgs
 , ...
 }:
 
@@ -9,8 +8,8 @@
   ];
 
   boot = {
-    consoleLogLevel = 0;
-    initrd.verbose = false;
+    # consoleLogLevel = 0;
+    # initrd.verbose = false;
 
     plymouth.enable = true;
     # systemd.services.greetd = {
@@ -26,13 +25,13 @@
     # };
 
     kernelParams = [
-      "boot.shell_on_fail"
-      "i915.fastboot=1"
+      "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
+      # "i915.fastboot=1"
 
-      "splash"
-      "bgrt_disable"
+      "splash" # Enable splash screen
+      "bgrt_disable" # Do not display the OEM logo after loading the ACPI tables
 
-      "quiet"
+      "quiet" # Disable kernel messages
       # "loglevel=3"
       "udev.log_level=3"
       # "udev.log_priority=3"
