@@ -19,10 +19,6 @@
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-update = {
-      url = "github:Mic92/nix-update";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,6 +57,10 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    code-insiders = {
+      url = "github:iosmanthus/code-insiders-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ldz-apps = {
       url = "github:ElliottSullingeFarrall/LDZ-Apps/legacy";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -81,6 +81,7 @@
         agenix.overlays.default
         catnerd.overlays.default
         rofi-plugins.overlays.default
+        code-insiders.overlays.default
       ];
 
       systems.modules.nixos = with inputs; [

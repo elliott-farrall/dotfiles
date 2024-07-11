@@ -271,7 +271,7 @@ in
 
         "custom/media" = {
           on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
-          exec = "${pkgs.writeShellScript "music_panel" /*sh*/''
+          exec = "${pkgs.writeShellScript "music_panel" ''
             # Inspired by:
             # https://github.com/Alexays/Waybar/discussions/2006
 
@@ -307,9 +307,6 @@ in
         "hyprland/workspaces" = {
           format = "{icon} | {windows}";
           window-rewrite-default = "󰏗";
-          window-rewrite = {
-            "kitty" = "󰆍";
-          };
         };
       };
     };

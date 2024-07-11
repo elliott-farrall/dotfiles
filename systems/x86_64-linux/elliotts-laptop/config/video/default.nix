@@ -2,20 +2,20 @@
 , ...
 }:
 
-{
-  hardware.graphics = {
-    enable = true;
-    # enable32Bit = true;
-    # extraPackages = with pkgs; [
-    #   intel-compute-runtime
-    # ];
-  };
+let
+  width = "2256";
+  height = "1504";
 
-  boot.loader.grub.gfxmodeEfi = "2256x1504";
+  refresh = "60";
+
+  scale = "1.333333";
+in
+{
+  boot.loader.grub.gfxmodeEfi = "${width}x${height}";
 
   home-manager.sharedModules = lib.singleton {
     wayland.windowManager.hyprland.settings.monitor = [
-      "eDP-1, 2256x1504@60, auto, 1.333333"
+      "eDP-1, ${width}x${height}@${refresh}, auto, ${scale}"
       ", preferred, auto, auto"
     ];
   };
