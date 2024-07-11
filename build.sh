@@ -12,7 +12,7 @@ branch=$(git branch --show-current)
 case "$branch" in
 main)
     # Create pr
-    pr_url=$(gh pr create --base main --head dev)
+    pr_url=$(gh pr create --base main --head dev --title "$(hostname) ($(get_gen))" --body "NixOS configuration for generation $(get_gen)")
 
     # If pr fails, then exit
     if [ $? -ne 0 ]; then
@@ -32,8 +32,7 @@ main)
     fi
 
     # Merge pr and delete dev branch
-    new_gen=$(get_gen)
-    gh pr edit "$pr" --title "$(hostname) ($new_gen)" --body "NixOS configuration for generation $new_gen"
+    gh pr edit "$pr" --title "$(hostname) ($(get_gen))" --body "NixOS configuration for generation $(get_gen)"
     gh pr merge "$pr" --auto --squash --delete-branch --subject "$(hostname) ($new_gen)"
 
     # Recreate the dev branch
