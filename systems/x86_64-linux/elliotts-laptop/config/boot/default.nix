@@ -1,4 +1,5 @@
 { lib
+, pkgs
 , ...
 }:
 
@@ -8,6 +9,16 @@
     initrd.verbose = false;
 
     plymouth.enable = true;
+    systemd.services.display-manager = {
+      unitConfig = {
+        Conflicts = [ "plymouth-quit.service" ];
+        After = [ "plymouth-quit.service" "rc-local.service" "plymouth-start.service" "systemd-user-sessions.service" ];
+        OnFailure = [ "plymouth-quit.service" ];
+      };
+      serviceConfig = {
+        ExecStartPost = [ "-${pkgs.coreutils}/bin/sleep 30" "-${pkgs.plymouth}/bin/plymouth quit --retain-splash" ];
+      };
+    };
 
     kernelParams = [
       "boot.shell_on_fail"
