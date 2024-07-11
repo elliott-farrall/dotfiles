@@ -38,5 +38,9 @@ in
       categories = [ "System" "TerminalEmulator" ];
       mimeType = [ "image/*" "application/x-sh" "application/x-shellscript" "inode/directory" "text/*" "x-scheme-handler/kitty" "x-scheme-handler/ssh" ];
     };
+
+    programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite = {
+      "kitty" = "󰆍";
+    };
   };
 }
