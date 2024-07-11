@@ -12,7 +12,7 @@ branch=$(git branch --show-current)
 case "$branch" in
 main)
     # Create pr
-    pr_url=$(gh pr create --base main --head dev --title "dev -> main" --body "Automated PR to merge dev into main")
+    pr_url=$(gh pr create --base main --head dev)
 
     # If pr fails, then exit
     if [ $? -ne 0 ]; then
@@ -32,12 +32,9 @@ main)
     fi
 
     # Merge pr and delete dev branch
-    gh pr merge "$pr" --auto --squash --delete-branch --subject "dev -> main"
-
-    # Create tag
     new_gen=$(get_gen)
-    git tag -f "$(hostname)@$new_gen" -m "NixOS configuration for generation $new_gen"
-    git push -qf --tags
+    gh pr edit "$pr" --title "$(hostname) ($new_gen)" --body "NixOS configuration for generation $new_gen"
+    gh pr merge "$pr" --auto --squash --delete-branch --subject "$(hostname) ($new_gen)"
 
     # Recreate the dev branch
     git checkout -qb dev

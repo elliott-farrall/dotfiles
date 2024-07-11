@@ -17,6 +17,8 @@
     xkb.layout = "gb";
   };
 
+  boot.loader.grub.gfxmodeEfi = "2256x1504";
+
   home-manager.sharedModules = [
     {
       wayland.windowManager.hyprland.settings.monitor = [

@@ -15,10 +15,4 @@
     enable = true;
   };
 
-  /* ------------------------------- Fingerprint ------------------------------ */
-
-  services.fprintd = {
-    enable = true;
-  };
-
 }
