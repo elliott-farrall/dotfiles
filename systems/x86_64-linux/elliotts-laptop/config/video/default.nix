@@ -3,18 +3,18 @@
 }:
 
 {
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      intel-compute-runtime
-    ];
-  };
+  # hardware.graphics = {
+  #   enable = true;
+  #   enable32Bit = true;
+  #   extraPackages = with pkgs; [
+  #     intel-compute-runtime
+  #   ];
+  # };
 
   services.xserver = {
     enable = true;
     excludePackages = with pkgs; [ xterm ];
-    xkb.layout = "gb";
+    # xkb.layout = "gb";
   };
 
   boot.loader.grub.gfxmodeEfi = "2256x1504";
