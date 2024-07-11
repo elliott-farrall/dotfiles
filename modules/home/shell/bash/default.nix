@@ -3,8 +3,10 @@
 }:
 
 {
-  programs.bash = {
-    enable = true;
-    historyFile = "${config.xdg.stateHome}/bash/history";
+  config = {
+    programs.bash = {
+      enable = true;
+      historyFile = "${config.xdg.stateHome}/bash/history";
+    };
   };
 }

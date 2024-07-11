@@ -18,5 +18,9 @@ in
 
     programs.zsh.enable = true;
     environment.pathsToLink = [ "/share/zsh" ];
+
+    environment.etc."greetd/environments".text = lib.mkIf config.services.greetd.enable ''
+      zsh
+    '';
   };
 }
