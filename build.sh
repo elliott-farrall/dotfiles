@@ -40,8 +40,8 @@ main)
     git push -qf --tags
 
     # Recreate the dev branch
-    git checkout -q dev
-    git push --no-verify -qu origin dev
+    git checkout -qb dev
+    git push --no-verify -qu origin dev >/dev/null 2>&1
     ;;
 dev)
     # Lock flake inputs
