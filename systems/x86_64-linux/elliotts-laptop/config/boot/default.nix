@@ -37,11 +37,11 @@
 
     loader = {
       timeout = lib.mkDefault 3;
-      efi.canTouchEfiVariables = true;
+      # efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
         devices = [ "nodev" ];
-        efiSupport = true;
+        # efiSupport = true;
         gfxmodeEfi = "2256x1504";
       };
     };
