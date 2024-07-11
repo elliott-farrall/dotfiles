@@ -4,8 +4,10 @@
 {
   boot = {
     # consoleLogLevel = 0;
+
+    # Disable stage 1 messages
     initrd.verbose = false;
 
-    # kernelParams = [ "quiet" ];
+    kernelParams = [ "udev.log_level=3" ];
   };
 }
