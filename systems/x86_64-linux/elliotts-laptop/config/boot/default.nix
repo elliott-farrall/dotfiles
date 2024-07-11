@@ -23,7 +23,7 @@
     };
 
     plymouth.enable = true;
-    systemd.services.greetd = {
+    systemd.services.display-manager = {
       overrideStrategy = "asDropin";
       unitConfig = {
         Conflicts = [ "plymouth-quit.service" ];
