@@ -102,7 +102,7 @@ in
             printf '{"tooltip": "Logout"}'
           '';
           return-type = "json";
-          on-click = "loginctl terminate-session $XDG_SESSION_ID";
+          on-click = "loginctl terminate-user $USER";
         };
 
         "custom/lock" = {

@@ -24,9 +24,9 @@
     plymouth.enable = true;
   };
 
-  services.kmscon = {
-    enable = true;
-    hwRender = true;
-  };
-  systemd.services."getty@".enable = false;
+  # services.kmscon = {
+  #   enable = true;
+  #   hwRender = true;
+  # };
+  # systemd.services."getty@".enable = false;
 }
