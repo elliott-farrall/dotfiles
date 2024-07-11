@@ -5,6 +5,7 @@
 {
   imports = [
     ./efi.nix
+    ./silent.nix
   ];
 
   boot = {
@@ -28,12 +29,12 @@
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
       # "i915.fastboot=1"
 
-      "splash" # Enable splash screen
-      "bgrt_disable" # Do not display the OEM logo after loading the ACPI tables
+      # "splash" # Enable splash screen
+      # "bgrt_disable" # Do not display the OEM logo after loading the ACPI tables
 
-      "quiet" # Disable kernel messages
+      # "quiet" # Disable kernel messages
       # "loglevel=3"
-      "udev.log_level=3"
+      # "udev.log_level=3"
       # "udev.log_priority=3"
       # "systemd.show_status=false"
     ];
