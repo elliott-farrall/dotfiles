@@ -3,11 +3,10 @@
 
 {
   boot = {
-    # consoleLogLevel = 0;
-
-    # Disable stage 1 messages
+    # Hide stage 1 messages
     initrd.verbose = false;
 
-    kernelParams = [ "udev.log_level=3" ];
+    # Hide initrd and systemd-udevd messages
+    kernelParams = [ "splash" "udev.log_level=3" ];
   };
 }
