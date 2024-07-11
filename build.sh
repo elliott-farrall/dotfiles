@@ -20,18 +20,19 @@ main)
     fi
 
     # Run nixos-rebuild in pr branch
-    gh pr checkout "$(basename "$pr_url")" >/dev/null 2>&1
+    pr=$(basename "$pr_url")
+    gh pr checkout "$pr" >/dev/null 2>&1
     nh os switch .
 
     # If nixos-rebuild fails, delete the pr and exit
     if [ $? -ne 0 ]; then
-        gh pr close "$(basename "$pr_url")"
+        gh pr close "$pr"
         git checkout -q main
         exit 1
     fi
 
     # Merge pr and delete dev branch
-    gh pr merge "$(basename "$pr_url")" --auto --squash --delete-branch --subject "dev -> main"
+    gh pr merge "$pr" --auto --squash --delete-branch --subject "dev -> main"
 
     # Create tag
     new_gen=$(get_gen)
@@ -39,9 +40,8 @@ main)
     git push -qf --tags
 
     # Recreate the dev branch
-    git checkout -q --orphan dev
-    git commit -q --allow-empty -m "main -> dev"
-    git push -q
+    git checkout -q dev
+    git push --no-verify -qu origin dev
     ;;
 dev)
     # Lock flake inputs
