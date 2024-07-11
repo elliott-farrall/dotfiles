@@ -9,7 +9,7 @@
     initrd.verbose = false;
 
     plymouth.enable = true;
-    systemd.services.display-manager = {
+    systemd.services.greetd = {
       overrideStrategy = "asDropin";
       unitConfig = {
         Conflicts = [ "plymouth-quit.service" ];
@@ -28,11 +28,11 @@
       "splash"
       "bgrt_disable"
 
-      "quiet"
-      "loglevel=3"
+      # "quiet"
+      # "loglevel=3"
       # "udev.log_level=3"
       # "udev.log_priority=3"
-      # "systemd.show_status=false"
+      "systemd.show_status=false"
     ];
 
     loader = {
