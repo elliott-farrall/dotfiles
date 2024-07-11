@@ -4,6 +4,10 @@
 }:
 
 {
+  imports = [
+    ./efi.nix
+  ];
+
   boot = {
     consoleLogLevel = 0;
     initrd.verbose = false;
@@ -28,21 +32,19 @@
       "splash"
       "bgrt_disable"
 
-      # "quiet"
+      "quiet"
       # "loglevel=3"
-      # "udev.log_level=3"
+      "udev.log_level=3"
       # "udev.log_priority=3"
-      "systemd.show_status=false"
+      # "systemd.show_status=false"
     ];
 
     loader = {
-      timeout = lib.mkDefault 3;
-      efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
         device = "nodev";
-        efiSupport = true;
       };
+      timeout = lib.mkDefault 3;
     };
   };
 }
