@@ -12,7 +12,7 @@
   # };
 
   services.xserver = {
-    enable = true;
+    # enable = true;
     excludePackages = with pkgs; [ xterm ];
     # xkb.layout = "gb";
   };
