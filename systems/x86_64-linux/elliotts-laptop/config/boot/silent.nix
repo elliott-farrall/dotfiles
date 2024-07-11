@@ -7,6 +7,6 @@
     initrd.verbose = false;
 
     # Hide initrd and systemd-udevd messages
-    kernelParams = [ "splash" "udev.log_level=3" ];
+    kernelParams = [ "quiet" "udev.log_level=3" ];
   };
 }
