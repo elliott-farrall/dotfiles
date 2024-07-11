@@ -10,6 +10,7 @@
 
     plymouth.enable = true;
     systemd.services.display-manager = {
+      overrideStrategy = "asDropin";
       unitConfig = {
         Conflicts = [ "plymouth-quit.service" ];
         After = [ "plymouth-quit.service" "rc-local.service" "plymouth-start.service" "systemd-user-sessions.service" ];
