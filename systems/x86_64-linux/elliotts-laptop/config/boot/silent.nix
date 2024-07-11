@@ -1,4 +1,8 @@
 { ...
 }:
 
-{ }
+{
+  boot = {
+    consoleLogLevel = 0;
+  };
+}
