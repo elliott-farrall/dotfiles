@@ -12,6 +12,8 @@ in
   config = lib.mkIf enable {
     programs.waybar = {
       enable = true;
+      systemd.enable = true;
+
       style = ''@import "${./style.css}";'';
       settings.mainBar = {
         mode = "dock";
