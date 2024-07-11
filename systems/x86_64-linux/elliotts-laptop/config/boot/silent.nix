@@ -6,9 +6,7 @@
     # Hide stage 1 messages
     initrd.verbose = false;
 
-    consoleLogLevel = 0;
-
-    # Hide systemd-udevd messages
-    kernelParams = [ "udev.log_level=3" ];
+    # Hide initrd and systemd-udevd messages
+    kernelParams = [ "splash" "udev.log_level=3" ];
   };
 }
