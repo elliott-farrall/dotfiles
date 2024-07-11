@@ -126,7 +126,7 @@ in
           orientation = "inherit";
           modules = [
             "backlight#status"
-            "pulseaudio#status"
+            # "pulseaudio#status"
             "bluetooth#status"
             "network#status"
             "battery#status"
