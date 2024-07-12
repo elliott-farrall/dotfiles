@@ -26,7 +26,7 @@
 
   services.kmscon = {
     enable = true;
-    hwRender = true;
+    # hwRender = true;
   };
-  systemd.services."getty@".enable = false;
+  # systemd.services."getty@".enable = false;
 }
