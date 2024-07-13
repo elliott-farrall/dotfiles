@@ -25,18 +25,13 @@
     plymouth.enable = true;
   };
 
-  services.kmscon = {
-    enable = true;
-    hwRender = true;
-    extraConfig = ''
-      render-engine=pixman
-    '';
-  };
-  console = {
-    earlySetup = true;
-    packages = with pkgs; [
-      libdrm
-      pixman
-    ];
+  environment.interactiveShellInit = ''
+    grep -q /dev/tty <(tty) && exec fbterm
+  '';
+  security.wrappers.fbterm = {
+    setuid = true;
+    owner = "root";
+    group = "root";
+    source = "${pkgs.fbterm}/bin/fbterm";
   };
 }
