@@ -28,18 +28,11 @@
     enable = true;
     hwRender = true;
     extraConfig = ''
-      font-size=16
-      font-dpi=255
-      font-engine=pango
-      xkb-model=pc105
-      xkb-layout=us
       gpus=all
       render-engine=gltex
     '';
   };
   console = {
-    font = "Lat2-Terminus16";
-    # useXkbConfig = true; # use xkb.options in tty.
     earlySetup = true;
   };
 }
