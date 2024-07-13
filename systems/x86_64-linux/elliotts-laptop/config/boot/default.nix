@@ -24,14 +24,4 @@
 
     plymouth.enable = true;
   };
-
-  environment.interactiveShellInit = ''
-    grep -q /dev/tty <(tty) && exec fbterm
-  '';
-  security.wrappers.fbterm = {
-    setuid = true;
-    owner = "root";
-    group = "root";
-    source = "${pkgs.fbterm}/bin/fbterm";
-  };
 }
