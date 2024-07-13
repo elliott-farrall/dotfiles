@@ -28,7 +28,6 @@
     enable = true;
     hwRender = true;
     extraConfig = ''
-      drm=off
       render-engine=pixman
     '';
   };
