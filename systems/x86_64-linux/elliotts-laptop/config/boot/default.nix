@@ -1,4 +1,5 @@
 { lib
+, pkgs
 , ...
 }:
 
@@ -33,5 +34,9 @@
   };
   console = {
     earlySetup = true;
+    packages = with pkgs; [
+      libdrm
+      pixman
+    ];
   };
 }
