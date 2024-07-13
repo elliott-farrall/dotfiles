@@ -28,8 +28,8 @@
     enable = true;
     hwRender = true;
     extraConfig = ''
-      gpus=all
-      render-engine=gltex
+      drm=off
+      render-engine=pixman
     '';
   };
   console = {
