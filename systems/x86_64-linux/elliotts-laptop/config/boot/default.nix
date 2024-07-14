@@ -36,5 +36,8 @@
   services.kmscon = {
     enable = true;
   };
-  services.xserver.videoDrivers = [ "modesetting" ];
+  services.xserver = {
+    exportConfiguration = true;
+    videoDrivers = [ "modesetting" ];
+  };
 }
