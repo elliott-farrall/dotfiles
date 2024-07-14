@@ -16,7 +16,7 @@ in
 
   config = lib.mkIf enable {
     services.greetd = {
-      enable = true;
+      # enable = true;
       settings = {
         default_session = {
           user = "greeter";
