@@ -12,14 +12,14 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
-    blacklistedKernelModules = [
-      "i915"
-      "xe"
-    ];
+    # blacklistedKernelModules = [
+    #   "i915"
+    #   "xe"
+    # ];
 
     kernelParams = [
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
-      "i915.modeset=0"
+      # "i915.modeset=0"
     ];
 
     loader = {
