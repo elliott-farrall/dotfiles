@@ -20,7 +20,7 @@ in
       settings = {
         default_session = {
           user = "greeter";
-          command = "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1";
+          command = "${pkgs.kmscon}/bin/kmscon -- ${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1";
         };
       };
     };

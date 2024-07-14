@@ -23,15 +23,15 @@ final: prev:
       "-Ddocs=disabled"
 
       "-Dvideo_fbdev=disabled"
-      "-Dvideo_drm2d=enabled"
-      "-Dvideo_drm3d=disabled"
+      # "-Dvideo_drm2d=enabled"
+      # "-Dvideo_drm3d=disabled"
 
-      "-Drenderer_bbulk=disabled"
-      "-Drenderer_gltex=disabled"
-      "-Drenderer_pixman=enabled"
+      # "-Drenderer_bbulk=disabled"
+      # "-Drenderer_gltex=disabled"
+      # "-Drenderer_pixman=enabled"
 
-      "-Dfont_unifont=disabled"
-      "-Dfont_pango=enabled"
+      # "-Dfont_unifont=disabled"
+      # "-Dfont_pango=enabled"
     ];
   });
 }
