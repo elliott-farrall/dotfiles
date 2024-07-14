@@ -13,8 +13,15 @@
   inherit (osConfig) catnerd;
 
   inherit (osConfig) shell desktop locker;
+  terminals = {
+    alacritty.enable = true;
+    foot.enable = true;
+    kitty.enable = true;
+    wezterm.enable = true;
+  };
 
   home.sessionVariables = {
+    TERMINAL = "kitty";
     EDITOR = "code -w";
     VISUAL = "code -w";
   };

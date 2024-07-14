@@ -13,7 +13,6 @@
     ./network
     ./nix
     ./peripherals
-    ./secrets
     ./vfs
     ./video
     ./virtualisation

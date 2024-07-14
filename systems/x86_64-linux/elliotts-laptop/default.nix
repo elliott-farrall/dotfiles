@@ -10,6 +10,7 @@
   ];
 
   version = {
+    linux = "latest";
     nix = "latest";
     nixos = "23.05";
   };
