@@ -12,6 +12,7 @@
   boot = {
     kernelParams = [
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
+      "i915.modeset=1"
     ];
 
     loader = {
@@ -25,9 +26,12 @@
     plymouth.enable = true;
   };
 
-  services.kmscon.enable = true;
-  hardware.graphics = {
+  services.kmscon = {
     enable = true;
-    enable32Bit = true;
   };
+  # services.xserver.videoDrivers = [
+  #   "i915"
+  #   "modesetting"
+  #   "fbdev"
+  # ];
 }
