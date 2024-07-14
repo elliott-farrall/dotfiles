@@ -22,7 +22,7 @@ final: prev:
     mesonFlags = [
       "-Ddocs=disabled"
 
-      "-Dvideo_fbdev=disabled"
+      # "-Dvideo_fbdev=disabled"
       # "-Dvideo_drm2d=enabled"
       # "-Dvideo_drm3d=disabled"
 
