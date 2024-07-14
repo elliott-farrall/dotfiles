@@ -37,6 +37,7 @@
     enable = true;
   };
   services.xserver = {
+    enable = true;
     exportConfiguration = true;
     videoDrivers = [ "modesetting" ];
   };
