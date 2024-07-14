@@ -22,7 +22,7 @@
         device = "nodev";
         timeoutStyle = "hidden";
       };
-      timeout = lib.mkDefault 3;
+      timeout = 3;
     };
 
     plymouth.enable = true;

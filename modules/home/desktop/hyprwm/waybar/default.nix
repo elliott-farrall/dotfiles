@@ -14,7 +14,183 @@ in
       enable = true;
       systemd.enable = true;
 
-      style = ''@import "${./style.css}";'';
+      # style = ''@import "${./style.css}";'';
+      style = /*css*/''
+        * {
+          font-family: Ubuntu Nerd Font;
+          font-size: 14px;
+        }
+
+        #waybar {
+          background: transparent;
+        }
+
+        tooltip {
+          background: @surface0;
+        }
+        tooltip label {
+          color: @text;
+        }
+
+        #menu,
+        #status,
+        #system,
+        #clock,
+        #custom-media,
+        #workspaces {
+          margin: 0;
+
+          color: @pink;
+          border-radius: 1rem;
+          background-color: @surface0;
+        }
+
+        #clock,
+        #custom-media {
+          padding: 0 0.5rem;
+        }
+
+        #custom-media {
+          margin-left: 0.5rem;
+
+          font-family: UbuntuMono Nerd Font;
+        }
+
+        #status,
+        #system {
+          margin-right: 0.5rem;
+        }
+
+        #custom-notification,
+        #battery.status,
+        #network.status,
+        #bluetooth.status,
+        #pulseaudio.status,
+        #backlight.status,
+        #custom-button.system,
+        #temperature.system,
+        #cpu.system,
+        #memory.system,
+        #disk.system,
+        #network.system,
+        #idle_inhibitor,
+        #custom-power,
+        #custom-reboot,
+        #custom-logout,
+        #custom-lock,
+        #workspaces button {
+          padding: 0 0.5rem;
+
+          border-radius: 1rem;
+        }
+        #custom-notification:hover,
+        #battery.status:hover,
+        #network.status:hover,
+        #bluetooth.status:hover,
+        #pulseaudio.status:hover,
+        #backlight.status:hover,
+        #custom-button.system:hover,
+        #temperature.system:hover,
+        #cpu.system:hover,
+        #memory.system:hover,
+        #disk.system:hover,
+        #network.system:hover,
+        #idle_inhibitor:hover,
+        #custom-power:hover,
+        #custom-reboot:hover,
+        #custom-logout:hover,
+        #custom-lock:hover,
+        #workspaces button:hover {
+          background-color: @surface1;
+        }
+
+        #custom-notification {
+          color: @pink;
+        }
+
+        #battery.status {
+          color: @green;
+        }
+        #battery.status.charging {
+          color: @green;
+        }
+        #battery.status.warning:not(.charging) {
+          color: @yellow;
+        }
+        #battery.status.critical:not(.charging) {
+          color: @red;
+        }
+
+        #network.status {
+          margin-right: 0.5rem;
+
+          color: @sky;
+        }
+
+        #bluetooth.status {
+          margin-right: 0.5rem;
+
+          color: @blue;
+        }
+
+        #pulseaudio.status {
+          margin-right: 0.5rem;
+
+          color: @maroon;
+        }
+
+        #backlight.status {
+          margin-right: 0.5rem;
+
+          color: @yellow;
+        }
+
+        #custom-button.system {
+          color: @pink;
+        }
+
+        #temperature.system {
+          margin-right: 0.5rem;
+
+          color: @red;
+        }
+
+        #cpu.system {
+          margin-right: 0.5rem;
+
+          color: @sapphire;
+        }
+
+        #memory.system {
+          margin-right: 0.5rem;
+
+          color: @mauve;
+        }
+
+        #disk.system {
+          margin-right: 0.5rem;
+
+          color: @green;
+        }
+
+        #network.system {
+          margin-right: 0.5rem;
+
+          color: @peach;
+        }
+
+        #workspaces button {
+          color: @text;
+        }
+        #workspaces button.empty {
+          color: @overlay0;
+        }
+        #workspaces button.active {
+          color: @pink;
+        }
+      '';
+
+
       settings.mainBar = {
         mode = "dock";
         layer = "top";
