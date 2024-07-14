@@ -39,14 +39,14 @@
   services.xserver = {
     enable = true;
     exportConfiguration = true;
-    videoDrivers = lib.mkForce [ "modesetting" ];
+    # videoDrivers = lib.mkForce [ "modesetting" ];
 
-    moduleSection = ''
-      Load "modesetting"
-    '';
-    deviceSection = ''
-      Identifier "Intel Graphics"
-      Driver "modesetting"
-    '';
+    # moduleSection = ''
+    #   Load "modesetting"
+    # '';
+    # deviceSection = ''
+    #   Identifier "Intel Graphics"
+    #   Driver "modesetting"
+    # '';
   };
 }
