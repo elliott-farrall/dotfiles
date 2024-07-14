@@ -12,6 +12,6 @@
         "${config.xdg.dataHome}/repos"
       ];
     };
-    # nix-direnv.enable = true;
+    nix-direnv.enable = true;
   };
 }
