@@ -35,6 +35,7 @@
 
   services.kmscon = {
     enable = true;
+    hwRender = true;
   };
   services.xserver = {
     enable = true;
