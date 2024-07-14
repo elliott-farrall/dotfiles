@@ -1,4 +1,5 @@
 { lib
+, pkgs
 , ...
 }:
 
@@ -11,6 +12,7 @@
   boot = {
     kernelParams = [
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
+      "i915.modeset=1"
     ];
 
     loader = {
@@ -26,13 +28,10 @@
 
   services.kmscon = {
     enable = true;
-    hwRender = true;
-    extraConfig = ''
-      drm=off
-      render-engine=pixman
-    '';
   };
-  console = {
-    earlySetup = true;
-  };
+  # services.xserver.videoDrivers = [
+  #   "i915"
+  #   "modesetting"
+  #   "fbdev"
+  # ];
 }
