@@ -12,14 +12,8 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
-    # blacklistedKernelModules = [
-    #   "i915"
-    #   "xe"
-    # ];
-
     kernelParams = [
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
-      # "i915.modeset=0"
     ];
 
     loader = {
@@ -36,18 +30,5 @@
   services.kmscon = {
     enable = true;
     hwRender = true;
-  };
-  services.xserver = {
-    enable = true;
-    exportConfiguration = true;
-    # videoDrivers = lib.mkForce [ "modesetting" ];
-
-    # moduleSection = ''
-    #   Load "modesetting"
-    # '';
-    # deviceSection = ''
-    #   Identifier "Intel Graphics"
-    #   Driver "modesetting"
-    # '';
   };
 }
