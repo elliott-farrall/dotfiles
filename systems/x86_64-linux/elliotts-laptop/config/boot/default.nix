@@ -29,9 +29,8 @@
   services.kmscon = {
     enable = true;
   };
-  # services.xserver.videoDrivers = [
-  #   "i915"
-  #   "modesetting"
-  #   "fbdev"
-  # ];
+  services.xserver.videoDrivers = lib.mkForce [
+    "modesetting"
+    "fbdev"
+  ];
 }
