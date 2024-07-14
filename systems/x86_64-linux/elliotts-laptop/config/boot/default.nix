@@ -40,5 +40,13 @@
     enable = true;
     exportConfiguration = true;
     videoDrivers = [ "modesetting" ];
+
+    moduleSection = ''
+      Load "modesetting"
+    '';
+    deviceSection = ''
+      Identifier "Intel Graphics"
+      Driver "modesetting"
+    '';
   };
 }
