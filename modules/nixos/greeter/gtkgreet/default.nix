@@ -17,17 +17,12 @@ in
   config = lib.mkIf enable {
     services.greetd = {
       enable = true;
-      settings = {
-        default_session = {
-          user = "greeter";
-          command = "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1";
-        };
-      };
+      settings.default_session.command = "${pkgs.hyprland}/bin/Hyprland > /dev/null 2>&1";
     };
 
     users.users.greeter = {
       isSystemUser = lib.mkForce false;
-      isNormalUser = true;
+      isNormalUser = lib.mkForce true;
     };
     home-manager.users.greeter = {
       imports = with inputs; [

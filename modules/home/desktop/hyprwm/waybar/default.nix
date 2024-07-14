@@ -14,7 +14,6 @@ in
       enable = true;
       systemd.enable = true;
 
-      # style = ''@import "${./style.css}";'';
       style = /*css*/''
         * {
           font-family: Ubuntu Nerd Font;
@@ -189,7 +188,6 @@ in
           color: @pink;
         }
       '';
-
 
       settings.mainBar = {
         mode = "dock";

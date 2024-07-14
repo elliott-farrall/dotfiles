@@ -15,21 +15,23 @@ in
       xwayland.enable = true;
 
       settings = {
-        general = {
-          layout = "dwindle";
-          gaps_in = 10;
-          gaps_out = 10;
-        };
+        xwayland.force_zero_scaling = true;
+
         dwindle = {
           pseudotile = true;
           preserve_split = true;
         };
+
+        general = {
+          gaps_in = 10;
+          gaps_out = 10;
+          "col.active_border" = "$pink $pink";
+          resize_on_border = true;
+        };
         decoration.rounding = 10;
-        xwayland.force_zero_scaling = true;
 
         input = {
           kb_layout = "gb";
-          follow_mouse = 1;
           touchpad.natural_scroll = true;
         };
         gestures.workspace_swipe = true;
@@ -77,6 +79,7 @@ in
 
         misc = {
           disable_hyprland_logo = true;
+          allow_session_lock_restore = true;
         };
       };
     };

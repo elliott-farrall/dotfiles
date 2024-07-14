@@ -4,10 +4,14 @@
 }:
 
 let
-  cfg = config.desktop.hyprwm;
+  cfg = config.terminals.kitty;
   inherit (cfg) enable;
 in
 {
+  options = {
+    terminals.kitty.enable = lib.mkEnableOption "Kitty terminal emulator";
+  };
+
   config = lib.mkIf enable {
     programs.kitty.enable = true;
 
@@ -39,7 +43,7 @@ in
       mimeType = [ "image/*" "application/x-sh" "application/x-shellscript" "inode/directory" "text/*" "x-scheme-handler/kitty" "x-scheme-handler/ssh" ];
     };
 
-    programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite = {
+    programs.waybar.settings.mainBar."hyprland/workspaces".window-rewrite = lib.mkIf config.programs.waybar.enable {
       "kitty" = "󰆍";
     };
   };

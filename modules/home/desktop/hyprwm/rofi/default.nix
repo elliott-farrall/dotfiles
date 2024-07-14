@@ -25,7 +25,7 @@ in
       plugins = with pkgs.rofi-plugins; [
         rofi-logout
       ];
-      terminal = "${pkgs.kitty}/bin/kitty";
+      terminal = lib.mkIf (builtins.hasAttr "TERMINAL" config.home.sessionVariables) config.home.sessionVariables.TERMINAL;
 
       cycle = true;
       extraConfig = {

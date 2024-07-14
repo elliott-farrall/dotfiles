@@ -1,6 +1,4 @@
-{ lib
-, pkgs
-, ...
+{ ...
 }:
 
 {
@@ -10,8 +8,6 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-
     kernelParams = [
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
     ];
@@ -20,7 +16,6 @@
       grub = {
         enable = true;
         device = "nodev";
-        timeoutStyle = "hidden";
       };
       timeout = 3;
     };
