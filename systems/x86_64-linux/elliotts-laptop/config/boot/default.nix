@@ -19,7 +19,7 @@
 
     kernelParams = [
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
-      "i915.modeset=1"
+      "i915.modeset=0"
     ];
 
     loader = {
@@ -39,7 +39,7 @@
   services.xserver = {
     enable = true;
     exportConfiguration = true;
-    videoDrivers = [ "modesetting" ];
+    videoDrivers = lib.mkForce [ "modesetting" ];
 
     moduleSection = ''
       Load "modesetting"
