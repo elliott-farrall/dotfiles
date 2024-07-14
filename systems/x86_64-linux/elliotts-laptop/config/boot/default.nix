@@ -20,6 +20,7 @@
       grub = {
         enable = true;
         device = "nodev";
+        timeoutStyle = "hidden";
       };
       timeout = lib.mkDefault 3;
     };

@@ -60,11 +60,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720656775,
-        "narHash": "sha256-KPdaRCd+e1+2h8mBarvquOx1XvaEeJWJEwMBJILyC9A=",
+        "lastModified": 1720829584,
+        "narHash": "sha256-RiX1TPtjQNilcSDQtJXbvsc3irN0Ppj8SH2q7sbYQLY=",
         "owner": "iosmanthus",
         "repo": "code-insiders-flake",
-        "rev": "8ac203f3992f9cb82333812f0081b3d8319bd6ca",
+        "rev": "de8629edf46275d9237914aa3085c6f39751846d",
         "type": "github"
       },
       "original": {
