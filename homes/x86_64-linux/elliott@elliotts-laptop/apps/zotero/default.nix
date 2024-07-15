@@ -60,20 +60,10 @@ in
     '';
   };
 
-  home.activation.zoteroLinks = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    if [ -e ${config.home.homeDirectory}/.zotero ]; then
-      run rm -r ${config.home.homeDirectory}/.zotero
-    fi
-    run ln -s ${config.xdg.configHome} ${config.home.homeDirectory}/.zotero
-
-    if [ -e ${config.home.homeDirectory}/.mozilla ]; then
-      run rm -r ${config.home.homeDirectory}/.mozilla
-    fi
-    if [ ! -e ${config.xdg.dataHome}/mozilla ]; then
-      run mkdir -p ${config.xdg.dataHome}/mozilla
-    fi
-    run ln -s ${config.xdg.dataHome}/mozilla ${config.home.homeDirectory}/.mozilla
-  '';
+  home.activation = {
+    linkZotero = lib.internal.mkLinkScript' "${config.xdg.configHome}" "${config.home.homeDirectory}/.zotero";
+    linkMozilla = lib.internal.mkLinkScript "${config.xdg.dataHome}/mozilla" "${config.home.homeDirectory}/.mozilla";
+  };
 
   /* -------------------------------------------------------------------------- */
   /*                                 Integration                                */

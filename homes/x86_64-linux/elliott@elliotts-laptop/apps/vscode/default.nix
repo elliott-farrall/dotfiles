@@ -61,23 +61,10 @@
   /*                                Configuration                               */
   /* -------------------------------------------------------------------------- */
 
-  home.activation.vscodeLinks = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    if [ -e ${config.home.homeDirectory}/.vscode-insiders ]; then
-      run rm -r ${config.home.homeDirectory}/.vscode-insiders
-    fi
-    if [ ! -e ${config.xdg.dataHome}/vscode-insiders ]; then
-      run mkdir -p ${config.xdg.dataHome}/vscode-insiders
-    fi
-    run ln -s ${config.xdg.dataHome}/vscode-insiders ${config.home.homeDirectory}/.vscode-insiders
-
-    if [ -e ${config.home.homeDirectory}/.pki ]; then
-      run rm -r ${config.home.homeDirectory}/.pki
-    fi
-    if [ ! -e ${config.xdg.dataHome}/pki ]; then
-      run mkdir -p ${config.xdg.dataHome}/pki
-    fi
-    run ln -s ${config.xdg.dataHome}/pki ${config.home.homeDirectory}/.pki
-  '';
+  home.activation = {
+    linkVscode = lib.internal.mkLinkScript "${config.xdg.dataHome}/vscode-insiders" "${config.home.homeDirectory}/.vscode-insiders";
+    linkPki = lib.internal.mkLinkScript "${config.xdg.dataHome}/pki" "${config.home.homeDirectory}/.pki";
+  };
 
   /* -------------------------------------------------------------------------- */
   /*                                  Defaults                                  */

@@ -76,15 +76,9 @@
     force = true;
   };
 
-  home.activation.mathematicaLinks = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    if [ -e ${config.home.homeDirectory}/.Wolfram ]; then
-      run rm -r ${config.home.homeDirectory}/.Wolfram
-    fi
-    if [ ! -e ${config.xdg.dataHome}/Wolfram ]; then
-      run mkdir -p ${config.xdg.dataHome}/Wolfram
-    fi
-    run ln -s ${config.xdg.dataHome}/Wolfram ${config.home.homeDirectory}/.Wolfram
-  '';
+  home.activation = {
+    linkWolfram = lib.internal.mkLinkScript "${config.xdg.dataHome}/Wolfram" "${config.home.homeDirectory}/.Wolfram";
+  };
 
   /* -------------------------------------------------------------------------- */
   /*                                 Integration                                */
