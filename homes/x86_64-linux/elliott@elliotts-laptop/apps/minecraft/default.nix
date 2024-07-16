@@ -34,29 +34,9 @@
   /*                                Configuration                               */
   /* -------------------------------------------------------------------------- */
 
-  home.activation.minecraftLinks = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    if [ -e ${config.home.homeDirectory}/.java ]; then
-      run rm -r ${config.home.homeDirectory}/.java
-    fi
-    if [ ! -e ${config.xdg.configHome}/java ]; then
-      run mkdir -p ${config.xdg.configHome}/java
-    fi
-    run ln -s ${config.xdg.configHome}/java ${config.home.homeDirectory}/.java
-
-    if [ -e ${config.home.homeDirectory}/.minecraft ]; then
-      run rm -r ${config.home.homeDirectory}/.minecraft
-    fi
-    if [ ! -e ${config.xdg.dataHome}/minecraft ]; then
-      run mkdir -p ${config.xdg.dataHome}/minecraft
-    fi
-    run ln -s ${config.xdg.dataHome}/minecraft ${config.home.homeDirectory}/.minecraft
-
-    if [ -e ${config.home.homeDirectory}/.mputils ]; then
-      run rm -r ${config.home.homeDirectory}/.mputils
-    fi
-    if [ ! -e ${config.xdg.dataHome}/mputils ]; then
-      run mkdir -p ${config.xdg.dataHome}/mputils
-    fi
-    run ln -s ${config.xdg.dataHome}/mputils ${config.home.homeDirectory}/.mputils
-  '';
+  home.activation = {
+    linkJava = lib.internal.mkLinkScript "${config.xdg.configHome}/java" "${config.home.homeDirectory}/.java";
+    linkMinecraft = lib.internal.mkLinkScript "${config.xdg.dataHome}/minecraft" "${config.home.homeDirectory}/.minecraft";
+    linkMputils = lib.internal.mkLinkScript "${config.xdg.dataHome}/mputils" "${config.home.homeDirectory}/.mputils";
+  };
 }
