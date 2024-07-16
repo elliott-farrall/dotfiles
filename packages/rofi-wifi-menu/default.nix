@@ -4,18 +4,15 @@
 , makeWrapper
 , libnotify
 , rofi-wayland-unwrapped
+
+, sources ? import ../nix/sources.nix
 }:
 
 stdenv.mkDerivation {
   pname = "rofi-wifi-menu";
   version = "unstable-2023-11-23";
 
-  src = fetchFromGitHub {
-    owner = "ericmurphyxyz";
-    repo = "rofi-wifi-menu";
-    rev = "d6debde6e302f68d8235ced690d12719124ff18e";
-    hash = "sha256-H+vBRdGcSDMKGLHhPB7imV148O8GRTMj1tZ+PLQUVG4=";
-  };
+  src = fetchFromGitHub { inherit (sources.rofi-wifi-menu) owner repo rev sha256; };
 
   installPhase = ''
     runHook preInstall

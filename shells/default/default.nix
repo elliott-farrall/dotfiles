@@ -11,11 +11,14 @@ mkShell {
   buildInputs = inputs.self.checks.x86_64-linux.pre-commit.enabledPackages;
 
   packages = with pkgs; [
-    agenix
-    xdg-ninja
-    nix-init
-    nh
-    fup-repl
     snowfallorg.flake
+    fup-repl
+    nh
+    agenix
+
+    nix-init
+    niv
+
+    xdg-ninja
   ];
 }
