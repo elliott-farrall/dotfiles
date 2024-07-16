@@ -13,6 +13,7 @@
     ./network
     ./nix
     ./peripherals
+    ./theme
     ./vfs
     ./video
     ./virtualisation

@@ -1,12 +1,11 @@
 { config
 , lib
-, pkgs
 , ...
 }:
 
 let
   cfg = config.shell.zsh;
-  inherit (cfg) enable;
+  enable = cfg.enable || config.shell.default == "zsh";
 in
 {
   options = {
@@ -14,8 +13,6 @@ in
   };
 
   config = lib.mkIf enable {
-    users.defaultUserShell = pkgs.zsh;
-
     programs.zsh.enable = true;
     environment.pathsToLink = [ "/share/zsh" ]; # Allows completion for system packages
 

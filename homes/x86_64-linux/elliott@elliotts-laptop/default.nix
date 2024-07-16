@@ -1,27 +1,46 @@
-{ config
-, osConfig
+{ osConfig
+, config
 , ...
 }:
 
 {
   imports = [
-    ./apps
     ./config
-    ./tools
+    ./scripts
   ];
 
   inherit (osConfig) catnerd;
+  gtk.enable = true;
+  qt.enable = true;
 
   inherit (osConfig) shell desktop locker;
-  terminals = {
+  terminal = {
+    default = "kitty";
     alacritty.enable = true;
     foot.enable = true;
     kitty.enable = true;
     wezterm.enable = true;
   };
+  apps = {
+    discord.enable = true;
+    ldz.enable = true;
+    libreoffice.enable = true;
+    mathematica.enable = true;
+    minecraft.enable = true;
+    nemo.enable = true;
+    obsidian.enable = true;
+    vivaldi.enable = true;
+    vscode.enable = true;
+    zotero.enable = true;
+  };
+  tools = {
+    direnv.enable = true;
+    nix.enable = true;
+  };
+
+  xdg.enable = true;
 
   home.sessionVariables = {
-    TERMINAL = "kitty";
     EDITOR = "code -w";
     VISUAL = "code -w";
   };

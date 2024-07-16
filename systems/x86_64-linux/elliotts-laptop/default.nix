@@ -1,11 +1,10 @@
-{ ...
+{ config
+, ...
 }:
 
 {
   imports = [
     ./config
-    ./users
-
     ./hardware-configuration.nix
   ];
 
@@ -20,26 +19,22 @@
     backupFileExtension = "old";
   };
 
-  shell.zsh.enable = true;
+  shell.default = "zsh";
   desktop.hyprwm.enable = true;
   locker.gtklock.enable = true;
   greeter.gtkgreet.enable = true;
 
-  catnerd = {
-    enable = true;
-
-    flavour = "macchiato";
-    accent = "pink";
-
-    cursor.size = 24;
-
-    fonts.main = {
-      family = "Ubuntu";
-      size = 10;
+  age.secrets = {
+    password-elliott = {
+      file = ./password-elliott.age;
     };
-    fonts.mono = {
-      family = "DroidSansM";
-      size = 14;
+  };
+  users.users = {
+    elliott = {
+      isNormalUser = true;
+      uid = 1000;
+      hashedPasswordFile = config.age.secrets.password-elliott.path;
+      extraGroups = [ "networkmanager" "wheel" "docker" "openrazer" "adbusers" ];
     };
   };
 }

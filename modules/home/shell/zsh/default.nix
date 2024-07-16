@@ -5,7 +5,7 @@
 
 let
   cfg = config.shell.zsh;
-  inherit (cfg) enable;
+  enable = cfg.enable || config.shell.default == "zsh";
 in
 {
   options = {
