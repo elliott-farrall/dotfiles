@@ -1,15 +1,17 @@
-{ config
-, osConfig
+{ osConfig
+, config
 , ...
 }:
 
 {
   imports = [
     ./config
-    ./tools
+    ./scripts
   ];
 
   inherit (osConfig) catnerd;
+  gtk.enable = true;
+  qt.enable = true;
 
   inherit (osConfig) shell desktop locker;
   terminal = {
@@ -30,6 +32,19 @@
     vivaldi.enable = true;
     vscode.enable = true;
     zotero.enable = true;
+  };
+  tools = {
+    nix.enable = true;
+  };
+
+  xdg.enable = true;
+  programs.direnv = {
+    enable = true;
+    silent = true;
+    config = {
+      global.warn_timeout = 0;
+    };
+    nix-direnv.enable = true;
   };
 
   home.sessionVariables = {
