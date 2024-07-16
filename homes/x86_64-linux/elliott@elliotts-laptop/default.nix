@@ -34,18 +34,11 @@
     zotero.enable = true;
   };
   tools = {
+    direnv.enable = true;
     nix.enable = true;
   };
 
   xdg.enable = true;
-  programs.direnv = {
-    enable = true;
-    silent = true;
-    config = {
-      global.warn_timeout = 0;
-    };
-    nix-direnv.enable = true;
-  };
 
   home.sessionVariables = {
     EDITOR = "code -w";

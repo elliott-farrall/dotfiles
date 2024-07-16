@@ -6,7 +6,6 @@
     ./git
     ./nix
     ./rclone
-    ./secrets
     ./ssh
   ];
 }

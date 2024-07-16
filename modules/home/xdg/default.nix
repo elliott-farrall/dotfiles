@@ -27,6 +27,9 @@ in
         templates = "${config.home.homeDirectory}/Templates";
         videos = "${config.home.homeDirectory}/Videos";
       };
+
+      mime.enable = true;
+      mimeApps.enable = true;
     };
 
     home.activation.linkDesktopEntries = lib.home-manager.hm.dag.entryAfter [ "writeBoundary" "createXdgUserDirectories" ] ''
