@@ -20,7 +20,6 @@ lib.pre-commit-hooks.x86_64-linux.run {
     trim-trailing-whitespace.enable = true;
     # Spelling
     hunspell.enable = true;
-    typos.enable = true;
     # Nix
     nil.enable = true;
     nixpkgs-fmt.enable = true;

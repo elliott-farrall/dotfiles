@@ -4,18 +4,15 @@
 , makeWrapper
 , python3
 , pulseaudio
+
+, sources ? import ../nix/sources.nix
 }:
 
 stdenv.mkDerivation rec {
   pname = "rofi-mixer";
   version = "unstable-2022-10-12";
 
-  src = fetchFromGitHub {
-    owner = "joshpetit";
-    repo = "rofi-mixer";
-    rev = "9944bf9dbea915f0ecaf3163fff94f5f6d53a88c";
-    hash = "sha256-hBjgGLDK10AY7oo2NP3gYRbNxjR2LFsZD5qCr7PgdXI=";
-  };
+  src = fetchFromGitHub { inherit (sources.rofi-mixer) owner repo rev sha256; };
 
   sourceRoot = "${src.name}/src";
 

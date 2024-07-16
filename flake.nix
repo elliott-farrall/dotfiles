@@ -27,6 +27,10 @@
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -85,10 +89,12 @@
       ];
 
       systems.modules.nixos = with inputs; [
+        nix-index-database.nixosModules.nix-index
         agenix.nixosModules.default
         catnerd.nixosModules.catnerd
       ];
       homes.modules = with inputs; [
+        nix-index-database.hmModules.nix-index
         agenix.homeManagerModules.default
         catnerd.homeModules.catnerd
       ];

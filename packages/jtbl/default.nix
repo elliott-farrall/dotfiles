@@ -1,24 +1,22 @@
 { lib
 , python3
 , fetchFromGitHub
+
+, sources ? import ../nix/sources.nix
+
 , ...
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "jtbl";
-  version = "1.6.0";
+  inherit (sources.jtbl) version;
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "kellyjonbrazil";
-    repo = "jtbl";
-    rev = "v${version}";
-    hash = "sha256-ILQwUpjNueaYR5hxOWd5kZSPhVoFnnS2FcttyKSTPr8=";
-  };
+  src = fetchFromGitHub { inherit (sources.jtbl) owner repo rev sha256; };
 
-  nativeBuildInputs = [
-    python3.pkgs.setuptools
-    python3.pkgs.wheel
+  nativeBuildInputs = with python3.pkgs; [
+    setuptools
+    wheel
   ];
 
   propagatedBuildInputs = with python3.pkgs; [

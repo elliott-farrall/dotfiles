@@ -17,7 +17,9 @@ in
     home.packages = with pkgs; [
       nixd
       nixpkgs-fmt
-      comma
     ];
+
+    programs.nix-index.enable = true;
+    programs.nix-index-database.comma.enable = true;
   };
 }

@@ -1,19 +1,16 @@
-{ ...
+{ sources ? import ../nix/sources.nix
+, pkgs
+, ...
 }:
 
 final: prev:
 {
-  kmscon = prev.kmscon.overrideAttrs (attrs: rec {
-    version = "custom";
+  kmscon = prev.kmscon.overrideAttrs (attrs: {
+    version = "unstable-2024--07-15";
 
-    src = prev.fetchFromGitHub {
-      owner = "Aetf";
-      repo = "kmscon";
-      rev = "32e83aa";
-      sha256 = "sha256-ZNHy2MdloK1BHbSffiu9o4oIORAqwsT1t6VdvVH2+eg=";
-    };
+    src = pkgs.fetchFromGitHub { inherit (sources.kmscon) owner repo rev sha256; };
 
-    buildInputs = attrs.buildInputs ++ (with prev; [
+    buildInputs = attrs.buildInputs ++ (with pkgs; [
       check
     ]);
 
