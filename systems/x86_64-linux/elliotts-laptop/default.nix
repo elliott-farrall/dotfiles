@@ -19,7 +19,7 @@
     backupFileExtension = "old";
   };
 
-  shell.zsh.enable = true;
+  shell.default = "zsh";
   desktop.hyprwm.enable = true;
   locker.gtklock.enable = true;
   greeter.gtkgreet.enable = true;
