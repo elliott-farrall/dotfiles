@@ -13,7 +13,7 @@ in
 
   /* ----------------------------- User Passwords ----------------------------- */
 
-  "systems/x86_64-linux/elliotts-laptop/users/elliott/password.age".publicKeys = keys;
+  "systems/x86_64-linux/elliotts-laptop/users/elliott/password-elliott.age".publicKeys = keys;
 
   /* ------------------------------- GitHub PAT ------------------------------- */
 

@@ -24,3 +24,8 @@ indent_size = 4
 # Match diffs, avoid to trim trailing whitespace
 [*.{diff,patch}]
 trim_trailing_whitespace = false
+
+# Exclude rules for age files
+[*.age]
+end_of_line = unset
+insert_final_newline = unset
