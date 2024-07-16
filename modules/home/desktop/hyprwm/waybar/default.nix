@@ -234,8 +234,20 @@ in
 
         "systemd-failed-units" = {
           format = "󰒏 {nr_failed}";
-          on-click = "${pkgs.kitty}/bin/kitty -e sh -c ' systemctl --user --failed; read -n 1'";
-          on-click-right = "${pkgs.kitty}/bin/kitty -e sh -c ' systemctl --failed; read -n 1'";
+          on-click = "${config.home.sessionVariables.TERMINAL} sh -c ${pkgs.writeShellScript "status" ''
+            trap ' ' INT TERM EXIT
+            watch -t '\
+              echo "System Units"; \
+              systemctl --system --failed --output json | ${pkgs.internal.jtbl}/bin/jtbl -t; \
+              echo "User Units"; \
+              systemctl --user   --failed --output json | ${pkgs.internal.jtbl}/bin/jtbl -t \
+            '
+          ''}";
+          on-click-right = "${pkgs.writeShellScript "restart" ''
+            systemctl --system --failed --output json | ${pkgs.jq}/bin/jq -r '.[].unit' | ${pkgs.findutils}/bin/xargs -r systemctl --system restart
+            systemctl --user   --failed --output json | ${pkgs.jq}/bin/jq -r '.[].unit' | ${pkgs.findutils}/bin/xargs -r systemctl --user restart
+          ''}";
+          restart-interval = 5;
         };
 
         "group/logout" = {
