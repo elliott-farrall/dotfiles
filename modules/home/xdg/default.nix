@@ -29,8 +29,8 @@ in
         videos = "${config.home.homeDirectory}/Videos";
 
         extraConfig = {
-          XDG_REPO_DIR = "${config.xdg.dataHome}/repos";
-          XDG_REMOTE_DIR = "${config.xdg.dataHome}/remotes";
+          XDG_REPO_DIR = "${config.home.homeDirectory}/Repositories";
+          XDG_REMOTE_DIR = "${config.home.homeDirectory}/Remotes";
         };
       };
 

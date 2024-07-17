@@ -61,7 +61,7 @@
   };
 
   gtk.gtk3.bookmarks = [
-    "file://${config.home.homeDirectory}/OneDrive/Documents/University%20of%20Surrey/PG"
+    "file://${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/OneDrive/Documents/University%20of%20Surrey/PG"
   ];
 
   wayland.windowManager.hyprland.settings = {
