@@ -4,10 +4,11 @@
 final: prev:
 {
   vscode-insiders = prev.vscode-insiders.overrideAttrs (attrs: {
-    commandLineArgs = "--ozone-platform=wayland";
     postInstall = (attrs.postInstall or "") + ''
+      wrapProgram $out/bin/code-insiders \
+        --add-flags "\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}"
+
       ln -s $out/bin/code-insiders $out/bin/code
-      wrapProgram "$out/bin/code" --unset NIXOS_OZONE_WL
     '';
   });
 }

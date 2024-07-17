@@ -5,7 +5,7 @@
 , libnotify
 , rofi-wayland-unwrapped
 
-, sources ? import ../nix/sources.nix
+, sources ? import ../../nix/sources.nix
 }:
 
 stdenv.mkDerivation {
