@@ -9,11 +9,24 @@
     ./scripts
   ];
 
+  xdg.enable = true;
+
+  /* ---------------------------------- Shell --------------------------------- */
+
+  inherit (osConfig) shell;
+
+  /* --------------------------------- Dekstop -------------------------------- */
+
+  inherit (osConfig) desktop;
+
+  /* ---------------------------------- Theme --------------------------------- */
+
   inherit (osConfig) catnerd;
   gtk.enable = true;
   qt.enable = true;
 
-  inherit (osConfig) shell desktop locker;
+  /* -------------------------------- Packages -------------------------------- */
+
   terminal = {
     default = "kitty";
     alacritty.enable = true;
@@ -21,6 +34,12 @@
     kitty.enable = true;
     wezterm.enable = true;
   };
+
+  tools = {
+    direnv.enable = true;
+    nix.enable = true;
+  };
+
   apps = {
     discord.enable = true;
     ldz.enable = true;
@@ -33,12 +52,8 @@
     vscode.enable = true;
     zotero.enable = true;
   };
-  tools = {
-    direnv.enable = true;
-    nix.enable = true;
-  };
 
-  xdg.enable = true;
+  /* ----------------------------- Personalisation ---------------------------- */
 
   home.sessionVariables = {
     EDITOR = "code -w";

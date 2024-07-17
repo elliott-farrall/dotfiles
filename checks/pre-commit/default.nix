@@ -18,8 +18,6 @@ lib.pre-commit-hooks.x86_64-linux.run {
     editorconfig-checker.enable = true;
     end-of-file-fixer.enable = true;
     trim-trailing-whitespace.enable = true;
-    # Spelling
-    hunspell.enable = true;
     # Nix
     nil.enable = true;
     nixpkgs-fmt.enable = true;
