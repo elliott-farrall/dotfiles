@@ -8,21 +8,43 @@
     ./hardware-configuration.nix
   ];
 
+  /* --------------------------------- Version -------------------------------- */
+
   version = {
     linux = "latest";
     nix = "latest";
     nixos = "23.05";
   };
 
+  /* ------------------------------ Home Manager ------------------------------ */
+
   home-manager = {
     useUserPackages = true;
     backupFileExtension = "old";
   };
 
-  shell.default = "zsh";
-  desktop.hyprwm.enable = true;
-  locker.gtklock.enable = true;
-  greeter.gtkgreet.enable = true;
+  /* ---------------------------------- Shell --------------------------------- */
+
+  shell = {
+    default = "zsh";
+    zsh.enable = true;
+  };
+
+  /* --------------------------------- Greeter -------------------------------- */
+
+  greeter = "gtkgreet";
+
+  /* --------------------------------- Locker --------------------------------- */
+
+  locker = "gtklock";
+
+  /* --------------------------------- Dekstop -------------------------------- */
+
+  desktop = {
+    hyprwm.enable = true;
+  };
+
+  /* ---------------------------------- Users --------------------------------- */
 
   age.secrets = {
     password-elliott = {

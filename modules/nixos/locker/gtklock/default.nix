@@ -5,17 +5,15 @@
 }:
 
 let
-  cfg = config.locker.gtklock;
-  inherit (cfg) enable;
+  cfg = config.locker;
+  enable = cfg == "gtklock";
 in
 {
-  options = {
-    locker.gtklock.enable = lib.mkEnableOption "gtklock screen locker";
-  };
-
   config = lib.mkIf enable {
-    services.systemd-lock-handler.enable = true;
+    environment.systemPackages = with pkgs; [ gtklock ];
+    security.pam.services.gtklock = { };
 
+    services.systemd-lock-handler.enable = true;
     systemd.user.services.systemd-lock-handler-gtklock = {
       unitConfig = {
         Description = "Screen locker for Wayland";
@@ -31,7 +29,5 @@ in
       };
       wantedBy = [ "lock.target" ];
     };
-
-    security.pam.services.gtklock = { };
   };
 }

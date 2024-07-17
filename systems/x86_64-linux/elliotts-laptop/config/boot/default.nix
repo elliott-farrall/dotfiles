@@ -22,9 +22,4 @@
 
     plymouth.enable = true;
   };
-
-  services.kmscon = {
-    enable = true;
-    hwRender = true;
-  };
 }

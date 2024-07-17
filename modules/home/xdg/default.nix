@@ -17,6 +17,7 @@ in
 
       userDirs = {
         enable = true;
+        createDirectories = true;
 
         desktop = "${config.home.homeDirectory}/Desktop";
         documents = "${config.home.homeDirectory}/Documents";
@@ -26,6 +27,11 @@ in
         publicShare = "${config.home.homeDirectory}/Public";
         templates = "${config.home.homeDirectory}/Templates";
         videos = "${config.home.homeDirectory}/Videos";
+
+        extraConfig = {
+          XDG_REPO_DIR = "${config.home.homeDirectory}/Repositories";
+          XDG_REMOTE_DIR = "${config.home.homeDirectory}/Remotes";
+        };
       };
 
       mime.enable = true;

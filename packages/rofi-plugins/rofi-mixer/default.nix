@@ -5,7 +5,7 @@
 , python3
 , pulseaudio
 
-, sources ? import ../nix/sources.nix
+, sources ? import ../../nix/sources.nix
 }:
 
 stdenv.mkDerivation rec {

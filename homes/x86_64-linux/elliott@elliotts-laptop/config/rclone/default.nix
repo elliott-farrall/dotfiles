@@ -73,18 +73,18 @@ in
 
   systemd.user.services = builtins.listToAttrs (map
     (remote: {
-      name = lib.internal.mkMountName "${config.home.homeDirectory}/${remote}";
+      name = lib.internal.mkMountName "${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
       value = {
         Unit = {
-          Description = "Mount for ${config.home.homeDirectory}/${remote}";
+          Description = "Mount for ${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
           After = [ "network-online.target" ];
           Wants = [ "network-online.target" ];
         };
         Service = {
           Type = "notify";
-          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${config.home.homeDirectory}/${remote}";
-          ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote}: ${config.home.homeDirectory}/${remote} --allow-other --file-perms 0777 --vfs-cache-mode writes";
-          ExecStop = "${pkgs.fuse}/bin/fusermount -u ${config.home.homeDirectory}/${remote}";
+          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
+          ExecStart = "${pkgs.rclone}/bin/rclone mount ${remote}: ${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote} --allow-other --file-perms 0777 --vfs-cache-mode writes";
+          ExecStop = "${pkgs.fuse}/bin/fusermount -u ${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
           Restart = "on-failure";
           RestartSec = "10s";
           Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
@@ -99,16 +99,16 @@ in
   # Unmount not working for FUSE without sudo
   # systemd.user.mounts = builtins.listToAttrs (map
   #   (remote: {
-  #     name = lib.internal.mkMountName "${config.home.homeDirectory}/${remote}";
+  #     name = lib.internal.mkMountName "${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
   #     value = {
   #       Unit = {
-  #         Description = "Mount for ${config.home.homeDirectory}/${remote}";
+  #         Description = "Mount for ${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
   #         After = [ "network-online.target" ];
   #       };
   #       Mount = {
   #         Type = "fuse.rclonefs";
   #         What = "${remote}:";
-  #         Where = "${config.home.homeDirectory}/${remote}";
+  #         Where = "${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
   #         Options = lib.concatStringsSep "," [ "allow_other" "file_perms=0777" "vfs-cache-mode=writes" ];
   #         ExecSearchPath = "${pkgs.rclone}/bin/:/run/wrappers/bin/";
   #       };
@@ -123,15 +123,15 @@ in
   # Automount units not working as user units
   # systemd.user.automounts = builtins.listToAttrs (map
   #   (remote: {
-  #     name = lib.internal.mkMountName "${config.home.homeDirectory}/${remote}";
+  #     name = lib.internal.mkMountName "${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
   #     value = {
   #       Unit = {
-  #         Description = "Automount for ${config.home.homeDirectory}/${remote}";
+  #         Description = "Automount for ${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
   #         After = [ "network-online.target" ];
   #         Before = [ "remote-fs.target" ];
   #       };
   #       Automount = {
-  #         Where = "${config.home.homeDirectory}/${remote}";
+  #         Where = "${config.xdg.userDirs.extraConfig.XDG_REMOTE_DIR}/${remote}";
   #         TimeoutIdleSec = 600;
   #       };
   #       Install = {
