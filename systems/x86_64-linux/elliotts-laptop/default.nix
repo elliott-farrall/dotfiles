@@ -13,7 +13,7 @@
   version = {
     linux = "latest";
     nix = "latest";
-    nixos = "23.05";
+    nixos = "24.11";
   };
 
   /* ------------------------------ Home Manager ------------------------------ */
