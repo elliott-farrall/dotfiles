@@ -57,14 +57,19 @@ jobs:
       - name: Build NixOS
         run: |
           nix build \
-            --out-link new \
+            --out-link old \
             github:${{ github.repository}}/${{ steps.get_commit.outputs.ref }}#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+
+      - name: Archive Result
+        run: |
+          ls -la
+          tar -czf old.tar.gz old
 
       - name: Upload Result
         uses: actions/upload-artifact@v4
         with:
           name: old
-          path: old
+          path: old.tar.gz
 
   new:
     runs-on: ubuntu-latest
@@ -96,11 +101,16 @@ jobs:
             --out-link new \
             github:${{ github.repository}}/${{ steps.get_commit.outputs.ref }}#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
+      - name: Archive Result
+        run: |
+          ls -la
+          tar -czf new.tar.gz new
+
       - name: Upload Result
         uses: actions/upload-artifact@v4
         with:
           name: new
-          path: new
+          path: new.tar.gz
 
   diff:
     runs-on: ubuntu-latest
@@ -121,6 +131,12 @@ jobs:
 
       - name: Download Results
         uses: actions/download-artifact@v4
+
+      - name: Extract Results
+        run: |
+          ls -la
+          tar -xzf old/old.tar.gz -C old
+          tar -xzf new/new.tar.gz -C new
 
       - name: Get Diff
         run: nix run gitlab:khumba/nvd -- --no-write-lock-file diff old new

@@ -15,5 +15,24 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Check Inputs
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v14
+        with:
+          extra-conf: accept-flake-config = true
+
+      - name: Check Flake Inputs
         uses: DeterminateSystems/flake-checker-action@v9
+
+      - name: Run Prebuild Scripts
+        run: |
+          find systems/*/*/ -name PREBUILD.sh -exec bash {} \;
+
+      - name: Check for Changes
+        run: |
+          if git diff --exit-code; then
+            echo "No changes detected."
+          else
+            echo "Changes detected:"
+            git diff
+            exit 1
+          fi

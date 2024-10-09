@@ -37,21 +37,16 @@ jobs:
           tags: tag:deploy
 
       - name: Setup SSH
-        run: |
-          address="$(tailscale ip -4 ${{ matrix.host }})"
-          echo "address=$address" >> "$GITHUB_ENV"
+        run: | # avoid using magicDNS due to bugs
           mkdir -p ~/.ssh
-          ssh-keyscan "$address" >> ~/.ssh/known_hosts
+          ipv4="$(tailscale ip -4 ${{ matrix.host }})"
+          ssh-keyscan "$ipv4" >> ~/.ssh/known_hosts
+          echo "ipv4=$ipv4" >> "$GITHUB_ENV"
 
       - name: Activate Shell
         uses: nicknovitski/nix-develop@v1
         with:
           arguments: .#deploy
-
-      - name: Run Prebuild
-        env:
-          script: systems/x86_64-linux/${{ matrix.host }}/PREBUILD.sh
-        run: type "$script" && "$script"; true
 
       - name: Checks...
         uses: poseidon/wait-for-status-checks@v0.5.0
@@ -61,10 +56,19 @@ jobs:
 
       - name: Build & Deploy
         run: |
-          deploy -s -r build \
-            --hostname ${{ env.address }} \
-            --ssh-user deploy \
-          .#${{ matrix.host}}
+          max_retries=3
+          count=0
+          until deploy -s -r build --hostname "$ipv4" --ssh-user deploy .#${{ matrix.host }}
+          do
+            exit_code=$?
+            count=$((count + 1))
+            if [ $count -ge $max_retries ]; then
+              echo "Build & Deploy failed after $count attempts."
+              exit $exit_code
+            fi
+            echo "Retrying Build & Deploy ($count/$max_retries)..."
+            sleep 10
+          done
 
     # - name: Upload Build
     #   uses: actions/upload-artifact@v4
