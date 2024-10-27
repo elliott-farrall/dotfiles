@@ -1097,7 +1097,7 @@
     ];
   };
   virtualisation.oci-containers.containers."qbittorrent" = {
-    image = "docker.io/linuxserver/qbittorrent:4.6.7";
+    image = "docker.io/linuxserver/qbittorrent:20.04.1";
     volumes = [
       "/etc/broad/qbittorrent/config.conf:/config/qBittorrent.conf:rw"
       "/etc/broad/qbittorrent/vuetorrent:/vuetorrent:rw"

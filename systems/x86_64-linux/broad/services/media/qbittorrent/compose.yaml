@@ -1,7 +1,7 @@
 services:
   qbittorrent:
     container_name: qbittorrent
-    image: docker.io/linuxserver/qbittorrent:4.6.7
+    image: docker.io/linuxserver/qbittorrent:20.04.1
     restart: unless-stopped
     network_mode: service:vpn
     volumes:
