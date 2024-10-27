@@ -682,7 +682,7 @@
     ];
   };
   virtualisation.oci-containers.containers."jellyseerr" = {
-    image = "docker.io/fallenbagel/jellyseerr:1.9.2";
+    image = "docker.io/fallenbagel/jellyseerr:2.0.1";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-jellyseerr:/app/config:rw"
