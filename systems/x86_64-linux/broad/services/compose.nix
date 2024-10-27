@@ -1856,7 +1856,7 @@
     ];
   };
   virtualisation.oci-containers.containers."vpn" = {
-    image = "docker.io/qmcgaw/gluetun:v3.39.0";
+    image = "docker.io/qmcgaw/gluetun:v3.39.1";
     environment = {
       "SERVER_CITIES" = "London";
       "SERVER_COUNTRIES" = "UK";
