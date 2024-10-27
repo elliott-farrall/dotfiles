@@ -1801,7 +1801,7 @@
     ];
   };
   virtualisation.oci-containers.containers."uptime-kuma" = {
-    image = "docker.io/louislam/uptime-kuma:1.23.13";
+    image = "docker.io/louislam/uptime-kuma:1.23.15";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
