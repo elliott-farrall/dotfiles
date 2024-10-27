@@ -1158,7 +1158,7 @@
     ];
   };
   virtualisation.oci-containers.containers."radarr" = {
-    image = "docker.io/linuxserver/radarr:5.9.1";
+    image = "docker.io/linuxserver/radarr:5.14.0";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-radarr:/config:rw"

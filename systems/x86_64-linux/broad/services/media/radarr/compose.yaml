@@ -1,7 +1,7 @@
 services:
   radarr:
     container_name: radarr
-    image: docker.io/linuxserver/radarr:5.9.1
+    image: docker.io/linuxserver/radarr:5.14.0
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
