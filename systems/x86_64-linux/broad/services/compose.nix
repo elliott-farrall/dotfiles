@@ -21,7 +21,7 @@
 
   # Containers
   virtualisation.oci-containers.containers."auth" = {
-    image = "docker.io/authelia/authelia:4.38.9";
+    image = "docker.io/authelia/authelia:4.38.16";
     volumes = [
       "/etc/broad/auth/config.yaml:/config/configuration.yml:ro"
       "/etc/localtime:/etc/localtime:ro"
