@@ -615,7 +615,7 @@
     ];
   };
   virtualisation.oci-containers.containers."jellyfin" = {
-    image = "docker.io/linuxserver/jellyfin:10.10.0";
+    image = "docker.io/linuxserver/jellyfin:2021.12.16";
     environment = {
       "JELLYFIN_PublishedServerUrl" = "jellyfin.beannet.app";
     };
