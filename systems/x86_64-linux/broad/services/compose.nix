@@ -918,7 +918,7 @@
     ];
   };
   virtualisation.oci-containers.containers."portainer" = {
-    image = "docker.io/portainer/portainer-ce:2.21.1-alpine";
+    image = "docker.io/portainer/portainer-ce:2.23.0-alpine";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
