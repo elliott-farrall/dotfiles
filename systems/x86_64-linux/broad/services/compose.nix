@@ -1675,7 +1675,7 @@
     ];
   };
   virtualisation.oci-containers.containers."tubearchivist-es" = {
-    image = "docker.io/elasticsearch:8.14.3";
+    image = "docker.io/elasticsearch:8.15.3";
     environment = {
       "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";
       "discovery.type" = "single-node";
