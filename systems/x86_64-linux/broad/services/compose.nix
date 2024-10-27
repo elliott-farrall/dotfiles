@@ -1484,7 +1484,7 @@
     ];
   };
   virtualisation.oci-containers.containers."sonarr" = {
-    image = "docker.io/linuxserver/sonarr:4.0.9";
+    image = "docker.io/linuxserver/sonarr:4.0.10";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-sonarr:/config:rw"
