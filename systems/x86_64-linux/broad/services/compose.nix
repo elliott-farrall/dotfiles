@@ -1218,7 +1218,7 @@
     ];
   };
   virtualisation.oci-containers.containers."recyclarr" = {
-    image = "docker.io/recyclarr/recyclarr:7.2.3";
+    image = "docker.io/recyclarr/recyclarr:7.2.4";
     volumes = [
       "/etc/broad/recyclarr/config.yaml:/config/recyclarr.yml:ro"
       "/etc/localtime:/etc/localtime:ro"
