@@ -327,7 +327,7 @@
     ];
   };
   virtualisation.oci-containers.containers."ddns" = {
-    image = "docker.io/favonia/cloudflare-ddns:1.14.0";
+    image = "docker.io/favonia/cloudflare-ddns:1.15.0";
     environment = {
       "CF_API_TOKEN_FILE" = "/token";
       "DOMAINS" = "beannet.app, *.beannet.app";
