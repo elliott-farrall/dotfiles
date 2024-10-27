@@ -408,7 +408,7 @@
     ];
   };
   virtualisation.oci-containers.containers."fileflows" = {
-    image = "docker.io/revenz/fileflows:24.09";
+    image = "docker.io/revenz/fileflows:24.10";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
     ];
