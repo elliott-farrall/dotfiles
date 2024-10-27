@@ -1028,7 +1028,7 @@
     ];
   };
   virtualisation.oci-containers.containers."proxy" = {
-    image = "docker.io/traefik:v3.1.2";
+    image = "docker.io/traefik:v3.1.6";
     environment = {
       "CF_API_EMAIL" = "elliott.chalford@gmail.com";
       "CF_API_KEY_FILE" = "/key";
