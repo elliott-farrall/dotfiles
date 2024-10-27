@@ -1,7 +1,7 @@
 services:
   whats-up-docker:
     container_name: whats-up-docker
-    image: docker.io/fmartinou/whats-up-docker:6.4.1
+    image: docker.io/fmartinou/whats-up-docker:6.6.1
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro

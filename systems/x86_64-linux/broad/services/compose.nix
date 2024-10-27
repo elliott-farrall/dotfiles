@@ -1911,7 +1911,7 @@
     ];
   };
   virtualisation.oci-containers.containers."whats-up-docker" = {
-    image = "docker.io/fmartinou/whats-up-docker:6.4.1";
+    image = "docker.io/fmartinou/whats-up-docker:6.6.1";
     environment = {
       "WUD_WATCHER_LOCAL_WATCHBYDEFAULT" = "false";
     };
