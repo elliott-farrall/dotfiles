@@ -865,7 +865,7 @@
     ];
   };
   virtualisation.oci-containers.containers."netalertx" = {
-    image = "docker.io/jokobsk/netalertx:24.7.18";
+    image = "docker.io/jokobsk/netalertx:24.10.31";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-netalertx:/app/db:rw"

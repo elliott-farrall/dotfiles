@@ -1,7 +1,7 @@
 services:
   netalertx:
     container_name: netalertx
-    image: docker.io/jokobsk/netalertx:24.7.18
+    image: docker.io/jokobsk/netalertx:24.10.31
     restart: unless-stopped
     # network_mode: host
     volumes:
