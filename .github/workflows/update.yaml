@@ -1,0 +1,22 @@
+name: Update
+
+on:
+  schedule:
+    - cron: "0 0 * * 5" # runs weekly on Friday at 00:00
+
+jobs:
+  flake:
+    runs-on: x86_64-linux
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v24
+        with:
+          commit-msg: "chore(deps): update flake.lock"
+          # pr-title: "chore(deps): update flake.lock"
+          pr-assignees: "ElliottSullingeFarrall"
+          pr-reviewers: "ElliottSullingeFarrall"
+          nix-options: "--accept-flake-config"

@@ -1,0 +1,47 @@
+services:
+  sabnzbd:
+    container_name: sabnzbd
+    image: docker.io/linuxserver/sabnzbd:4.3.3
+    restart: unless-stopped
+    network_mode: service:vpn
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/sabnzbd/config.ini:/config/sabnzbd.ini:ro
+
+      - data-sabnzbd:/config
+
+      - media-downloads:/mnt/downloads
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:4321 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.sabnzbd.loadbalancer.server.port: 4321
+      traefik.http.routers.sabnzbd.middlewares: theme-sabnzbd
+
+      traefik.http.middlewares.theme-sabnzbd.plugin.themepark.app: sabnzbd
+      traefik.http.middlewares.theme-sabnzbd.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Media
+      homepage.name: SABnzbd
+      homepage.icon: sabnzbd
+      homepage.href: https://sabnzbd.beannet.app
+      homepage.siteMonitor: https://sabnzbd.beannet.app
+      homepage.widget.type: sabnzbd
+      homepage.widget.url: http://vpn:4321
+      homepage.widget.key: "{{HOMEPAGE_FILE_SABNZBD_KEY}}"
+
+volumes:
+  data-sabnzbd:
+    name: data-sabnzbd

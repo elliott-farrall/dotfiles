@@ -1,0 +1,17 @@
+- Web:
+    - HealthChecks:
+        - abbr: HC
+          href: https://healthchecks.io
+    - Cloudflare:
+        - abbr: CF
+          href: https://dash.cloudflare.com
+    - Mullvad:
+        - abbr: MV
+          href: https://mullvad.net
+- Usenet:
+    - NewsHosting:
+        - abbr: NH
+          href: https://newshosting.com
+    - NZBGeek:
+        - abbr: NZBG
+          href: https://nzbgeek.info

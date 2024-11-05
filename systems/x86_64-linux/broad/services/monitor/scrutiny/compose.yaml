@@ -1,0 +1,35 @@
+services:
+  scrutiny:
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:v0.8.1-omnibus
+    restart: unless-stopped
+    cap_add:
+      - sys_rawio
+      - sys_admin
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /run/udev:/run/udev:ro
+    healthcheck:
+      test: curl -f http://localhost:8080 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^v\\d+\\.\\d+\\.\\d+-omnibus$$$$'
+
+      traefik.enable: true
+      traefik.http.services.scrutiny.loadbalancer.server.port: 8080
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: Scrutiny
+      homepage.icon: scrutiny
+      homepage.href: https://scrutiny.beannet.app
+      homepage.siteMonitor: https://scrutiny.beannet.app
+      homepage.widget.type: scrutiny
+      homepage.widget.url: http://scrutiny:8080

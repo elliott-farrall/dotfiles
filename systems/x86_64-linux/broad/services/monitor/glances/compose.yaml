@@ -1,0 +1,41 @@
+services:
+  glances:
+    container_name: glances
+    image: docker.io/nicolargo/glances:4.1.2.1
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/etc/os-release:ro
+
+      - /etc/broad/glances/config.conf:/glances/conf/glances.conf:ro
+
+      - /mnt/storage:/mnt/broad/storage:ro
+    environment:
+      GLANCES_OPT: -w
+    healthcheck:
+      test: curl -f http://localhost:61208 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.glances.loadbalancer.server.port: 61208
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: Glances
+      homepage.icon: glances
+      homepage.href: https://glances.beannet.app
+      homepage.siteMonitor: https://glances.beannet.app
+      homepage.widget.type: glances
+      homepage.widget.url: http://glances:61208
+      homepage.widget.version: 4
+      homepage.widget.metric: info

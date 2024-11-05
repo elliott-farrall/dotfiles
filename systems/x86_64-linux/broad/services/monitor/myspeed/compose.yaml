@@ -1,0 +1,37 @@
+services:
+  myspeed:
+    container_name: myspeed
+    image: docker.io/germannewsmaker/myspeed:1.0.9
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-myspeed:/myspeed/data
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5216 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.myspeed.loadbalancer.server.port: 5216
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: MySpeed
+      homepage.icon: https://camo.githubusercontent.com/4ccc83cf6b1f06e999c378bda264433ec83994031c156a5c88876b53eb57b201/68747470733a2f2f692e696d6775722e636f6d2f61436d413672482e706e67
+      homepage.href: https://myspeed.beannet.app
+      homepage.siteMonitor: https://myspeed.beannet.app
+      homepage.widget.type: myspeed
+      homepage.widget.url: http://myspeed:5216
+
+volumes:
+  data-myspeed:
+    name: data-myspeed

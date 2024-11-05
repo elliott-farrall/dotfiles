@@ -1,0 +1,36 @@
+services:
+  fileflows:
+    container_name: fileflows
+    image: docker.io/revenz/fileflows:24.09
+    restart: unless-stopped
+    # runtime: nvidia
+    # environment:
+    #   NVIDIA_DRIVER_CAPABILITIES: compute, video, utility
+    #   NVIDIA_VISIBLE_DEVICES: all
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5000 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: false
+      wud.tag.include: '^\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.fileflows.loadbalancer.server.port: 5000
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Media
+      homepage.name: Fileflows
+      homepage.icon: fileflows
+      homepage.href: https://fileflows.beannet.app
+      homepage.siteMonitor: https://fileflows.beannet.app
+      homepage.description: FileFlows is a file processing application that can execute actions against a file in a tree flow structure.
+      homepage.widget.type: fileflows
+      homepage.widget.url: http://fileflows:5000

@@ -1,0 +1,54 @@
+services:
+  proxy:
+    container_name: proxy
+    image: docker.io/traefik:v3.1.6
+    ports:
+      - 80:80
+      - 443:443
+      - 8443:8443
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - /etc/broad/proxy/config.yaml:/etc/traefik/traefik.yml:ro
+      - /etc/broad/proxy/routes.yaml:/etc/traefik/dynamic.yml:ro
+      - /etc/broad/proxy/cloudflare:/key:ro
+
+      - data-proxy:/data
+    environment:
+      CF_API_EMAIL: elliott.chalford@gmail.com
+      CF_API_KEY_FILE: /key
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8080 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^v\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.proxy.loadbalancer.server.port: 8080
+
+      traefik.http.middlewares.auth.forwardauth.address: http://auth:9091/api/verify?rd=https://auth.beannet.app:8443
+      traefik.http.middlewares.auth.forwardauth.trustForwardHeader: true
+      traefik.http.middlewares.auth.forwardauth.authResponseHeaders: Remote-User,Remote-Groups,Remote-Name,Remote-Email
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Network
+      homepage.name: Proxy
+      homepage.icon: traefik
+      homepage.href: https://proxy.beannet.app
+      homepage.siteMonitor: https://proxy.beannet.app
+      homepage.widget.type: traefik
+      homepage.widget.url: http://proxy:8080
+    depends_on:
+      - auth
+
+volumes:
+  data-proxy:
+    name: data-proxy

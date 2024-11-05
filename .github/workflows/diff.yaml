@@ -1,0 +1,140 @@
+name: Diff
+run-name: Diff (${{ github.event.deployment_status.environment }})
+
+on: [deployment_status]
+
+jobs:
+  setup:
+    runs-on: x86_64-linux
+    if: github.event.deployment_status.state == 'success'
+
+    outputs:
+      users: ${{ steps.users.outputs.users }}
+      old_deployment: ${{ steps.deployment.outputs.sha }}
+      new_deployment: ${{ github.sha }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Deployment
+        id: deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          sha=""
+
+          deployments="$(gh api repos/${{ github.repository }}/deployments | jq -r '[.[] | select(.environment == "${{ github.event.deployment_status.environment }}")] | sort_by(.created_at) | reverse')"
+          for deployment in $(echo "$deployments" | jq -r '.[].id'); do
+            statuses="$(gh api "repos/${{ github.repository }}/deployments/${deployment}/statuses")"
+            if echo "$statuses" | jq -e '.[] | select(.state == "inactive")' > /dev/null; then
+              sha="$(echo "$deployments" | jq -r --arg id "$deployment" '.[] | select(.id == ($id | tonumber)) | .sha')"
+              break
+            fi
+          done
+
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+      - name: Get Users
+        id: users
+        run: |
+          homes="$(nix eval .#homeConfigurations --apply builtins.attrNames)"
+          users="$(echo "$homes" | jq -r '[.[] | select(contains("@${{ github.event.deployment_status.environment }}"))]')"
+          echo "users=$(echo "$users" | jq -c)" >> "$GITHUB_OUTPUT"
+
+  nixos:
+    runs-on: x86_64-linux
+    needs: setup
+    if: ${{ needs.setup.outputs.old_deployment != '' }}
+
+    strategy:
+      matrix:
+        host:
+          - ${{ github.event.deployment_status.environment }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Activate Shell
+        uses: nicknovitski/nix-develop@v1
+        with:
+          arguments: .#deploy
+
+      - name: Check NixOS
+        id: check
+        run: |
+          old=$(nix eval github:${{ github.repository}}/${{ needs.setup.outputs.old_deployment }}#nixosConfigurations.'${{ matrix.host }}'.config.system.build.toplevel --raw || echo null)
+          new=$(nix eval github:${{ github.repository}}/${{ needs.setup.outputs.new_deployment }}#nixosConfigurations.'${{ matrix.host }}'.config.system.build.toplevel --raw || echo null)
+          if [ "$old" != null ] && [ "$new" != null ]; then
+            echo "check=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "check=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build NixOS
+        uses: Wandalen/wretry.action@v3.5.0
+        with:
+          command: |
+            nix build --out-link old github:${{ github.repository}}/${{ needs.setup.outputs.old_deployment }}#nixosConfigurations.'${{ matrix.host }}'.config.system.build.toplevel
+            nix build --out-link new github:${{ github.repository}}/${{ needs.setup.outputs.new_deployment }}#nixosConfigurations.'${{ matrix.host }}'.config.system.build.toplevel
+
+      - name: Diff NixOS
+        run: |
+          mkdir -p changes
+          nvd diff old new > changes/${{ matrix.host }}.diff
+
+      - name: Upload Diff
+        uses: actions/upload-artifact@v4
+        if: ${{ steps.check.outputs.check == 'true' }}
+        with:
+          name: ${{ matrix.host }}
+          path: changes/${{ matrix.host }}.diff
+
+  home:
+    runs-on: x86_64-linux
+    needs: setup
+    if: ${{ needs.setup.outputs.old_deployment != '' && needs.setup.outputs.users != '[]' }}
+
+    strategy:
+      matrix:
+        user: ${{ fromJSON(needs.setup.outputs.users) }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Activate Shell
+        uses: nicknovitski/nix-develop@v1
+        with:
+          arguments: .#deploy
+
+      - name: Check Home
+        id: check
+        run: |
+          old=$(nix eval github:${{ github.repository}}/${{ needs.setup.outputs.old_deployment }}#homeConfigurations.'${{ matrix.user }}'.activationPackage --raw || echo null)
+          new=$(nix eval github:${{ github.repository}}/${{ needs.setup.outputs.new_deployment }}#homeConfigurations.'${{ matrix.user }}'.activationPackage --raw || echo null)
+          if [ "$old" != null ] && [ "$new" != null ]; then
+            echo "check=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "check=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build Home
+        uses: Wandalen/wretry.action@v3.5.0
+        with:
+          command: |
+            nix build --out-link old github:${{ github.repository}}/${{ needs.setup.outputs.old_deployment }}#homeConfigurations.'${{ matrix.user }}'.activationPackage
+            nix build --out-link new github:${{ github.repository}}/${{ needs.setup.outputs.new_deployment }}#homeConfigurations.'${{ matrix.user }}'.activationPackage
+
+      - name: Diff Home
+        run: |
+          mkdir -p changes
+          nvd diff old new > changes/${{ matrix.user }}.diff
+
+      - name: Upload Diff
+        uses: actions/upload-artifact@v4
+        if: ${{ steps.check.outputs.check == 'true' }}
+        with:
+          name: ${{ matrix.user }}
+          path: changes/${{ matrix.user }}.diff

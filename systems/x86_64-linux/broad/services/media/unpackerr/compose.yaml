@@ -1,0 +1,24 @@
+services:
+  unpackerr:
+    container_name: unpackerr
+    image: docker.io/golift/unpackerr:0.14.5
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/unpackerr/config.conf:/config/unpackerr.conf:ro
+
+      - media-downloads:/media/downloads
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:
+    depends_on:
+      - sonarr
+      - radarr

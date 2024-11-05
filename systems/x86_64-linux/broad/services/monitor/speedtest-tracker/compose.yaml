@@ -1,0 +1,44 @@
+services:
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    image: docker.io/linuxserver/speedtest-tracker:0.21.4
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-speedtest-tracker:/config
+    env_file:
+      - path: /etc/broad/speedtest-tracker/secrets.env
+        required: false
+    environment:
+      APP_URL: https://speedtest-tracker.beannet.app
+      DB_CONNECTION: sqlite
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:80 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.speedtest-tracker.loadbalancer.server.port: 80
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: Speedtest Tracker
+      homepage.icon: speedtest-tracker
+      homepage.href: https://speedtest-tracker.beannet.app
+      homepage.siteMonitor: https://speedtest-tracker.beannet.app
+      homepage.description: Speedtest Tracker is a self-hosted internet performance tracking application that runs speedtests using Ookla's Speedtest service.
+      homepage.widget.type: speedtest
+      homepage.widget.url: http://speedtest-tracker:80
+
+volumes:
+  data-speedtest-tracker:
+    name: data-speedtest-tracker

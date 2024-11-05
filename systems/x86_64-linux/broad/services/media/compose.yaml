@@ -1,0 +1,36 @@
+volumes:
+  media-shows:
+    name: media-shows
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/media/shows
+  media-anime:
+    name: media-anime
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/media/anime
+  media-movies:
+    name: media-movies
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/media/movies
+  media-youtube:
+    name: media-youtube
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/media/youtube
+  media-downloads:
+    name: media-downloads
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/media/downloads

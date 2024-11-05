@@ -1,0 +1,17 @@
+services:
+  flaresolverr:
+    container_name: flaresolverr
+    image: ghcr.io/flaresolverr/flaresolverr:v3.3.21
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^v\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:

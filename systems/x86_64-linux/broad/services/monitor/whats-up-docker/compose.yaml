@@ -1,0 +1,34 @@
+services:
+  whats-up-docker:
+    container_name: whats-up-docker
+    image: docker.io/fmartinou/whats-up-docker:6.6.1
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      WUD_WATCHER_LOCAL_WATCHBYDEFAULT: false
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.whats-up-docker.loadbalancer.server.port: 3000
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: Whats Up Docker
+      homepage.icon: whats-up-docker
+      homepage.href: https://whats-up-docker.beannet.app
+      homepage.siteMonitor: https://whats-up-docker.beannet.app
+      homepage.widget.type: whatsupdocker
+      homepage.widget.url: http://whats-up-docker:3000

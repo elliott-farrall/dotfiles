@@ -1,0 +1,41 @@
+services:
+  netalertx:
+    container_name: netalertx
+    image: docker.io/jokobsk/netalertx:24.7.18
+    restart: unless-stopped
+    # network_mode: host
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - temp-netalertx:/app/config
+      - data-netalertx:/app/db
+    healthcheck:
+      test: curl -f http://localhost:20211 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.netalertx.loadbalancer.server.port: 20211
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: NetAlertX
+      homepage.icon: netalertx
+      homepage.href: https://netalertx.beannet.app
+      homepage.siteMonitor: https://netalertx.beannet.app
+      homepage.widget.type: netalertx
+      homepage.widget.url: http://netalertx:20211
+
+volumes:
+  temp-netalertx:
+    name: temp-netalertx
+  data-netalertx:
+    name: data-netalertx

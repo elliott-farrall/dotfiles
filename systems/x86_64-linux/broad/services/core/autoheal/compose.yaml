@@ -1,0 +1,22 @@
+services:
+  autoheal:
+    container_name: autoheal
+    image: docker.io/willfarrell/autoheal:1.2.0
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      AUTOHEAL_START_PERIOD: 300
+    # healthcheck:
+    #   test: wget --no-verbose --tries=1 --spider http://localhost:? || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:

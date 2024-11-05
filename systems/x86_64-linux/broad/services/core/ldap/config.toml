@@ -1,0 +1,10 @@
+jwt_secret = "@secret@"
+key_seed = "@secret@"
+
+http_url = "https://ldap.beannet.app"
+ldap_base_dn = "dc=beannet,dc=app"
+ldap_user_dn = "admin"
+ldap_user_email = "admin@beannet.app"
+ldap_user_pass = "@password@"
+
+database_url = "sqlite:///data/users.db?mode=rwc"

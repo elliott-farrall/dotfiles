@@ -1,0 +1,61 @@
+access_control:
+  rules:
+    - domain:
+        - "romm.beannet.app"
+        - "jellyfin.beannet.app"
+        - "jellyseerr.beannet.app"
+        - "sonarr.beannet.app"
+        - "radarr.beannet.app"
+        - "prowlarr.beannet.app"
+        - "portainer.beannet.app"
+        - "speedtest-tracker.beannet.app"
+        - "ldap.beannet.app"
+      policy: "bypass"
+    - domain:
+        - "beannet.app"
+        - "*.beannet.app"
+      policy: "one_factor"
+      subject: "group:lldap_admin"
+
+authentication_backend:
+  ldap:
+    address: "ldap://ldap:3890"
+    base_dn: "DC=beannet,DC=app"
+
+    additional_users_dn: "OU=people"
+    users_filter: "(&({username_attribute}={input})(objectClass=person))"
+    # To allow sign in both with username and email, one can use a filter like
+    # (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+
+    additional_groups_dn: "OU=groups"
+    groups_filter: "(member={dn})"
+
+    user: "UID=admin,OU=people,DC=beannet,DC=app"
+    password: "@password@"
+
+    attributes:
+      distinguished_name: "distinguishedName"
+      username: "uid"
+      mail: "mail"
+      member_of: "memberOf"
+      group_name: "cn"
+
+identity_validation:
+  reset_password:
+    jwt_secret: "@secret@"
+
+storage:
+  encryption_key: "@secret@"
+  local:
+    path: "/data/db.sqlite3"
+
+notifier:
+  filesystem:
+    filename: "/data/notification.txt"
+
+session:
+  secret: "@secret@"
+  cookies:
+    - domain: "beannet.app"
+      authelia_url: "https://auth.beannet.app"
+      default_redirection_url: "https://beannet.app"

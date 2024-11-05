@@ -1,0 +1,40 @@
+services:
+  auth:
+    container_name: auth
+    image: docker.io/authelia/authelia:4.38.16
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/auth/config.yaml:/config/configuration.yml:ro
+
+      - temp-auth:/config
+      - data-auth:/data
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:9091 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.auth.loadbalancer.server.port: 9091
+      traefik.http.routers.auth.entrypoints: auth
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.auth-external.port.name: External
+      kuma.auth-external.port.parent_name: auth
+      kuma.auth-external.port.hostname: auth.beannet.app
+      kuma.auth-external.port.port: 8443
+    depends_on:
+      - ldap
+
+volumes:
+  temp-auth:
+    name: temp-auth
+  data-auth:
+    name: data-auth

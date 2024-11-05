@@ -1,0 +1,38 @@
+services:
+  jellyseerr:
+    container_name: jellyseerr
+    image: docker.io/fallenbagel/jellyseerr:1.9.2
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-jellyseerr:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.jellyseerr.loadbalancer.server.port: 5055
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Main
+      homepage.name: Jellyseerr
+      homepage.icon: jellyseerr
+      homepage.href: https://jellyseerr.beannet.app
+      homepage.siteMonitor: https://jellyseerr.beannet.app
+      homepage.widget.type: jellyseerr
+      homepage.widget.url: http://jellyseerr:5055
+      homepage.widget.key: "{{HOMEPAGE_FILE_JELLYSEERR_KEY}}"
+
+volumes:
+  data-jellyseerr:
+    name: data-jellyseerr

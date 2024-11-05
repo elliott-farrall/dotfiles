@@ -1,0 +1,60 @@
+services:
+  backup:
+    container_name: backup
+    image: ghcr.io/offen/docker-volume-backup:v2.43.0
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - backup-volume:/archive
+
+      - data-auth:/backup/data-auth:ro
+      - data-ldap:/backup/data-ldap:ro
+      - data-proxy:/backup/data-proxy:ro
+
+      - data-romm:/backup/data-romm:ro
+      - data-romm-db:/backup/data-romm-db:ro
+
+      - data-jellyfin:/backup/data-jellyfin:ro
+      - data-jellyseerr:/backup/data-jellyseerr:ro
+      - data-prowlarr:/backup/data-prowlarr:ro
+      - data-qbittorrent:/backup/data-qbittorrent:ro
+      - data-radarr:/backup/data-radarr:ro
+      - data-sabnzbd:/backup/data-sabnzbd:ro
+      - data-sonarr:/backup/data-sonarr:ro
+      - data-tubearchivist:/backup/data-tubearchivist:ro
+      - data-tubearchivist-es:/backup/data-tubearchivist-es:ro
+      - data-tubearchivist-redis:/backup/data-tubearchivist-redis:ro
+
+      - data-myspeed:/backup/data-myspeed:ro
+      - data-netalertx:/backup/data-netalertx:ro
+      - data-portainer:/backup/data-portainer:ro
+      - data-speedtest-tracker:/backup/data-speedtest-tracker:ro
+      - data-uptime-kuma:/backup/data-uptime-kuma:ro
+    env_file:
+      - path: /etc/broad/backup/secrets.env
+        required: false
+    environment:
+      AWS_S3_BUCKET_NAME: broad
+      DROPBOX_REMOTE_PATH: /Apps/beannet
+      BACKUP_LATEST_SYMLINK: backup.latest.tar.gz
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^v\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:
+
+volumes:
+  backup-volume:
+    name: backup-volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/backup/volumes

@@ -1,0 +1,14 @@
+title: BeanNet
+
+layout:
+  Main:
+    style: row
+    columns: 1
+    header: false
+  Media:
+  Monitor:
+  Network:
+    style: row
+    columns: 1
+
+hideVersion: true

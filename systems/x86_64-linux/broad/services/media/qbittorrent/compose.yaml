@@ -1,0 +1,50 @@
+services:
+  qbittorrent:
+    container_name: qbittorrent
+    image: docker.io/linuxserver/qbittorrent:4.6.7
+    restart: unless-stopped
+    network_mode: service:vpn
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/qbittorrent/config.conf:/config/qBittorrent.conf
+      - /etc/broad/qbittorrent/vuetorrent:/vuetorrent
+
+      - data-qbittorrent:/config
+
+      - media-downloads:/mnt/downloads
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8080 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+      wud.tag.exclude: '^\\d\\d\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.qbittorrent.loadbalancer.server.port: 8080
+      traefik.http.routers.qbittorrent.middlewares: theme-qbittorrent
+
+      traefik.http.middlewares.theme-qbittorrent.plugin.themepark.app: vuetorrent
+      traefik.http.middlewares.theme-qbittorrent.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Media
+      homepage.name: qBittorrent
+      homepage.icon: qbittorrent
+      homepage.href: https://qbittorrent.beannet.app
+      homepage.siteMonitor: https://qbittorrent.beannet.app
+      homepage.widget.type: qbittorrent
+      homepage.widget.url: http://vpn:8080
+      homepage.widget.username: admin
+      homepage.widget.password: "{{HOMEPAGE_FILE_QBITTORRENT_PASSWORD}}"
+
+volumes:
+  data-qbittorrent:
+    name: data-qbittorrent

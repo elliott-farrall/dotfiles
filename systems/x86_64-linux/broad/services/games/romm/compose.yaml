@@ -1,0 +1,78 @@
+services:
+  romm:
+    container_name: romm
+    image: docker.io/rommapp/romm:3.5.1
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - temp-romm:/romm/config
+      - data-romm:/redis-data
+
+      - games-library:/romm/library
+      - games-assets:/romm/assets
+      - games-resources:/romm/resources
+    env_file:
+      - path: /etc/broad/romm/secrets.env
+        required: false
+    environment:
+      DB_HOST: romm-db
+      DB_USER: romm-user
+    healthcheck:
+      test: curl -f http://localhost:8080 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.romm.loadbalancer.server.port: 8080
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Main
+      homepage.name: Romm
+      homepage.icon: romm
+      homepage.href: https://romm.beannet.app
+      homepage.siteMonitor: https://romm.beannet.app
+      homepage.widget.type: romm
+      homepage.widget.url: http://romm:8080
+      homepage.widget.username: admin
+      homepage.widget.password: "{{HOMEPAGE_FILE_ROMM_PASSWORD}}"
+    depends_on:
+      - romm-db
+
+  romm-db:
+    container_name: romm-db
+    image: docker.io/linuxserver/mariadb:10.11.8
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-romm-db:/config
+    environment:
+      MYSQL_DATABASE: romm
+      MYSQL_USER: romm-user
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:
+
+volumes:
+  temp-romm:
+    name: temp-romm
+  data-romm:
+    name: data-romm
+  data-romm-db:
+    name: data-romm-db

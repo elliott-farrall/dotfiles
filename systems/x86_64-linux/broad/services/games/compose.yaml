@@ -1,0 +1,22 @@
+volumes:
+  games-library:
+    name: games-library
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/games/library
+  games-assets:
+    name: games-assets
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/games/assets
+  games-resources:
+    name: games-resources
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/storage/games/resources

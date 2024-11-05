@@ -1,0 +1,39 @@
+services:
+  vpn:
+    container_name: vpn
+    image: docker.io/qmcgaw/gluetun:v3.39.1
+    restart: unless-stopped
+    privileged: true
+    cap_add:
+      - net_admin
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - path: /etc/broad/vpn/secrets.env
+        required: false
+    environment:
+      VPN_SERVICE_PROVIDER: mullvad
+      VPN_TYPE: wireguard
+      WIREGUARD_ADDRESSES: 10.67.109.188/32
+      SERVER_COUNTRIES: UK
+      SERVER_CITIES: London
+    healthcheck:
+      test: /gluetun-entrypoint healthcheck
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^v\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:
+
+      homepage.group: Network
+      homepage.name: VPN
+      homepage.icon: gluetun
+      homepage.widget.type: gluetun
+      homepage.widget.url: http://vpn:8000

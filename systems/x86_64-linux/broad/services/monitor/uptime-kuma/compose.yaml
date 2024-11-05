@@ -1,0 +1,85 @@
+services:
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: docker.io/louislam/uptime-kuma:1.23.15
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - data-uptime-kuma:/app/data
+    healthcheck:
+      test: curl -f http://localhost:3001 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.uptime-kuma.loadbalancer.server.port: 3001
+      traefik.http.routers.uptime-kuma.middlewares: theme-uptime-kuma
+
+      traefik.http.middlewares.theme-uptime-kuma.plugin.themepark.app: uptime-kuma
+      traefik.http.middlewares.theme-uptime-kuma.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: Uptime-Kuma
+      homepage.icon: uptime-kuma
+      homepage.href: https://uptime-kuma.beannet.app
+      homepage.siteMonitor: https://uptime-kuma.beannet.app
+      homepage.widget.type: uptimekuma
+      homepage.widget.url: http://uptime-kuma:3001
+      homepage.widget.slug: beannet
+
+  autokuma:
+    container_name: autokuma
+    image: ghcr.io/bigboot/autokuma:sha-1bd6e85
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - /etc/broad/uptime-kuma/monitors:/static:ro
+    environment:
+      AUTOKUMA__KUMA__URL: http://uptime-kuma:3001
+      AUTOKUMA__STATIC_MONITORS: /static
+      AUTOKUMA__SNIPPETS__SERVICE: |-
+        {{ container_name }}.group.name: {{ container_name }}
+        {{ container_name }}.group.parent_name: services
+      AUTOKUMA__SNIPPETS__INTERNAL: |-
+        {{ container_name }}-internal.docker.name: internal
+        {{ container_name }}-internal.docker.parent_name: {{ container_name}}
+        {{ container_name }}-internal.docker.docker_host_name: broad
+        {{ container_name }}-internal.docker.docker_container: {{ container_name }}
+      AUTOKUMA__SNIPPETS__EXTERNAL: |-
+        {{ container_name }}-external.http.name: external
+        {{ container_name }}-external.http.parent_name: {{ container_name }}
+        {{ container_name }}-external.http.url: https://{{ container_name }}.beannet.app
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.broad.docker_host.connection_type: socket
+      kuma.broad.docker_host.docker_daemon: /var/run/docker.sock
+
+      kuma.services.group.name: services
+
+      kuma.__service:
+      kuma.__internal:
+    depends_on:
+      - uptime-kuma
+
+volumes:
+  data-uptime-kuma:
+    name: data-uptime-kuma

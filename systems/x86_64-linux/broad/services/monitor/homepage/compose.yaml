@@ -1,0 +1,51 @@
+services:
+  homepage:
+    container_name: homepage
+    image: ghcr.io/gethomepage/homepage:v0.9.11
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - /etc/broad/homepage/bookmarks.yaml:/app/config/bookmarks.yaml:ro
+      - /etc/broad/homepage/docker.yaml:/app/config/docker.yaml:ro
+      - /etc/broad/homepage/_blank.yaml:/app/config/services.yaml:ro
+      - /etc/broad/homepage/settings.yaml:/app/config/settings.yaml:ro
+      - /etc/broad/homepage/widgets.yaml:/app/config/widgets.yaml:ro
+
+      - /etc/broad/password:/keys/password:ro
+      - /etc/broad/jellyfin/key:/keys/jellyfin:ro
+      - /etc/broad/jellyseerr/key:/keys/jellyseerr:ro
+      - /etc/broad/portainer/key:/keys/portainer:ro
+      - /etc/broad/prowlarr/key:/keys/prowlarr:ro
+      - /etc/broad/radarr/key:/keys/radarr:ro
+      - /etc/broad/sabnzbd/key:/keys/sabnzbd:ro
+      - /etc/broad/sonarr/key:/keys/sonarr:ro
+      - /etc/broad/tubearchivist/key:/keys/tubearchivist:ro
+    environment:
+      HOMEPAGE_FILE_JELLYFIN_KEY: /keys/jellyfin
+      HOMEPAGE_FILE_JELLYSEERR_KEY: /keys/jellyseerr
+      HOMEPAGE_FILE_PORTAINER_KEY: /keys/portainer
+      HOMEPAGE_FILE_PROWLARR_KEY: /keys/prowlarr
+      HOMEPAGE_FILE_QBITTORRENT_PASSWORD: /keys/password
+      HOMEPAGE_FILE_RADARR_KEY: /keys/radarr
+      HOMEPAGE_FILE_ROMM_PASSWORD: /keys/password
+      HOMEPAGE_FILE_SABNZBD_KEY: /keys/sabnzbd
+      HOMEPAGE_FILE_SONARR_KEY: /keys/sonarr
+      HOMEPAGE_FILE_TUBEARCHIVIST_KEY: /keys/tubearchivist
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^v\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.homepage.loadbalancer.server.port: 3000
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:

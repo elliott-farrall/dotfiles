@@ -1,0 +1,12 @@
+- greeting:
+    text: BeanNet
+    text_size: 4xl
+
+- glances:
+    url: http://glances:61208
+    version: 4
+    cpu: true
+    mem: true
+    cputemp: true
+    uptime: true
+    disk: /mnt/broad/storage

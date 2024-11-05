@@ -1,0 +1,5 @@
+http:
+  routers:
+    home:
+      service: homepage@docker
+      rule: Host(`beannet.app`)

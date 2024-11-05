@@ -1,0 +1,49 @@
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: docker.io/linuxserver/jellyfin:10.10.0
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-jellyfin:/config
+
+      - media-shows:/data/shows
+      - media-anime:/data/anime
+      - media-movies:/data/movies
+    environment:
+      JELLYFIN_PublishedServerUrl: jellyfin.beannet.app #optional
+    healthcheck:
+      test: curl -f http://localhost:8096 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+      wud.tag.exclude: '^\\d\\d\\d\\d\\.\\d\\d\\.\\d\\d$$$$'
+
+      traefik.enable: true
+      traefik.http.services.jellyfin.loadbalancer.server.port: 8096
+      traefik.http.routers.jellyfin.middlewares: theme-jellyfin
+
+      traefik.http.middlewares.theme-jellyfin.plugin.themepark.app: jellyfin
+      traefik.http.middlewares.theme-jellyfin.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Main
+      homepage.name: Jellyfin
+      homepage.icon: jellyfin
+      homepage.href: https://jellyfin.beannet.app
+      homepage.siteMonitor: https://jellyfin.beannet.app
+      homepage.widget.type: jellyfin
+      homepage.widget.url: http://jellyfin:8096
+      homepage.widget.key: "{{HOMEPAGE_FILE_JELLYFIN_KEY}}"
+
+volumes:
+  data-jellyfin:
+    name: data-jellyfin

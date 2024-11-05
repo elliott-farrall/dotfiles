@@ -1,0 +1,44 @@
+services:
+  portainer:
+    container_name: portainer
+    image: docker.io/portainer/portainer-ce:2.21.1-alpine
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+      - data-portainer:/data
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:9000 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+-alpine$$$$'
+
+      traefik.enable: true
+      traefik.http.services.portainer.loadbalancer.server.port: 9000
+      traefik.http.routers.portainer.middlewares: theme-portainer
+
+      traefik.http.middlewares.theme-portainer.plugin.themepark.app: portainer
+      traefik.http.middlewares.theme-portainer.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Monitor
+      homepage.name: Portainer
+      homepage.icon: portainer
+      homepage.href: https://portainer.beannet.app
+      homepage.siteMonitor: https://portainer.beannet.app
+      homepage.widget.type: portainer
+      homepage.widget.url: http://portainer:9000
+      homepage.widget.env: 2
+      homepage.widget.key: "{{HOMEPAGE_FILE_PORTAINER_KEY}}"
+
+volumes:
+  data-portainer:
+    name: data-portainer

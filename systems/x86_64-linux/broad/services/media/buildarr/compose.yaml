@@ -1,0 +1,41 @@
+services:
+  buildarr:
+    container_name: buildarr
+    image: docker.io/callum027/buildarr:0.7.8
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/buildarr/config.yaml:/config/buildarr.yml:ro
+
+      - temp-buildarr:/config
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:
+    depends_on:
+      - sonarr
+      - radarr
+      - prowlarr
+      - jellyseerr
+      - jellyseerr-check
+
+  jellyseerr-check:
+    container_name: jellyseerr-check
+    image: docker.io/jwilder/dockerize:0.6.1
+    restart: no
+    command: dockerize -wait=http://jellyseerr:5055 -timeout 180s
+    labels:
+      compose2nix.systemd.service.Type: oneshot
+    depends_on:
+      - jellyseerr
+
+volumes:
+  temp-buildarr:
+    name: temp-buildarr

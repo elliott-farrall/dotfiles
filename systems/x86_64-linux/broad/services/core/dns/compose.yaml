@@ -1,0 +1,22 @@
+services:
+  dns:
+    container_name: dns
+    image: docker.io/spx01/blocky:v0.24
+    restart: unless-stopped
+    # ports:
+    #   - 53:53/tcp
+    #   - 53:53/udp
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/dns/config.yaml:/app/config.yml:ro
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^v\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:

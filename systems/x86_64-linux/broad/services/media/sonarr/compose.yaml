@@ -1,0 +1,46 @@
+services:
+  sonarr:
+    container_name: sonarr
+    image: docker.io/linuxserver/sonarr:4.0.10
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-sonarr:/config
+
+      - media-shows:/mnt/shows
+      - media-anime:/mnt/anime
+      - media-downloads:/mnt/downloads
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8989 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.sonarr.loadbalancer.server.port: 8989
+      traefik.http.routers.sonarr.middlewares: theme-sonarr
+
+      traefik.http.middlewares.theme-sonarr.plugin.themepark.app: sonarr
+      traefik.http.middlewares.theme-sonarr.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Media
+      homepage.name: Sonarr
+      homepage.icon: sonarr
+      homepage.href: https://sonarr.beannet.app
+      homepage.siteMonitor: https://sonarr.beannet.app
+      homepage.widget.type: sonarr
+      homepage.widget.url: http://sonarr:8989
+      homepage.widget.key: "{{HOMEPAGE_FILE_SONARR_KEY}}"
+
+volumes:
+  data-sonarr:
+    name: data-sonarr

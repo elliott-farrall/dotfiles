@@ -1,0 +1,22 @@
+services:
+  recyclarr:
+    container_name: recyclarr
+    image: docker.io/recyclarr/recyclarr:7.2.4
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/recyclarr/config.yaml:/config/recyclarr.yml:ro
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:
+    depends_on:
+      - sonarr
+      - radarr

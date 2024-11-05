@@ -1,0 +1,25 @@
+services:
+  ddns:
+    container_name: ddns
+    image: docker.io/favonia/cloudflare-ddns:1.15.0
+    restart: unless-stopped
+    user: 0:0 # TODO: Find better way to read token
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/ddns/cloudflare:/token:ro
+    environment:
+      CF_API_TOKEN_FILE: /token
+      DOMAINS: beannet.app, *.beannet.app
+      PROXIED: true
+      IP6_PROVIDER: none
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      kuma.__service:
+      kuma.__internal:

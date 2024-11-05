@@ -1,0 +1,45 @@
+services:
+  radarr:
+    container_name: radarr
+    image: docker.io/linuxserver/radarr:5.9.1
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-radarr:/config
+
+      - media-movies:/mnt/movies
+      - media-downloads:/mnt/downloads
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:7878 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.radarr.loadbalancer.server.port: 7878
+      traefik.http.routers.radarr.middlewares: theme-radarr
+
+      traefik.http.middlewares.theme-radarr.plugin.themepark.app: radarr
+      traefik.http.middlewares.theme-radarr.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Media
+      homepage.name: Radarr
+      homepage.icon: radarr
+      homepage.href: https://radarr.beannet.app
+      homepage.siteMonitor: https://radarr.beannet.app
+      homepage.widget.type: radarr
+      homepage.widget.url: http://radarr:7878
+      homepage.widget.key: "{{HOMEPAGE_FILE_RADARR_KEY}}"
+
+volumes:
+  data-radarr:
+    name: data-radarr

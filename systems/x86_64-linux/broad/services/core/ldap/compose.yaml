@@ -1,0 +1,37 @@
+services:
+  ldap:
+    container_name: ldap
+    image: docker.io/nitnelave/lldap:2024-09-02-alpine-rootless
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - /etc/broad/ldap/config.toml:/data/lldap_config.toml:ro
+
+      - data-ldap:/data
+    healthcheck:
+      test: timeout 10s bash -c ':> /dev/tcp/localhost/17170' || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d\\d\\d\\d-\\d\\d-\\d\\d-alpine-rootless$$$$'
+
+      traefik.enable: true
+      traefik.http.services.ldap.loadbalancer.server.port: 17170
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Network
+      homepage.name: LDAP
+      homepage.icon: https://i0.wp.com/ldap.com/wp-content/uploads/2018/04/ldapdotcom-transparent-background-without-text-768x768.png
+      homepage.href: https://ldap.beannet.app
+      homepage.siteMonitor: https://ldap.beannet.app
+
+volumes:
+  data-ldap:
+    name: data-ldap

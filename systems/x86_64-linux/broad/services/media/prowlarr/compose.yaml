@@ -1,0 +1,42 @@
+services:
+  prowlarr:
+    container_name: prowlarr
+    image: docker.io/linuxserver/prowlarr:1.23.1
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      - data-prowlarr:/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:9696 || exit 1
+    labels:
+      autoheal: true
+
+      io.containers.autoupdate: registry
+
+      wud.watch: true
+      wud.tag.include: '^\\d+\\.\\d+\\.\\d+$$$$'
+
+      traefik.enable: true
+      traefik.http.services.prowlarr.loadbalancer.server.port: 9696
+      traefik.http.routers.prowlarr.middlewares: theme-prowlarr
+
+      traefik.http.middlewares.theme-prowlarr.plugin.themepark.app: prowlarr
+      traefik.http.middlewares.theme-prowlarr.plugin.themepark.theme: catppuccin-macchiato
+
+      kuma.__service:
+      kuma.__internal:
+      kuma.__external:
+
+      homepage.group: Media
+      homepage.name: Prowlarr
+      homepage.icon: prowlarr
+      homepage.href: https://prowlarr.beannet.app
+      homepage.siteMonitor: https://prowlarr.beannet.app
+      homepage.widget.type: prowlarr
+      homepage.widget.url: http://prowlarr:9696
+      homepage.widget.key: "{{HOMEPAGE_FILE_PROWLARR_KEY}}"
+
+volumes:
+  data-prowlarr:
+    name: data-prowlarr

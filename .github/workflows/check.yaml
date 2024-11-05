@@ -1,0 +1,33 @@
+name: Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  flake:
+    runs-on: x86_64-linux
+
+    permissions:
+      id-token: "write"
+      contents: "read"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check Flake Inputs
+        uses: DeterminateSystems/flake-checker-action@v9
+
+  prebuild:
+    runs-on: x86_64-linux
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Prebuild Scripts
+        run: find systems/*/*/ -name PREBUILD.sh -exec bash {} \;
+
+      - name: Check for Changes
+        run: git diff --exit-code
