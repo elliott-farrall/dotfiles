@@ -49,7 +49,7 @@ services:
 
   romm-db:
     container_name: romm-db
-    image: docker.io/linuxserver/mariadb:10.11.8
+    image: docker.io/linuxserver/mariadb:10.11.10
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
