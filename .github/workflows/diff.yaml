@@ -73,7 +73,7 @@ jobs:
           fi
 
       - name: Build NixOS
-        uses: Wandalen/wretry.action@v3.5.0
+        uses: Wandalen/wretry.action@v3.7.2
         with:
           command: |
             nix build --out-link old github:${{ github.repository}}/${{ needs.setup.outputs.old_deployment }}#nixosConfigurations.'${{ matrix.host }}'.config.system.build.toplevel
@@ -121,7 +121,7 @@ jobs:
           fi
 
       - name: Build Home
-        uses: Wandalen/wretry.action@v3.5.0
+        uses: Wandalen/wretry.action@v3.7.2
         with:
           command: |
             nix build --out-link old github:${{ github.repository}}/${{ needs.setup.outputs.old_deployment }}#homeConfigurations.'${{ matrix.user }}'.activationPackage
