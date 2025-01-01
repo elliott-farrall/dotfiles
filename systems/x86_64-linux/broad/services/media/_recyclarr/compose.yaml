@@ -1,7 +1,7 @@
 services:
   recyclarr:
     container_name: recyclarr
-    image: docker.io/recyclarr/recyclarr:7.2.4
+    image: docker.io/recyclarr/recyclarr:7.4.0
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
