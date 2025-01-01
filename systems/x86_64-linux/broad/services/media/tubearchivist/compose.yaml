@@ -65,7 +65,7 @@ services:
 
   tubearchivist-es:
     container_name: tubearchivist-es
-    image: docker.io/elasticsearch:8.15.3
+    image: docker.io/elasticsearch:8.17.0
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
