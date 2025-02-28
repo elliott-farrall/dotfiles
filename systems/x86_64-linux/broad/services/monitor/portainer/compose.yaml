@@ -1,7 +1,7 @@
 services:
   portainer:
     container_name: portainer
-    image: docker.io/portainer/portainer-ce:2.21.1-alpine
+    image: docker.io/portainer/portainer-ce:2.27.1-alpine
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
