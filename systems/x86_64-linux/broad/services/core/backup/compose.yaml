@@ -1,7 +1,7 @@
 services:
   backup:
     container_name: backup
-    image: ghcr.io/offen/docker-volume-backup:v2.43.0
+    image: ghcr.io/offen/docker-volume-backup:v2.43.3
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro

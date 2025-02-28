@@ -1,7 +1,7 @@
 services:
   glances:
     container_name: glances
-    image: docker.io/nicolargo/glances:4.1.2.1
+    image: docker.io/nicolargo/glances:4.3.0.8
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
