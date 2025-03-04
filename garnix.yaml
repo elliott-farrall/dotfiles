@@ -1,0 +1,5 @@
+servers:
+  - configuration: runner
+    deployment:
+      type: on-branch
+      branch: main

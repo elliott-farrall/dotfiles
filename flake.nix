@@ -211,10 +211,10 @@
           hostname = "lima";
           profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.lima;
         };
-        nodes.runner = {
-          hostname = "runner";
-          profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.runner;
-        };
+        # nodes.runner = {
+        #   hostname = "runner";
+        #   profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.runner;
+        # };
       };
     };
 }

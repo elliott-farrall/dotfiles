@@ -3,11 +3,15 @@
 }:
 
 {
-  imports = [
-    ./disko.nix
-  ];
-
   nixpkgs.hostPlatform = { inherit system; };
 
-  facter.reportPath = ./hardware.json;
+  fileSystems."/" = {
+    device = "/dev/sda1";
+    fsType = "ext4";
+  };
+  boot.loader.grub.device = "/dev/sda";
+
+  age.identityPaths = [
+    "/var/garnix/keys/repo-key"
+  ];
 }
