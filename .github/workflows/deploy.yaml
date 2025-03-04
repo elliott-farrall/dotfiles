@@ -53,7 +53,7 @@ jobs:
           tags: tag:deploy
 
       - name: Setup NixBuild
-        uses: nixbuild/nixbuild-action@v19
+        uses: nixbuild/nixbuild-action@v20
         with:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
 
