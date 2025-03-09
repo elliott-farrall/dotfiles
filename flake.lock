@@ -593,6 +593,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-bitwarden": {
+      "locked": {
+        "lastModified": 1736684936,
+        "narHash": "sha256-B60EVvY0vd6RhzYnO8POe7lRcGyOQgYTgY58C2vKTEo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d32d08c1255523d266033f08a2e6cacb8601ec52",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d32d08c1255523d266033f08a2e6cacb8601ec52",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -735,6 +751,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-bitwarden": "nixpkgs-bitwarden",
         "pre-commit-hooks": "pre-commit-hooks",
         "rofi-mixer": "rofi-mixer",
         "rofi-network-manager": "rofi-network-manager",

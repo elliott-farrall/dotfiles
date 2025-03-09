@@ -212,6 +212,9 @@
       url = "github:ericmurphyxyz/rofi-wifi-menu";
       flake = false;
     };
+    nixpkgs-bitwarden = {
+      url = "github:NixOS/nixpkgs?rev=d32d08c1255523d266033f08a2e6cacb8601ec52";
+    };
   };
 
   nixConfig = {
