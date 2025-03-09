@@ -4,7 +4,7 @@
 }:
 
 let
-  pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJLh0wL2CDMQL0iVtyC2V+RPNJiWoO3oLBsjgYW8fmgt"; # Doesn't match saved public key
+  pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJLh0wL2CDMQL0iVtyC2V+RPNJiWoO3oLBsjgYW8fmgt";
 in
 {
   age.secrets = {
