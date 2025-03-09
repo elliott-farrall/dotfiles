@@ -1,4 +1,5 @@
-{ config
+{ osConfig ? null
+, config
 , lib
 , ...
 }:
@@ -11,7 +12,10 @@ let
 in
 {
   config = lib.mkIf enable {
-    programs.firefox.enable = true;
+    programs.firefox = {
+      enable = true;
+      nativeMessagingHosts = osConfig.programs.firefox.nativeMessagingHosts.packages or [ ];
+    };
 
     home.sessionVariables.BROWSER = "firefox";
 
