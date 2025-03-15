@@ -52,6 +52,12 @@ lib.pre-commit-hooks.${system}.run {
 
     /* --------------------------------- Custom --------------------------------- */
 
+    act = {
+      enable = false;
+      entry = "${lib.getExe pkgs.act} -nW";
+      files = "^\\.github/workflows/.*\\.yaml$";
+    };
+
     follow-inputs = {
       enable = true;
       entry = builtins.toString (pkgs.writeShellScript "follow-inputs" ''

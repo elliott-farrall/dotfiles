@@ -1,6 +1,8 @@
 .direnv/
 .pre-commit-config.yaml
-.github/act
+
+.artifacts
+.secrets
 
 result
 *.qcow2

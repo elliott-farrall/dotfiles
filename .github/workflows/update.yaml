@@ -5,20 +5,21 @@ on:
   schedule:
     - cron: "0 0 * * 6" # runs weekly on Saturday at 00:00
 
+env:
+  ACT: 0
+
 jobs:
   update:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v30
-        with:
-          nix_conf: |
-            accept-flake-config = true
-            build-users-group =
-
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+        with:
+          use-cache: ${{ !env.ACT }}
 
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v24

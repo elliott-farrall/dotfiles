@@ -1,2 +1,2 @@
---platform ubuntu-latest=catthehacker/ubuntu:full-latest
---artifact-server-path .github/act
+--platform ubuntu-latest=catthehacker/ubuntu:act-latest
+--artifact-server-path .artifacts
