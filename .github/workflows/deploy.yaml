@@ -4,8 +4,11 @@ on:
   push:
     branches: [main]
 
+permissions:
+  actions: write
+
 env:
-  USER: runner
+  ACT: false
 
 jobs:
   setup:
@@ -17,22 +20,13 @@ jobs:
       run: ${{ steps.run.outputs.id }}
 
     steps:
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v30
-        with:
-          nix_conf: |
-            accept-flake-config = true
-            build-users-group =
-
-      - name: Setup Cache
-        uses: nix-community/cache-nix-action@v6
-        if: ${{ !env.ACT }}
-        with:
-          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-
-
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+        with:
+          use-cache: ${{ !env.ACT }}
 
       - name: Get Hosts
         id: hosts
@@ -43,6 +37,7 @@ jobs:
         run: echo "users=$(nix eval --json --apply builtins.attrNames .#homeConfigurations | jq -c '[.[] | select(. | split("@")[1] | IN(${{ steps.hosts.outputs.hosts }}[]))]')" >> "$GITHUB_OUTPUT"
 
       - name: Get Run ID
+        if: env.ACT
         id: run
         env:
           GH_TOKEN: ${{ github.token}}
@@ -51,6 +46,8 @@ jobs:
       - name: Checks...
         uses: int128/wait-for-workflows-action@v1.36.0
         with:
+          initial-delay-seconds: 0
+          period-seconds: 5
           filter-workflow-names: |
             Check Inputs
             Format
@@ -66,34 +63,17 @@ jobs:
         host: ${{ fromJSON(needs.setup.outputs.hosts) }}
 
     steps:
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v30
-        with:
-          nix_conf: |
-            accept-flake-config = true
-            build-users-group =
-
-      - name: Setup Cache
-        uses: nix-community/cache-nix-action@v6
-        if: ${{ !env.ACT }}
-        with:
-          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-
-
-      - name: Install Tailscale
-        uses: Pikachews/tailscale-action@v1 # https://github.com/tailscale/github-action/issues/120
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:deploy
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Add Host
-        run: |
-          mkdir -p ~/.ssh
-          until ssh-keyscan ${{ matrix.host }} >> ~/.ssh/known_hosts; do sleep 5; done
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+        with:
+          use-cache: ${{ !env.ACT }}
+          ts-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          ts-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          hostname: ${{ matrix.host }}
+          ssh-key: ${{ env.ACT && secrets.SSH_PRIVATE_KEY }}
 
       - name: Build & Deploy
         run: nix run nixpkgs#deploy-rs -- ${ACT:+--dry-activate} --skip-checks --remote-build .#${{ matrix.host }}
@@ -107,37 +87,25 @@ jobs:
         host: ${{ fromJSON(needs.setup.outputs.hosts) }}
 
     steps:
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v30
-        with:
-          nix_conf: |
-            accept-flake-config = true
-            build-users-group =
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Setup Cache
-        uses: nix-community/cache-nix-action@v6
-        if: ${{ !env.ACT }}
+      - name: Setup Environment
+        uses: ./.github/actions/setup
         with:
-          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-
-
-      - name: Install Tailscale
-        uses: Pikachews/tailscale-action@v1 # https://github.com/tailscale/github-action/issues/120
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:deploy
-
-      - name: Add Host
-        run: |
-          mkdir -p ~/.ssh
-          until ssh-keyscan ${{ matrix.host }} >> ~/.ssh/known_hosts; do sleep 5; done
+          use-cache: ${{ !env.ACT }}
+          ts-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          ts-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          hostname: ${{ matrix.host }}
+          ssh-key: ${{ env.ACT && secrets.SSH_PRIVATE_KEY }}
 
       - name: Get Generation File
         uses: actions/download-artifact@v4
+        if: env.ACT
         id: download
         with:
           name: generations-${{ matrix.host }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ needs.setup.outputs.run }}
         continue-on-error: true
 
@@ -148,10 +116,14 @@ jobs:
 
       - name: Get New Generation
         id: new
-        run: echo "gen=$(ssh -v root@${{ matrix.host }} ls /nix/var/nix/profiles | sed 's/.*system-\([0-9]*\)-link/\1/' | sort -n | tail -n 1)" >> "$GITHUB_OUTPUT"
+        env:
+          PROFILE_DIR: /nix/var/nix/profiles
+          PROFILE_NAME: system
+        run: echo "gen=$(ssh root@${{ matrix.host }} ls ${{ env.PROFILE_DIR }} | sed 's/.*${{ env.PROFILE_NAME }}-\([0-9]*\)-link/\1/' | sort -n | tail -n 1)" >> "$GITHUB_OUTPUT"
 
       - name: Create Generations File
-        run: jq -n --arg old "${{ steps.old.outputs.gen }}" --arg new "${{ steps.new.outputs.gen }}" '$ARGS.named' > generations.json
+        id: create
+        run: jq -n --arg old "${{ steps.old.outputs.gen || '' }}" --arg new "${{ steps.new.outputs.gen }}" '$ARGS.named' > generations.json
 
       - name: Upload Generations File
         uses: actions/upload-artifact@v4
@@ -160,20 +132,24 @@ jobs:
           path: generations.json
 
       - name: Create Diff
-        if: steps.download.outcome == 'success'
+        if: steps.old.outcome == 'success'
         id: diff
+        env:
+          OLD: /nix/var/nix/profiles/system-${{ steps.old.outputs.gen }}-link
+          NEW: /nix/var/nix/profiles/system-${{ steps.new.outputs.gen }}-link
         run: |
-          echo "diff=$(ssh root@${{ matrix.host }} nix run nixpkgs#nvd -- diff \
-            /nix/var/nix/profiles/system-${{ steps.old.outputs.gen }}-link \
-            /nix/var/nix/profiles/system-${{ steps.new.outputs.gen }}-link \
-          )" >> "$GITHUB_OUTPUT"
+          {
+            echo 'diff<<EOF'
+            ssh root@${{ matrix.host }} nix run nixpkgs#nvd -- diff ${{ env.OLD }} ${{ env.NEW }}
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
-        if: steps.download.outcome == 'success'
+        if: steps.diff.outcome == 'success'
         run: |
           {
             echo "\`\`\`"
-            echo "${{ steps.diff.outputs.diff }}"
+            echo "${{ steps.diff.outputs.diff }})" | base64 --decode
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -186,43 +162,31 @@ jobs:
         user: ${{ fromJSON(needs.setup.outputs.users) }}
 
     steps:
-      - name: Split User
+      - name: Split User # https://github.com/actions/runner/issues/2125
         id: split
         run: |
           echo "user=$(echo ${{ matrix.user }} | awk -F'@' '{print $1}')" >> "$GITHUB_OUTPUT"
           echo "host=$(echo ${{ matrix.user }} | awk -F'@' '{print $2}')" >> "$GITHUB_OUTPUT"
 
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v30
-        with:
-          nix_conf: |
-            accept-flake-config = true
-            build-users-group =
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Setup Cache
-        uses: nix-community/cache-nix-action@v6
-        if: ${{ !env.ACT }}
+      - name: Setup Environment
+        uses: ./.github/actions/setup
         with:
-          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-
-
-      - name: Install Tailscale
-        uses: Pikachews/tailscale-action@v1 # https://github.com/tailscale/github-action/issues/120
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:deploy
-
-      - name: Add Host
-        run: |
-          mkdir -p ~/.ssh
-          until ssh-keyscan ${{ steps.split.outputs.host }} >> ~/.ssh/known_hosts; do sleep 5; done
+          use-cache: ${{ !env.ACT }}
+          ts-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          ts-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          hostname: ${{ steps.split.outputs.host }}
+          ssh-key: ${{ env.ACT && secrets.SSH_PRIVATE_KEY }}
 
       - name: Get Generation File
         uses: actions/download-artifact@v4
+        if: env.ACT
         id: download
         with:
           name: generations-${{ matrix.user }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ needs.setup.outputs.run }}
         continue-on-error: true
 
@@ -233,10 +197,14 @@ jobs:
 
       - name: Get New Generation
         id: new
-        run: echo "gen=$(ssh root@${{ steps.split.outputs.host }} "ls /home/${{ steps.split.outputs.user }}/.local/state/nix/profiles | sed 's/.*home-manager-\([0-9]*\)-link/\1/' | sort -n | tail -n 1")" >> "$GITHUB_OUTPUT"
+        env:
+          PROFILE_DIR: /home/${{ steps.split.outputs.user }}/.local/state/nix/profiles
+          PROFILE_NAME: home-manager
+        run: echo "gen=$(ssh root@${{ steps.split.outputs.host }} "ls ${{ env.PROFILE_DIR }} | sed 's/.*${{ env.PROFILE_NAME }}-\([0-9]*\)-link/\1/' | sort -n | tail -n 1")" >> "$GITHUB_OUTPUT"
 
       - name: Create Generations File
-        run: jq -n --arg old "${{ steps.old.outputs.gen }}" --arg new "${{ steps.new.outputs.gen }}" '$ARGS.named' > generations.json
+        id: create
+        run: jq -n --arg old "${{ steps.old.outputs.gen || '' }}" --arg new "${{ steps.new.outputs.gen }}" '$ARGS.named' > generations.json
 
       - name: Upload Generations File
         uses: actions/upload-artifact@v4
@@ -245,13 +213,17 @@ jobs:
           path: generations.json
 
       - name: Create Diff
-        if: steps.download.outcome == 'success'
+        if: steps.old.outcome == 'success'
         id: diff
+        env:
+          OLD: /home/${{ steps.split.outputs.user }}/.local/state/nix/profiles/home-manager-${{ steps.old.outputs.gen }}-link
+          NEW: /home/${{ steps.split.outputs.user }}/.local/state/nix/profiles/home-manager-${{ steps.new.outputs.gen }}-link
         run: |
-          echo "diff=$(ssh root@${{ steps.split.outputs.host }} nix run nixpkgs#nvd -- diff \
-            /home/${{ steps.split.outputs.user }}/.local/state/nix/profiles/home-manager-${{ steps.old.outputs.gen }}-link \
-            /home/${{ steps.split.outputs.user }}/.local/state/nix/profiles/home-manager-${{ steps.new.outputs.gen }}-link \
-          )" >> "$GITHUB_OUTPUT"
+          {
+            echo 'diff<<EOF'
+            ssh root@${{ steps.split.outputs.host }} nix run nixpkgs#nvd -- diff ${{ env.OLD }} ${{ env.NEW }}
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
         if: steps.diff.outcome == 'success'

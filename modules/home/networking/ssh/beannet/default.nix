@@ -40,20 +40,20 @@
       '';
     };
 
-    # lima-internal = {
-    #   hostname = "localhost";
-    #   user = "root";
-    #   identityFile = config.age.secrets."users/root/key".path;
-    #   match = ''
-    #     host lima exec "nc -z localhost %p"
-    #   '';
-    # };
+    lima-internal = {
+      hostname = "localhost";
+      user = "root";
+      identityFile = config.age.secrets."users/root/key".path;
+      match = ''
+        host lima exec "nc -z localhost %p"
+      '';
+    };
     lima-external = {
       hostname = "lima";
       user = "root";
-      # match = ''
-      #   host lima !exec "nc -z localhost %p"
-      # '';
+      match = ''
+        host lima !exec "nc -z localhost %p"
+      '';
     };
   };
 }

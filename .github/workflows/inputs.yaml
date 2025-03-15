@@ -5,28 +5,21 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  ACT: 0
+
 jobs:
   follow:
     runs-on: ubuntu-latest
 
     steps:
-      - run: groups
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v30
-        with:
-          nix_conf: |
-            accept-flake-config = true
-            build-users-group =
-
-      - name: Setup Cache
-        uses: nix-community/cache-nix-action@v6
-        if: ${{ !env.ACT }}
-        with:
-          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-
-
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+        with:
+          use-cache: ${{ !env.ACT }}
 
       - name: Follow Flake Inputs
         run: nix run github:fzakaria/nix-auto-follow -- -i
