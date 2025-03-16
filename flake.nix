@@ -29,6 +29,7 @@
           agenix-substitutes.homeManagerModules.default
           impermanence.homeManagerModules.impermanence
           nix-index-database.hmModules.nix-index
+          rclonix.homeModules.default
           stylix.homeManagerModules.stylix
         ];
 
@@ -102,6 +103,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # nix-monitored.url = "github:ners/nix-monitored";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    rclonix.url = "github:elliott-farrall/rclonix";
     rofi-plugins.url = "github:elliott-farrall/rofi-plugins?rev=990fbb21bb5152ba116571704f1ba99d3dbb377f";
     snowfall-lib.url = "github:snowfallorg/lib";
     stylix.url = "github:danth/stylix";

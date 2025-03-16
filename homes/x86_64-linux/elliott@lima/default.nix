@@ -4,9 +4,6 @@
 }:
 
 {
-  imports = [
-    ./config
-  ];
 
   /* --------------------------------- Desktop -------------------------------- */
 
@@ -61,4 +58,5 @@
       "[workspace special:terminal silent] $TERMINAL"
     ];
   };
+
 }
