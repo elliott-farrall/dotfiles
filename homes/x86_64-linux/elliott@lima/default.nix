@@ -38,7 +38,6 @@
     devbox
     devenv
     flox
-    texlive.combined.scheme-full
   ];
 
   /* ----------------------------- Personalisation ---------------------------- */
