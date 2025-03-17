@@ -1,0 +1,34 @@
+diff --git a/package-lock.json b/package-lock.json
+index 39a380b6..2b837ede 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -2700,7 +2700,8 @@
+       "integrity": "sha512-ZdzmqwKmECOWJpqefloC5OJy1+WZBBse5+MR88z9g9Zn4VY+WYUkAyojmhzJckH5YbbZGcYIuGAkY5/Ys5OM2Q==",
+       "license": "MIT",
+       "os": [
+-        "darwin"
++        "darwin",
++        "linux"
+       ],
+       "dependencies": {
+         "@types/plist": "^3.0.1",
+@@ -3705,7 +3706,8 @@
+       "license": "MIT",
+       "optional": true,
+       "os": [
+-        "darwin"
++        "darwin",
++        "linux"
+       ],
+       "engines": {
+         "node": "^8.16.0 || ^10.6.0 || >=11.0.0"
+@@ -4068,7 +4070,8 @@
+       "integrity": "sha512-T10qvkw0zz4wnm560lOEg0PovVqUXuOFhhHAkixw8/sycy7TJt7v/RrkEKEQnAw2viPSJu6iAkErxnzR0g8PpQ==",
+       "license": "MIT",
+       "os": [
+-        "darwin"
++        "darwin",
++        "linux"
+       ],
+       "dependencies": {
+         "cli-truncate": "^2.1.0",
