@@ -7,25 +7,14 @@
 let
   cfg = config.greeter;
   enable = cfg == "tuigreet";
-
-  inherit (config.services.displayManager.sessionData) desktops;
-
-  accent = config.catppuccin.accentBase16;
 in
 {
-  imports = [
-    ./logs_fix.nix
-  ];
+  # imports = [
+  #   ./logs_fix.nix
+  # ];
 
   config = lib.mkIf enable {
-    services.greetd.settings.default_session.command = ''${lib.getExe pkgs.greetd.tuigreet} \
-      --remember \
-      --remember-session \
-      --user-menu \
-      --session-wrapper '${pkgs.execline}/bin/exec > /dev/null' \
-      --sessions ${desktops}/share/wayland-sessions \
-      --xsessions ${desktops}/share/xsessions \
-      --theme 'border=${accent};prompt=${accent};action=${accent}'
-    '';
+    services.greetd.settings.default_session.command = "${lib.getExe pkgs.kmscon} -l -- ${lib.getExe pkgs.greetd.tuigreet}";
+    systemd.services."autovt@tty1".enable = lib.mkForce true;
   };
 }
