@@ -11,9 +11,11 @@
 
         overlays = with inputs; [
           agenix.overlays.default
+          catppuccin-vsc.overlays.default
           code-insiders.overlays.default
           devshell.overlays.default
           nix-auto-follow.overlays.default
+          nix-vscode-extensions.overlays.default
           rofi-plugins.overlays.default
         ];
 
@@ -86,6 +88,7 @@
   inputs = {
     agenix.url = "github:ryantm/agenix";
     agenix-substitutes.url = "github:elliott-farrall/agenix-substitutes";
+    catppuccin-vsc.url = "https://flakehub.com/f/catppuccin/vscode/*.tar.gz";
     code-insiders.url = "github:iosmanthus/code-insiders-flake";
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell.url = "github:numtide/devshell";
@@ -102,6 +105,7 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # nix-monitored.url = "github:ners/nix-monitored";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     rclonix.url = "github:elliott-farrall/rclonix";
     rofi-plugins.url = "github:elliott-farrall/rofi-plugins?rev=990fbb21bb5152ba116571704f1ba99d3dbb377f";

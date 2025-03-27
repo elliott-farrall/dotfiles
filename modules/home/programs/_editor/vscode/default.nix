@@ -8,7 +8,9 @@ let
   cfg = config.editor;
   enable = (cfg == "vscode") || (cfg == "vscode-insiders");
 
-  name = if cfg == "vscode" then "code" else "code-insiders";
+  name = lib.strings.removePrefix "vs" cfg;
+
+  inherit (config.catppuccin) accent;
 
   inherit (lib.internal) mkDefaultApplications;
 
@@ -33,6 +35,48 @@ in
     programs.vscode = {
       enable = true;
       inherit package;
+      mutableExtensionsDir = false;
+      enableExtensionUpdateCheck = false;
+      extensions = with pkgs.vscode-marketplace; [
+        # Theme
+        (pkgs.vscode-extensions.catppuccin.catppuccin-vsc.override {
+          inherit accent;
+          boldKeywords = true;
+          italicComments = true;
+          italicKeywords = true;
+          extraBordersEnabled = false;
+          workbenchMode = "default";
+          bracketMode = "rainbow";
+          colorOverrides = { };
+          customUIColors = { };
+        })
+        # Core
+        ms-vscode.remote-explorer
+        ms-vscode.remote-server
+        ms-vscode-remote.remote-ssh
+        ms-vscode-remote.remote-ssh-edit
+        ms-vscode-remote.remote-containers
+        ms-vscode.remote-repositories
+        ms-vscode.azure-repos
+        ms-azuretools.vscode-docker
+        ms-azuretools.vscode-azureterraform
+        ms-kubernetes-tools.vscode-kubernetes-tools
+        hashicorp.terraform
+        github.copilot
+        github.copilot-chat
+        # Environment
+        henriquebruno.github-repository-manager
+        mkhl.direnv
+        # Editor
+        vivaxy.vscode-conventional-commits
+        exodiusstudios.comment-anchors
+        stackbreak.comment-divider
+        # Languages
+        jnoortheen.nix-ide
+        redhat.vscode-yaml
+        tamasfe.even-better-toml
+        samuelcolvin.jinjahtml
+      ];
     };
 
     home.shellAliases = lib.mkIf (cfg == "vscode-insiders") {
