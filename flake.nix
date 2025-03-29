@@ -107,7 +107,7 @@
     # nix-monitored.url = "github:ners/nix-monitored";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    rclonix.url = "github:elliott-farrall/rclonix";
+    rclonix.url = "github:elliott-farrall/rclonix/legacy";
     rofi-plugins.url = "github:elliott-farrall/rofi-plugins?rev=990fbb21bb5152ba116571704f1ba99d3dbb377f";
     snowfall-lib.url = "github:snowfallorg/lib";
     stylix.url = "github:danth/stylix";

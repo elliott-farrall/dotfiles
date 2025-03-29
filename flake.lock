@@ -1506,15 +1506,16 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1743109731,
-        "narHash": "sha256-ylplcI7d0Q09uVED3SSOTqrMBb4TcB9xL5DN+wfdixw=",
+        "lastModified": 1742145570,
+        "narHash": "sha256-hzjdJwLk0349EDckT8iRIpNCFMv3Adt7dLJ3saCDCfQ=",
         "owner": "elliott-farrall",
         "repo": "rclonix",
-        "rev": "9194adf0c69a147d984db0fe2f5fbb536311846b",
+        "rev": "831e39d9069f960b61a8250180a6f4f5ba2a4cb1",
         "type": "github"
       },
       "original": {
         "owner": "elliott-farrall",
+        "ref": "legacy",
         "repo": "rclonix",
         "type": "github"
       }

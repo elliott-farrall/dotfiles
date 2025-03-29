@@ -93,19 +93,19 @@ in
 
   /* --------------------------------- rClone --------------------------------- */
 
-  "homes/x86_64-linux/elliott@lima/config/rclone/DotFiles/url.age".publicKeys = lima;
-  "homes/x86_64-linux/elliott@lima/config/rclone/DotFiles/id.age".publicKeys = lima;
-  "homes/x86_64-linux/elliott@lima/config/rclone/DotFiles/key.age".publicKeys = lima;
+  "modules/home/rclone/DotFiles/url.age".publicKeys = lima;
+  "modules/home/rclone/DotFiles/id.age".publicKeys = lima;
+  "modules/home/rclone/DotFiles/key.age".publicKeys = lima;
 
-  "homes/x86_64-linux/elliott@lima/config/rclone/DropBox/token.age".publicKeys = lima;
+  "modules/home/rclone/DropBox/token.age".publicKeys = lima;
 
-  "homes/x86_64-linux/elliott@lima/config/rclone/Google/token.age".publicKeys = lima;
+  "modules/home/rclone/Google/token.age".publicKeys = lima;
 
-  "homes/x86_64-linux/elliott@lima/config/rclone/OneDrive/id.age".publicKeys = lima;
-  "homes/x86_64-linux/elliott@lima/config/rclone/OneDrive/token.age".publicKeys = lima;
+  "modules/home/rclone/OneDrive/id.age".publicKeys = lima;
+  "modules/home/rclone/OneDrive/token.age".publicKeys = lima;
 
-  "homes/x86_64-linux/elliott@lima/config/rclone/Work/id.age".publicKeys = lima;
-  "homes/x86_64-linux/elliott@lima/config/rclone/Work/token.age".publicKeys = lima;
+  "modules/home/rclone/Work/id.age".publicKeys = lima;
+  "modules/home/rclone/Work/token.age".publicKeys = lima;
 
   /* -------------------------------- TailScale ------------------------------- */
 
