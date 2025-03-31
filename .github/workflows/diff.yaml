@@ -47,12 +47,12 @@ jobs:
       - name: Checkout Base
         uses: actions/checkout@v4
         with:
-          branch: ${{ github.base_ref}}
+          ref: ${{ github.base_ref}}
 
       - name: Checkout Head
         uses: actions/checkout@v4
         with:
-          branch: ${{ github.head_ref}}
+          ref: ${{ github.head_ref}}
 
       - name: Setup Environment
         uses: ./.github/actions/setup
@@ -89,12 +89,12 @@ jobs:
       - name: Checkout Base
         uses: actions/checkout@v4
         with:
-          branch: ${{ github.base_ref}}
+          ref: ${{ github.base_ref}}
 
       - name: Checkout Head
         uses: actions/checkout@v4
         with:
-          branch: ${{ github.head_ref}}
+          ref: ${{ github.head_ref}}
 
       - name: Get Branches
         run: |
