@@ -47,6 +47,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Get Branches
+        run: git fetch --depth=1
+
       - name: Setup Environment
         uses: ./.github/actions/setup
 
@@ -81,6 +84,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Get Branches
+        run: git fetch --depth=1
 
       - name: Setup Environment
         uses: ./.github/actions/setup
