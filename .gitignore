@@ -1,8 +1,5 @@
 .direnv/
 .pre-commit-config.yaml
 
-.artifacts
-.secrets
-
 result
 *.qcow2
