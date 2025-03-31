@@ -1,0 +1,104 @@
+name: Diff
+
+on:
+  pull_request:
+
+permissions:
+  actions: write
+
+env:
+  ACT: false
+
+jobs:
+  matrices:
+    name: create matrices
+    runs-on: ubuntu-latest
+
+    outputs:
+      nixos: ${{ steps.nixos.outputs.nixos }}
+      home: ${{ steps.home.outputs.home }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
+      - name: Get Systems
+        id: nixos
+        run: echo "nixos=$(nix eval --json --apply builtins.attrNames .#nixosConfigurations)" >> "$GITHUB_OUTPUT"
+
+      - name: Get Homes
+        id: home
+        run: echo "home=$(nix eval --json --apply builtins.attrNames .#homeConfigurations)" >> "$GITHUB_OUTPUT"
+
+  nixos:
+    name: Diff Systems
+    runs-on: ubuntu-latest
+
+    needs: matrices
+    strategy:
+      matrix:
+        system: ${{ fromJson(needs.matrices.outputs.nixos) }}
+      fail-fast: false
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
+      - name: Create Diff
+        id: diff
+        env:
+          base: ${{ github.base_ref }}
+          head: ${{ github.head_ref }}
+        run: |
+          nix build --out-link old ".?rev=$base#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
+          nix build --out-link new ".?rev=$head#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
+          echo "diff=$(nix run nixpkgs#nvd -- old new)" >> "$GITHUB_OUTPUT"
+
+      - name: Create Summary
+        run: |
+          {
+            echo "\`\`\`"
+            echo "${{ steps.diff.outputs.diff }})"
+            echo "\`\`\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  home:
+    name: Diff Homes
+    runs-on: ubuntu-latest
+
+    needs: matrices
+    strategy:
+      matrix:
+        home: ${{ fromJson(needs.matrices.outputs.home) }}
+      fail-fast: false
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
+      - name: Create Diff
+        id: diff
+        env:
+          base: ${{ github.base_ref }}
+          head: ${{ github.head_ref }}
+        run: |
+          nix build --out-link old ".?rev=$base#homeConfigurations.${{ matrix.home }}.activationPackage"
+          nix build --out-link new ".?rev=$head#homeConfigurations.${{ matrix.home }}.activationPackage"
+          echo "diff=$(nix run nixpkgs#nvd -- old new)" >> "$GITHUB_OUTPUT"
+
+      - name: Create Summary
+        run: |
+          {
+            echo "\`\`\`"
+            echo "${{ steps.diff.outputs.diff }})"
+            echo "\`\`\`"
+          } >> "$GITHUB_STEP_SUMMARY"
