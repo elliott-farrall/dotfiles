@@ -44,14 +44,15 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Base
         uses: actions/checkout@v4
+        with:
+          branch: ${{ github.base_ref}}
 
-      - name: Get Branches
-        run: |
-          git fetch --no-tags --depth=1 origin main
-          git checkout main
-          git checkout ${{ github.event.pull_request.head.sha }}
+      - name: Checkout Head
+        uses: actions/checkout@v4
+        with:
+          branch: ${{ github.head_ref}}
 
       - name: Setup Environment
         uses: ./.github/actions/setup
@@ -85,8 +86,15 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Base
         uses: actions/checkout@v4
+        with:
+          branch: ${{ github.base_ref}}
+
+      - name: Checkout Head
+        uses: actions/checkout@v4
+        with:
+          branch: ${{ github.head_ref}}
 
       - name: Get Branches
         run: |
