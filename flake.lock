@@ -138,6 +138,24 @@
         "type": "github"
       }
     },
+    "comin": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1743245400,
+        "narHash": "sha256-bL/bGiXeK3AZBRnIRFrIugIeLpfybVgIo0Ilhn5+OIA=",
+        "owner": "nlewo",
+        "repo": "comin",
+        "rev": "5e25dcff5c25dea8552ac2e6a19e9bd26acdeb3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nlewo",
+        "repo": "comin",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1737689766,
@@ -178,7 +196,7 @@
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "utils": "utils"
       },
       "locked": {
@@ -197,7 +215,7 @@
     },
     "devshell": {
       "inputs": {
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_7"
       },
       "locked": {
         "lastModified": 1741473158,
@@ -215,7 +233,7 @@
     },
     "disko": {
       "inputs": {
-        "nixpkgs": "nixpkgs_7"
+        "nixpkgs": "nixpkgs_8"
       },
       "locked": {
         "lastModified": 1740485968,
@@ -602,7 +620,7 @@
       "inputs": {
         "crane": "crane",
         "fenix": "fenix",
-        "nixpkgs": "nixpkgs_8",
+        "nixpkgs": "nixpkgs_9",
         "pre-commit-hooks": "pre-commit-hooks",
         "t3-src": "t3-src"
       },
@@ -638,7 +656,7 @@
     },
     "garnix-lib": {
       "inputs": {
-        "nixpkgs": "nixpkgs_10"
+        "nixpkgs": "nixpkgs_11"
       },
       "locked": {
         "lastModified": 1741124098,
@@ -817,7 +835,7 @@
     },
     "home-manager_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_11"
+        "nixpkgs": "nixpkgs_12"
       },
       "locked": {
         "lastModified": 1743097780,
@@ -835,7 +853,7 @@
     },
     "home-manager_3": {
       "inputs": {
-        "nixpkgs": "nixpkgs_24"
+        "nixpkgs": "nixpkgs_25"
       },
       "locked": {
         "lastModified": 1743097780,
@@ -868,7 +886,7 @@
     },
     "nix-auto-follow": {
       "inputs": {
-        "nixpkgs": "nixpkgs_12"
+        "nixpkgs": "nixpkgs_13"
       },
       "locked": {
         "lastModified": 1736285518,
@@ -886,7 +904,7 @@
     },
     "nix-index-database": {
       "inputs": {
-        "nixpkgs": "nixpkgs_13"
+        "nixpkgs": "nixpkgs_14"
       },
       "locked": {
         "lastModified": 1740886574,
@@ -905,7 +923,7 @@
     "nix-vscode-extensions": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_14"
+        "nixpkgs": "nixpkgs_15"
       },
       "locked": {
         "lastModified": 1742435492,
@@ -954,7 +972,7 @@
     "nixos-generators": {
       "inputs": {
         "nixlib": "nixlib",
-        "nixpkgs": "nixpkgs_15"
+        "nixpkgs": "nixpkgs_16"
       },
       "locked": {
         "lastModified": 1740947705,
@@ -1305,6 +1323,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_28": {
+      "locked": {
+        "lastModified": 1741246872,
+        "narHash": "sha256-Q6pMP4a9ed636qilcYX8XUguvKl/0/LGXhHcRI91p0U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "10069ef4cf863633f57238f179a0297de84bd8d3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_3": {
       "locked": {
         "lastModified": 1741246872,
@@ -1444,7 +1478,7 @@
       "inputs": {
         "flake-compat": "flake-compat_2",
         "gitignore": "gitignore",
-        "nixpkgs": "nixpkgs_9"
+        "nixpkgs": "nixpkgs_10"
       },
       "locked": {
         "lastModified": 1741379162,
@@ -1464,7 +1498,7 @@
       "inputs": {
         "flake-compat": "flake-compat_3",
         "gitignore": "gitignore_2",
-        "nixpkgs": "nixpkgs_17"
+        "nixpkgs": "nixpkgs_18"
       },
       "locked": {
         "lastModified": 1741379162,
@@ -1484,7 +1518,7 @@
       "inputs": {
         "flake-compat": "flake-compat_5",
         "gitignore": "gitignore_3",
-        "nixpkgs": "nixpkgs_21"
+        "nixpkgs": "nixpkgs_22"
       },
       "locked": {
         "lastModified": 1741379162,
@@ -1502,7 +1536,7 @@
     },
     "rclonix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_18",
+        "nixpkgs": "nixpkgs_19",
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
@@ -1522,7 +1556,7 @@
     },
     "rofi-plugins": {
       "inputs": {
-        "nixpkgs": "nixpkgs_20",
+        "nixpkgs": "nixpkgs_21",
         "pre-commit-hooks": "pre-commit-hooks_3",
         "snowfall-lib": "snowfall-lib_2"
       },
@@ -1547,6 +1581,7 @@
         "agenix-substitutes": "agenix-substitutes",
         "catppuccin-vsc": "catppuccin-vsc",
         "code-insiders": "code-insiders",
+        "comin": "comin",
         "deploy-rs": "deploy-rs",
         "devshell": "devshell",
         "disko": "disko",
@@ -1563,7 +1598,7 @@
         "nixos-facter-modules": "nixos-facter-modules",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_16",
+        "nixpkgs": "nixpkgs_17",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "rclonix": "rclonix",
         "rofi-plugins": "rofi-plugins",
@@ -1593,7 +1628,7 @@
       "inputs": {
         "flake-compat": "flake-compat_4",
         "flake-utils-plus": "flake-utils-plus",
-        "nixpkgs": "nixpkgs_19"
+        "nixpkgs": "nixpkgs_20"
       },
       "locked": {
         "lastModified": 1736130495,
@@ -1613,7 +1648,7 @@
       "inputs": {
         "flake-compat": "flake-compat_6",
         "flake-utils-plus": "flake-utils-plus_2",
-        "nixpkgs": "nixpkgs_22"
+        "nixpkgs": "nixpkgs_23"
       },
       "locked": {
         "lastModified": 1736130495,
@@ -1633,7 +1668,7 @@
       "inputs": {
         "flake-compat": "flake-compat_7",
         "flake-utils-plus": "flake-utils-plus_3",
-        "nixpkgs": "nixpkgs_23"
+        "nixpkgs": "nixpkgs_24"
       },
       "locked": {
         "lastModified": 1736130495,
@@ -1661,7 +1696,7 @@
         "git-hooks": "git-hooks",
         "gnome-shell": "gnome-shell",
         "home-manager": "home-manager_3",
-        "nixpkgs": "nixpkgs_25",
+        "nixpkgs": "nixpkgs_26",
         "nur": "nur",
         "systems": "systems_7",
         "tinted-foot": "tinted-foot",
@@ -1890,7 +1925,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_26"
+        "nixpkgs": "nixpkgs_27"
       },
       "locked": {
         "lastModified": 1739829690,
@@ -1908,7 +1943,7 @@
     },
     "treefmt-nix_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_27"
+        "nixpkgs": "nixpkgs_28"
       },
       "locked": {
         "lastModified": 1739829690,

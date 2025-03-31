@@ -22,6 +22,7 @@
         systems.modules.nixos = with inputs; [
           agenix.nixosModules.default
           agenix-substitutes.nixosModules.default
+          comin.nixosModules.comin
           impermanence.nixosModules.impermanence
           nix-index-database.nixosModules.nix-index
           stylix.nixosModules.stylix
@@ -139,6 +140,7 @@
     agenix-substitutes.url = "github:elliott-farrall/agenix-substitutes";
     catppuccin-vsc.url = "https://flakehub.com/f/catppuccin/vscode/*.tar.gz";
     code-insiders.url = "github:iosmanthus/code-insiders-flake";
+    comin.url = "github:nlewo/comin";
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell.url = "github:numtide/devshell";
     disko.url = "github:nix-community/disko";

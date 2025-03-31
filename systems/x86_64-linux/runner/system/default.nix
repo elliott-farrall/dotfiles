@@ -1,4 +1,5 @@
-{ system
+{ lib
+, system
 , host
 , ...
 }:
@@ -13,6 +14,8 @@
       name = host;
     };
   };
+
+  services.comin.enable = lib.mkForce false;
 
   fileSystems."/" = {
     device = "/dev/sda1";
