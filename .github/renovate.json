@@ -3,7 +3,7 @@
   "enabledManagers": ["docker-compose", "github-actions"],
   "postUpgradeTasks": {
     "commands": [
-      "find . -name compose.sh -exec bash {} \\;",
+      "find . -name compose.sh -exec {} \\;",
       "nix fmt"
     ]
   }
