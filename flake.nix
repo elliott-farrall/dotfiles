@@ -124,14 +124,12 @@
 
       deploy = {
         sshUser = "root";
-        nodes.lima = {
-          hostname = "lima";
-          profiles.system.path = lib.deploy-rs.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.lima;
-        };
-        # nodes.runner = {
-        #   hostname = "runner";
-        #   profiles.system.path = lib.deploy-rs.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.runner;
-        # };
+        nodes = lib.mapAttrs
+          (hostname: config: {
+            inherit hostname;
+            profiles.system.path = lib.deploy-rs.x86_64-linux.activate.nixos config;
+          })
+          inputs.self.nixosConfigurations;
       };
     };
 
