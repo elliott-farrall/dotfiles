@@ -56,8 +56,8 @@
               garnix-lib.nixosModules.garnix
               github-nix-ci.nixosModules.default
               # Move to shared modules
-              nixos-facter-modules.nixosModules.facter
-              disko.nixosModules.disko
+              # nixos-facter-modules.nixosModules.facter
+              # disko.nixosModules.disko
             ];
           };
         };
