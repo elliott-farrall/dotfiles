@@ -48,7 +48,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get Branches
-        run: git fetch --depth=1
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          git checkout main
+          git checkout ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Environment
         uses: ./.github/actions/setup
@@ -86,7 +89,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get Branches
-        run: git fetch --depth=1
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          git checkout main
+          git checkout ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Environment
         uses: ./.github/actions/setup
