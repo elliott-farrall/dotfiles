@@ -8,6 +8,8 @@ permissions:
 
 env:
   ACT: false
+  BASE: ${{ github.base_ref }}
+  HEAD: ${{ github.head_ref }}
 
 jobs:
   matrices:
@@ -44,27 +46,17 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Checkout Base
+      - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.base_ref}}
-
-      - name: Checkout Head
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref}}
 
       - name: Setup Environment
         uses: ./.github/actions/setup
 
       - name: Create Diff
         id: diff
-        env:
-          base: ${{ github.base_ref }}
-          head: ${{ github.head_ref }}
         run: |
-          nix build --out-link old ".?ref=$base#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
-          nix build --out-link new ".?ref=$head#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
+          nix build -o old "github:${{ github.repository }}/$BASE#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
+          nix build -o new "github:${{ github.repository }}/$HEAD#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
           echo "diff=$(nix run nixpkgs#nvd -- old new)" >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
@@ -86,33 +78,17 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Checkout Base
+      - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.base_ref}}
-
-      - name: Checkout Head
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref}}
-
-      - name: Get Branches
-        run: |
-          git fetch --no-tags --depth=1 origin main
-          git checkout main
-          git checkout ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Environment
         uses: ./.github/actions/setup
 
       - name: Create Diff
         id: diff
-        env:
-          base: ${{ github.base_ref }}
-          head: ${{ github.head_ref }}
         run: |
-          nix build --out-link old ".?ref=$base#homeConfigurations.${{ matrix.home }}.activationPackage"
-          nix build --out-link new ".?ref=$head#homeConfigurations.${{ matrix.home }}.activationPackage"
+          nix build -o old "github:${{ github.repository }}/$BASE#homeConfigurations.${{ matrix.home }}.activationPackage"
+          nix build -o new "github:${{ github.repository }}/$HEAD#homeConfigurations.${{ matrix.home }}.activationPackage"
           echo "diff=$(nix run nixpkgs#nvd -- old new)" >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
