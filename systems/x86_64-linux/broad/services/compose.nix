@@ -21,7 +21,7 @@
 
   # Containers
   virtualisation.oci-containers.containers."auth" = {
-    image = "docker.io/authelia/authelia:4.38.19";
+    image = "docker.io/authelia/authelia:4.39.1";
     volumes = [
       "/etc/broad/auth/config.yaml:/config/configuration.yml:ro"
       "/etc/localtime:/etc/localtime:ro"
@@ -408,7 +408,7 @@
     ];
   };
   virtualisation.oci-containers.containers."fileflows" = {
-    image = "docker.io/revenz/fileflows:25.02";
+    image = "docker.io/revenz/fileflows:25.04";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
     ];
@@ -733,7 +733,7 @@
     ];
   };
   virtualisation.oci-containers.containers."jellyseerr-check" = {
-    image = "docker.io/jwilder/dockerize:v0.9.2";
+    image = "docker.io/jwilder/dockerize:v0.9.3";
     cmd = [ "dockerize" "-wait=http://jellyseerr:5055" "-timeout" "180s" ];
     labels = {
       "compose2nix.systemd.service.Type" = "oneshot";
@@ -865,7 +865,7 @@
     ];
   };
   virtualisation.oci-containers.containers."netalertx" = {
-    image = "docker.io/jokobsk/netalertx:25.3.1";
+    image = "docker.io/jokobsk/netalertx:25.4.1";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-netalertx:/app/db:rw"
@@ -918,7 +918,7 @@
     ];
   };
   virtualisation.oci-containers.containers."portainer" = {
-    image = "docker.io/portainer/portainer-ce:2.27.1-alpine";
+    image = "docker.io/portainer/portainer-ce:2.28.1-alpine";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
@@ -974,7 +974,7 @@
     ];
   };
   virtualisation.oci-containers.containers."prowlarr" = {
-    image = "docker.io/linuxserver/prowlarr:1.31.2";
+    image = "docker.io/linuxserver/prowlarr:1.32.2";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-prowlarr:/config:rw"
@@ -1028,7 +1028,7 @@
     ];
   };
   virtualisation.oci-containers.containers."proxy" = {
-    image = "docker.io/traefik:v3.3.4";
+    image = "docker.io/traefik:v3.3.5";
     environment = {
       "CF_API_EMAIL" = "elliott.chalford@gmail.com";
       "CF_API_KEY_FILE" = "/key";
@@ -1158,7 +1158,7 @@
     ];
   };
   virtualisation.oci-containers.containers."radarr" = {
-    image = "docker.io/linuxserver/radarr:5.19.3";
+    image = "docker.io/linuxserver/radarr:5.21.1";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-radarr:/config:rw"
@@ -1259,7 +1259,7 @@
     ];
   };
   virtualisation.oci-containers.containers."romm" = {
-    image = "docker.io/rommapp/romm:3.7.3";
+    image = "docker.io/rommapp/romm:3.8.1";
     environment = {
       "DB_HOST" = "romm-db";
       "DB_USER" = "romm-user";
@@ -1376,7 +1376,7 @@
     ];
   };
   virtualisation.oci-containers.containers."sabnzbd" = {
-    image = "docker.io/linuxserver/sabnzbd:4.4.1";
+    image = "docker.io/linuxserver/sabnzbd:4.5.0";
     volumes = [
       "/etc/broad/sabnzbd/config.ini:/config/sabnzbd.ini:ro"
       "/etc/localtime:/etc/localtime:ro"
@@ -1484,7 +1484,7 @@
     ];
   };
   virtualisation.oci-containers.containers."sonarr" = {
-    image = "docker.io/linuxserver/sonarr:4.0.13";
+    image = "docker.io/linuxserver/sonarr:4.0.14";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-sonarr:/config:rw"
@@ -1547,7 +1547,7 @@
     ];
   };
   virtualisation.oci-containers.containers."speedtest-tracker" = {
-    image = "docker.io/linuxserver/speedtest-tracker:1.2.5";
+    image = "docker.io/linuxserver/speedtest-tracker:1.3.0";
     environment = {
       "APP_URL" = "https://speedtest-tracker.beannet.app";
       "DB_CONNECTION" = "sqlite";
@@ -1605,7 +1605,7 @@
     ];
   };
   virtualisation.oci-containers.containers."tubearchivist" = {
-    image = "docker.io/bbilly1/tubearchivist:v0.4.13";
+    image = "docker.io/bbilly1/tubearchivist:v0.5.1";
     environment = {
       "ES_URL" = "http://tubearchivist-es:9200";
       "REDIS_HOST" = "tubearchivist-redis";
@@ -1675,7 +1675,7 @@
     ];
   };
   virtualisation.oci-containers.containers."tubearchivist-es" = {
-    image = "docker.io/elasticsearch:8.17.2";
+    image = "docker.io/elasticsearch:8.17.4";
     environment = {
       "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";
       "discovery.type" = "single-node";

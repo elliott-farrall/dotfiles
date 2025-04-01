@@ -1,7 +1,7 @@
 services:
   tubearchivist:
     container_name: tubearchivist
-    image: docker.io/bbilly1/tubearchivist:v0.4.13
+    image: docker.io/bbilly1/tubearchivist:v0.5.1
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -65,7 +65,7 @@ services:
 
   tubearchivist-es:
     container_name: tubearchivist-es
-    image: docker.io/elasticsearch:8.17.2
+    image: docker.io/elasticsearch:8.17.4
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
