@@ -13,7 +13,7 @@ env:
 
 jobs:
   matrices:
-    name: create matrices
+    name: Create Matrices
     runs-on: ubuntu-latest
 
     outputs:
@@ -52,18 +52,16 @@ jobs:
       - name: Setup Environment
         uses: ./.github/actions/setup
 
-      - name: Create Diff
-        id: diff
+      - name: Build Systems
         run: |
           nix build -o old "github:${{ github.repository }}/$BASE#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
           nix build -o new "github:${{ github.repository }}/$HEAD#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
-          echo "diff=$(nix run nixpkgs#nvd -- diff old new)" >> "$GITHUB_OUTPUT"
 
-      - name: Create Summary
+      - name: Create Diff
         run: |
           {
             echo "\`\`\`"
-            echo "${{ steps.diff.outputs.diff }}"
+            nix run nixpkgs#nvd -- diff old new
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -84,17 +82,15 @@ jobs:
       - name: Setup Environment
         uses: ./.github/actions/setup
 
-      - name: Create Diff
-        id: diff
+      - name: Build Homes
         run: |
           nix build -o old "github:${{ github.repository }}/$BASE#homeConfigurations.${{ matrix.home }}.activationPackage"
           nix build -o new "github:${{ github.repository }}/$HEAD#homeConfigurations.${{ matrix.home }}.activationPackage"
-          echo "diff=$(nix run nixpkgs#nvd -- diff old new)" >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
         run: |
           {
             echo "\`\`\`"
-            echo "${{ steps.diff.outputs.diff }}"
+            nix run nixpkgs#nvd -- diff old new
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"

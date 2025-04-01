@@ -92,7 +92,7 @@
               };
 
               # Configs
-              jsonfmt.enable = true;
+              jsonfmt.enable = false; # interferes with prettier;
               taplo.enable = true;
               yamlfmt.enable = true;
               actionlint.enable = true;
