@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#! /usr/bin/env nix
+#! nix shell nixpkgs#compose2nix -c bash
 
 array_to_comma_separated() {
   local array=("$@")
@@ -12,7 +13,7 @@ SERVICES_DIR=$(dirname $0)
 
 mapfile -t COMPOSE_FILES < <(find $SERVICES_DIR -type f -name compose.yaml)
 
-nix run nixpkgs#compose2nix -- \
+compose2nix \
   -project=$HOST \
   -output=$SERVICES_DIR/compose.nix \
   -inputs=$(array_to_comma_separated ${COMPOSE_FILES[@]}) \

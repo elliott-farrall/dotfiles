@@ -2,6 +2,7 @@
   "extends": ["group:allNonMajor"],
   "enabledManagers": ["docker-compose", "github-actions"],
   "postUpgradeTasks": {
-    "commands": ["systems/*/*/**/compose.sh", "nix fmt"]
+    "commands": ["systems/*/*/**/compose.sh", "nix fmt"],
+    "executionMode": "branch"
   }
 }
