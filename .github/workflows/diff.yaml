@@ -57,13 +57,13 @@ jobs:
         run: |
           nix build -o old "github:${{ github.repository }}/$BASE#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
           nix build -o new "github:${{ github.repository }}/$HEAD#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
-          echo "diff=$(nix run nixpkgs#nvd -- old new)" >> "$GITHUB_OUTPUT"
+          echo "diff=$(nix run nixpkgs#nvd -- diff old new)" >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
         run: |
           {
             echo "\`\`\`"
-            echo "${{ steps.diff.outputs.diff }})"
+            echo "${{ steps.diff.outputs.diff }}"
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -89,12 +89,12 @@ jobs:
         run: |
           nix build -o old "github:${{ github.repository }}/$BASE#homeConfigurations.${{ matrix.home }}.activationPackage"
           nix build -o new "github:${{ github.repository }}/$HEAD#homeConfigurations.${{ matrix.home }}.activationPackage"
-          echo "diff=$(nix run nixpkgs#nvd -- old new)" >> "$GITHUB_OUTPUT"
+          echo "diff=$(nix run nixpkgs#nvd -- diff old new)" >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
         run: |
           {
             echo "\`\`\`"
-            echo "${{ steps.diff.outputs.diff }})"
+            echo "${{ steps.diff.outputs.diff }}"
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
