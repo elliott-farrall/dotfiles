@@ -1,9 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["group:allNonMajor"],
-  "enabledManagers": ["docker-compose", "github-actions"],
+
+  "enabledManagers": ["docker-compose", "github-actions", "nix"],
+  "nix": {
+    "enabled": true
+  },
+
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+
   "postUpgradeTasks": {
-    "commands": ["systems/*/*/**/compose.sh", "nix fmt"],
+    "commands": [
+      "nix run github:fzakaria/nix-auto-follow -- -i",
+      "systems/*/*/**/compose.sh",
+      "nix fmt"
+    ],
     "executionMode": "branch"
   }
 }

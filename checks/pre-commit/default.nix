@@ -57,15 +57,16 @@ lib.pre-commit-hooks.${system}.run {
     /* --------------------------------- Custom --------------------------------- */
 
     act = {
-      enable = false;
+      enable = true;
       entry = "${lib.getExe pkgs.act} -nW";
       files = "^\\.github/workflows/.*\\.yaml$";
     };
 
-    compose = {
+    compose2nix = {
       enable = true;
-      entry = "sh -c";
-      files = "compose\\.sh$";
+      entry = "systems/*/*/**/compose.sh";
+      files = "compose\\.yaml$";
+      pass_filenames = false;
     };
 
     nix-auto-follow = {
