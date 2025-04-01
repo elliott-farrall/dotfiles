@@ -1,3 +1,7 @@
+builds:
+  include:
+    - nixosConfigurations.runner
+
 servers:
   - configuration: runner
     deployment:
