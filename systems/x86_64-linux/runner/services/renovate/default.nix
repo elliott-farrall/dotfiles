@@ -19,4 +19,6 @@
       allowedCommands = [ ".*" ];
     };
   };
+
+  systemd.services.renovate.environment.LOG_LEVEL = "debug";
 }
