@@ -1,7 +1,7 @@
 services:
   sonarr:
     container_name: sonarr
-    image: docker.io/linuxserver/sonarr:4.0.13
+    image: docker.io/linuxserver/sonarr:4.0.14
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro

@@ -1,7 +1,7 @@
 services:
   proxy:
     container_name: proxy
-    image: docker.io/traefik:v3.3.4
+    image: docker.io/traefik:v3.3.5
     ports:
       - 80:80
       - 443:443
