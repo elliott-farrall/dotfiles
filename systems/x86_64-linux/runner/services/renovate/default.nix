@@ -9,7 +9,7 @@
 
   services.renovate = {
     enable = true;
-    schedule = "*:0/5"; # Every 5 minutes
+    schedule = "*:0/2"; # Every 2 minutes
     credentials.RENOVATE_TOKEN = config.age.secrets."renovate/token".path;
 
     runtimePackages = with pkgs; [ bash nix ];

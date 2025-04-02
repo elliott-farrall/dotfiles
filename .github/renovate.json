@@ -1,14 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["group:allNonMajor"],
+  "extends": ["config:recommended", "group:allNonMajor"],
 
   "enabledManagers": ["docker-compose", "github-actions", "nix"],
   "nix": {
     "enabled": true
   },
 
+  "packageRules": [
+    {
+      "matchPackageNames": ["https://flakehub.com/f/**"],
+      "enabled": false
+    }
+  ],
+
   "lockFileMaintenance": {
-    "enabled": true
+    "enabled": false,
+    "extends": ["schedule:weekly"]
   },
 
   "postUpgradeTasks": {
