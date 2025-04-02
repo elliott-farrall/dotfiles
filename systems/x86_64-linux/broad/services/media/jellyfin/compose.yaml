@@ -1,7 +1,7 @@
 services:
   jellyfin:
     container_name: jellyfin
-    image: docker.io/linuxserver/jellyfin:10.10.6
+    image: docker.io/linuxserver/jellyfin:2021.12.16
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
