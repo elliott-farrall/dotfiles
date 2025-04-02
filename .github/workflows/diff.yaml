@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         system: ${{ fromJson(needs.matrices.outputs.nixos) }}
-      fail-fast: false
+    concurrency: build
 
     steps:
       - name: Checkout Repository
@@ -63,18 +63,19 @@ jobs:
           until ssh-keyscan runner >> ~/.ssh/known_hosts; do sleep 5; done
 
       - name: Build Systems
+        id: build
         run: |
-          ssh root@runner "
-            nix build -o old github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel &> /dev/null
-            nix build -o new github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel &> /dev/null
-            nix run nixpkgs#nvd -- diff old new
-          " > build.diff
+          echo "diff=$(ssh root@runner '
+            OLD=$(nix build --print-out-paths --no-link github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel)
+            NEW=$(nix build --print-out-paths --no-link github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel)
+            nix run nixpkgs#nvd -- diff $OLD $NEW
+          ')" >> "$GITHUB_OUTPUT"
 
       - name: Create Diff
         run: |
           {
             echo "\`\`\`"
-            echo build.diff
+            echo "${{ steps.build.outputs.diff }}"
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -86,7 +87,7 @@ jobs:
     strategy:
       matrix:
         home: ${{ fromJson(needs.matrices.outputs.home) }}
-      fail-fast: false
+    concurrency: build
 
     steps:
       - name: Checkout Repository
@@ -108,17 +109,18 @@ jobs:
           until ssh-keyscan runner >> ~/.ssh/known_hosts; do sleep 5; done
 
       - name: Build Homes
+        id: build
         run: |
-          ssh root@runner "
-            nix build -o old "github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}#homeConfigurations.${{ matrix.home }}.activationPackage &> /dev/null
-            nix build -o new "github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}#homeConfigurations.${{ matrix.home }}.activationPackage &> /dev/null
-            nix run nixpkgs#nvd -- diff old new
-          " > build.diff
+          echo "diff=$(ssh root@runner '
+            OLD=$(nix build --print-out-paths --no-link github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}#homeConfigurations.${{ matrix.home }}.activationPackage)
+            NEW=$(nix build --print-out-paths --no-link github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}#homeConfigurations.${{ matrix.home }}.activationPackage)
+            nix run nixpkgs#nvd -- diff $OLD $NEW
+          ')" >> "$GITHUB_OUTPUT"
 
       - name: Create Summary
         run: |
           {
             echo "\`\`\`"
-            echo build.diff
+            echo "${{ steps.build.outputs.diff }}"
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
