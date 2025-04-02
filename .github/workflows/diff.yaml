@@ -60,7 +60,7 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          until ssh-keyscan runner >> ~/.ssh/known_hosts; do wait 5; done
+          until ssh-keyscan runner.tail4ae93.ts.net >> ~/.ssh/known_hosts; do wait 5; done
 
       - name: Build Systems
         run: |
@@ -105,7 +105,7 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          until ssh-keyscan runner >> ~/.ssh/known_hosts; do wait 5; done
+          until ssh-keyscan runner.tail4ae93.ts.net >> ~/.ssh/known_hosts; do wait 5; done
 
       - name: Build Homes
         run: |
