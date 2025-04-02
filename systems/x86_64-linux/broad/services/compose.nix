@@ -548,7 +548,7 @@
     ];
   };
   virtualisation.oci-containers.containers."homepage" = {
-    image = "ghcr.io/gethomepage/homepage:v0.10.9";
+    image = "ghcr.io/gethomepage/homepage:v1.1.1";
     environment = {
       "HOMEPAGE_FILE_JELLYFIN_KEY" = "/keys/jellyfin";
       "HOMEPAGE_FILE_JELLYSEERR_KEY" = "/keys/jellyseerr";
