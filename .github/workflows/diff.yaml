@@ -8,8 +8,6 @@ permissions:
 
 env:
   ACT: false
-  BASE: ${{ github.base_ref }}
-  HEAD: ${{ github.head_ref }}
 
 jobs:
   matrices:
@@ -52,16 +50,31 @@ jobs:
       - name: Setup Environment
         uses: ./.github/actions/setup
 
+      - name: Install Tailscale
+        uses: Pikachews/tailscale-action@v1
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:runner
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          until ssh-keyscan runner >> ~/.ssh/known_hosts; do wait 5; done
+
       - name: Build Systems
         run: |
-          nix build -o old "github:${{ github.repository }}/$BASE#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
-          nix build -o new "github:${{ github.repository }}/$HEAD#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel"
+          ssh root@runner "
+            nix build -o old github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel &> /dev/null
+            nix build -o new github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel &> /dev/null
+            nix run nixpkgs#nvd -- diff old new
+          " > build.diff
 
       - name: Create Diff
         run: |
           {
             echo "\`\`\`"
-            nix run nixpkgs#nvd -- diff old new
+            echo build.diff
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -82,15 +95,30 @@ jobs:
       - name: Setup Environment
         uses: ./.github/actions/setup
 
+      - name: Install Tailscale
+        uses: Pikachews/tailscale-action@v1
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:runner
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          until ssh-keyscan runner >> ~/.ssh/known_hosts; do wait 5; done
+
       - name: Build Homes
         run: |
-          nix build -o old "github:${{ github.repository }}/$BASE#homeConfigurations.${{ matrix.home }}.activationPackage"
-          nix build -o new "github:${{ github.repository }}/$HEAD#homeConfigurations.${{ matrix.home }}.activationPackage"
+          ssh root@runner "
+            nix build -o old "github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}#homeConfigurations.${{ matrix.home }}.activationPackage &> /dev/null
+            nix build -o new "github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}#homeConfigurations.${{ matrix.home }}.activationPackage &> /dev/null
+            nix run nixpkgs#nvd -- diff old new
+          " > build.diff
 
       - name: Create Summary
         run: |
           {
             echo "\`\`\`"
-            nix run nixpkgs#nvd -- diff old new
+            echo build.diff
             echo "\`\`\`"
           } >> "$GITHUB_STEP_SUMMARY"
