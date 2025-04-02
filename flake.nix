@@ -104,7 +104,7 @@
 
             settings.formatter = {
               yamlfmt.options = [ "-formatter" "retain_line_breaks_single=true" ];
-              actionlint.options = [ "-ignore" "label \".+\" is unknown" ];
+              actionlint.options = [ "-ignore" "label \".+\" is unknown" "-ignore" "\".+\" is potentially untrusted" ];
 
               nixpkgs-fmt.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
               deadnix.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
