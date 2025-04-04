@@ -41,9 +41,6 @@ jobs:
       matrix:
         attr: ${{ fromJson(needs.matrices.outputs.attrs) }}
 
-    outputs:
-      diff: ${{ steps.build.outputs.diff }}
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -61,24 +58,16 @@ jobs:
           echo "new=$(nix build --print-out-paths --no-link "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
 
       - name: Create Diff
-        id: diff
         env:
           old: ${{ steps.build.outputs.old }}
           new: ${{ steps.build.outputs.new }}
-        run: |
-          {
-            echo "diff<<EOF"
-            nix run nixpkgs#nvd -- diff "$old" "$new"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+        run: nix run nixpkgs#nvd -- diff "$old" "$new" > ${{ matrix.attr }}.diff
 
-      - name: Write Output
-        uses: cloudposse/github-action-matrix-outputs-write@v1
+      - name: Upload Diff Artifact
+        uses: actions/upload-artifact@v4
         with:
-          matrix-step-name: ${{ github.job }}
-          matrix-key: ${{ matrix.attr }}
-          outputs: |-
-            diff: ${{ toJson(steps.diff.outputs.diff) }}
+          name: ${{ matrix.attr }}
+          path: ${{ matrix.attr }}.diff
 
   release:
     name: Create Release
@@ -88,19 +77,25 @@ jobs:
     needs: diff
 
     steps:
-      - uses: cloudposse/github-action-matrix-outputs-read@v1
-        id: read
-        with:
-          matrix-step-name: diff
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Create Change Log
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
+      - name: Download Diff Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./changes
+
+      - name: Prepare Diff
         run: |
-          echo ${{ fromJson(steps.read.outputs.result) }} | jq -r
-          for attr in $(echo "${{ fromJson(steps.read.outputs.result).diffs }}" | jq -r 'keys[]'); do
+          for diff in ./changes/*.diff; do
+            attr=$(basename "$diff" .diff)
             {
               echo "## Diff for $attr"
-              echo "\`\`\`"
-              echo "${{ fromJson(steps.read.outputs.result).diffs  }}" | jq -r ".[$attr]"
+              echo "\`\`\`diff"
+              cat "$diff"
               echo "\`\`\`"
             } >> body.md
           done
