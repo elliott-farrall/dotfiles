@@ -29,10 +29,6 @@ runs:
           accept-flake-config = true
           build-users-group =
 
-    - name: Collect Garbage
-      shell: bash
-      run: nix-collect-garbage
-
     - name: Setup Cache
       uses: nix-community/cache-nix-action@v6
       if: ${{ ! fromJSON(env.ACT) }}
