@@ -78,7 +78,7 @@ jobs:
           matrix-step-name: ${{ github.job }}
           matrix-key: ${{ matrix.attr }}
           outputs: |-
-            diffs: ${{ toJson(steps.diff.outputs.diff) }}
+            diff: ${{ toJson(steps.diff.outputs.diff) }}
 
   release:
     name: Create Release
@@ -95,6 +95,7 @@ jobs:
 
       - name: Create Change Log
         run: |
+          echo ${{ fromJson(steps.read.outputs.result) }} | jq -r
           for attr in $(echo "${{ fromJson(steps.read.outputs.result).diffs }}" | jq -r 'keys[]'); do
             {
               echo "## Diff for $attr"
