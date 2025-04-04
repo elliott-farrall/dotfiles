@@ -32,6 +32,6 @@ in
 
     use-xdg-base-directories = true;
     auto-optimise-store = true;
-    min-free = toBytesString 10;
+    min-free = toBytesString 2;
   };
 }
