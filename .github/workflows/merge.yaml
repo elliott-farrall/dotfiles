@@ -63,7 +63,7 @@ jobs:
           new: ${{ steps.build.outputs.new }}
         run: nix run nixpkgs#nvd -- diff "$old" "$new" > ${{ matrix.attr }}.diff
 
-      - name: Upload Diff Artifact
+      - name: Upload Diff
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.attr }}
@@ -77,20 +77,14 @@ jobs:
     needs: diff
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Environment
-        uses: ./.github/actions/setup
-
-      - name: Download Diff Artifacts
+      - name: Download Diff
         uses: actions/download-artifact@v4
         with:
           path: ./changes
 
       - name: Prepare Diff
         run: |
-          for diff in ./changes/*.diff; do
+          for diff in ./changes/*/*.diff; do
             attr=$(basename "$diff" .diff)
             {
               echo "## Diff for $attr"
