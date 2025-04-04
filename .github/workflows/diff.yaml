@@ -99,7 +99,8 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1.16.0
         with:
-          name: ${{ github.event.pull_request.merged_at }}
+          commit: ${{ github.event.pull_request.head.ref }}
+          tag: ${{ github.event.pull_request.merged_at }}
           body: ${{ steps.changelog.outputs.changes }}
 
       - name: Delete Branch
