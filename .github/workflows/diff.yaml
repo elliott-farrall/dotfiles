@@ -2,8 +2,7 @@ name: Diff
 
 on:
   pull_request:
-    types:
-      - closed
+    types: [closed]
 
 permissions:
   actions: write
@@ -103,3 +102,8 @@ jobs:
         with:
           tag_name: ${{ github.event.pull_request.merged_at }}
           body: ${{ steps.changelog.outputs.changes }}
+
+      - name: Delete Branch
+        uses: SvanBoxel/delete-merged-branch@1.4.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

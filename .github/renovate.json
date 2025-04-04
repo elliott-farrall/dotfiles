@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "group:allNonMajor"],
+  "extends": ["config:recommended", "group:allNonMajor", "schedule:weekly"],
 
   "enabledManagers": ["docker-compose", "github-actions", "nix"],
   "nix": {
@@ -13,11 +13,6 @@
       "enabled": false
     }
   ],
-
-  "lockFileMaintenance": {
-    "enabled": false,
-    "extends": ["schedule:weekly"]
-  },
 
   "postUpgradeTasks": {
     "commands": [
