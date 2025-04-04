@@ -61,6 +61,7 @@ jobs:
           echo "new=$(nix build --print-out-paths --no-link "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
 
       - name: Create Diff
+        id: diff
         env:
           old: ${{ steps.build.outputs.old }}
           new: ${{ steps.build.outputs.new }}
@@ -70,6 +71,14 @@ jobs:
             nix run nixpkgs#nvd -- diff "$old" "$new"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
+
+      - name: Write Output
+        uses: cloudposse/github-action-matrix-outputs-write@v1.0.0
+        with:
+          matrix-step-name: ${{ github.job }}
+          matrix-key: ${{ matrix.attr }}
+          outputs: |-
+            diff: ${{ steps.diff.outputs.diff }}
 
   release:
     name: Create Release
@@ -86,11 +95,11 @@ jobs:
 
       - name: Create Change Log
         run: |
-          for key in $(echo "${{ steps.read.outputs.result }}" | jq -r 'keys[]'); do
+          for attr in $(echo "${{ fromJson(steps.read.outputs.result).diffs }}" | jq -r 'keys[]'); do
             {
-              echo "## Diff for $key"
+              echo "## Diff for $attr"
               echo "\`\`\`"
-              echo "${{ steps.read.outputs.result }}" | jq -r ".[$key]"
+              echo "${{ fromJson(steps.read.outputs.result).diffs  }}" | jq -r ".[$attr]"
               echo "\`\`\`"
             } >> body.md
           done
