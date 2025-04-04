@@ -125,11 +125,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1742516113,
-        "narHash": "sha256-O3Kw182OTzKb/NXAKk0VmZWWzkDWGcqKA3dhwWgweHU=",
+        "lastModified": 1743639311,
+        "narHash": "sha256-VqpFJcmtFKPG7j1tXc6e93jIb2280wOJuxjKGi/zeiQ=",
         "owner": "iosmanthus",
         "repo": "code-insiders-flake",
-        "rev": "6c457009c788d9a205b73ee16bdbe79106743080",
+        "rev": "58f6a701ad5cae2a4e6bf7948bf079350a37c30c",
         "type": "github"
       },
       "original": {
