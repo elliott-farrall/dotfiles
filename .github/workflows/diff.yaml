@@ -6,6 +6,7 @@ on:
 
 permissions:
   actions: write
+  contents: write
 
 env:
   ACT: false
@@ -96,11 +97,9 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Create Release
-        uses: avakar/tag-and-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1.16.0
         with:
-          tag_name: ${{ github.event.pull_request.merged_at }}
+          name: ${{ github.event.pull_request.merged_at }}
           body: ${{ steps.changelog.outputs.changes }}
 
       - name: Delete Branch
