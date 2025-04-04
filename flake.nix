@@ -122,15 +122,18 @@
       } // {
       # schemas = inputs.flake-schemas.schemas // inputs.extra-schemas.schemas;
 
-      deploy = {
-        sshUser = "root";
-        nodes = lib.mapAttrs
-          (hostname: config: {
-            inherit hostname;
-            profiles.system.path = lib.deploy-rs.x86_64-linux.activate.nixos config;
-          })
-          inputs.self.nixosConfigurations;
-      };
+      toplevel = lib.mergeAttrsList [
+        (lib.mapAttrs (_attr: cfg: cfg.config.system.build.toplevel) inputs.self.nixosConfigurations)
+        (lib.mapAttrs (_attr: cfg: cfg.activationPackage) inputs.self.homeConfigurations)
+      ];
+
+      deploy.nodes = lib.mapAttrs
+        (hostname: cfg: {
+          inherit hostname;
+          sshUser = "root";
+          profiles.system.path = lib.deploy-rs.x86_64-linux.activate.nixos cfg;
+        })
+        inputs.self.nixosConfigurations;
     };
 
   inputs = {
@@ -164,12 +167,8 @@
 
     # Schemas
     # For when https://github.com/NixOS/nix/pull/8892 gets merged
-    flake-schemas = {
-      url = "github:DeterminateSystems/flake-schemas";
-    };
-    extra-schemas = {
-      url = "github:elliott-farrall/extra-schemas";
-    };
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
+    extra-schemas.url = "github:elliott-farrall/extra-schemas";
   };
 
   nixConfig = {
