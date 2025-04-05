@@ -23,11 +23,11 @@
     },
     "agenix-substitutes": {
       "locked": {
-        "lastModified": 1742065627,
-        "narHash": "sha256-XAmcwEZD3+7A5MgmkbbU65P4oNrH2jSwg9rxGaq1mF8=",
+        "lastModified": 1742143791,
+        "narHash": "sha256-UQKyqyszqE1KYtxxh9QMgARiV0PoqEjhzzedF20PY18=",
         "owner": "elliott-farrall",
         "repo": "agenix-substitutes",
-        "rev": "c44a47f10d88a67f053578031111947240cbea73",
+        "rev": "796f2d286027b0fcd0de52addba0deb959240f15",
         "type": "github"
       },
       "original": {
