@@ -889,11 +889,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1736285518,
-        "narHash": "sha256-UaTTuBs+3+jT360fyfHdjpa4MhSFoMz+D1kp0rr+FwM=",
+        "lastModified": 1743571860,
+        "narHash": "sha256-uXK9+U22FI5WQJfLWFQXvq8v4VT14ms4N6Fj2I5boiU=",
         "owner": "fzakaria",
         "repo": "nix-auto-follow",
-        "rev": "21646a12a47769707d46be8ab7be5e22c4f3224a",
+        "rev": "0200e8c3affced235d8f14fad8b93bae687ee597",
         "type": "github"
       },
       "original": {
