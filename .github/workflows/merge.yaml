@@ -47,8 +47,6 @@ jobs:
 
       - name: Setup Environment
         uses: ./.github/actions/setup
-        with:
-          free-space: true
 
       - name: Build Attribute
         id: build

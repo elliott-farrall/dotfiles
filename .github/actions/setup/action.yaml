@@ -1,11 +1,5 @@
 name: Setup
-description: Setup Nix & SSH
-
-inputs:
-  free-space:
-    description: Free space on the build mount
-    required: false
-    default: "false"
+description: Setup Nix with Caching
 
 runs:
   using: composite
@@ -13,12 +7,10 @@ runs:
   steps:
     - name: Create Mount
       shell: bash
-      if: ${{ inputs.free-space == true || inputs.free-space == 'true' }}
       run: sudo mkdir /nix
 
     - name: Free Space
       uses: easimon/maximize-build-space@v10
-      if: ${{ inputs.free-space == true || inputs.free-space == 'true' }}
       with:
         root-reserve-mb: 512
         swap-size-mb: 1024
