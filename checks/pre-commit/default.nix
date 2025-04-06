@@ -80,5 +80,12 @@ lib.pre-commit-hooks.${system}.run {
       pass_filenames = false;
     };
 
+    renovate = {
+      enable = true;
+      entry = "${pkgs.renovate}/bin/renovate-config-validator";
+      files = "renovate\\.json$";
+      pass_filenames = false;
+    };
+
   };
 }
