@@ -1,27 +1,59 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "group:allNonMajor", "schedule:weekly"],
+  "extends": [
+    "config:recommended",
+    "schedule:weekly",
+    ":automergeAll",
+    ":label(renovate)"
+  ],
 
   "pruneStaleBranches": false,
+  "pruneBranchAfterAutomerge": false,
 
-  "enabledManagers": ["docker-compose", "github-actions", "nix"],
-  "nix": {
-    "enabled": true
-  },
+  "enabledManagers": ["github-actions", "docker-compose", "nix"],
+  "nix": { "enabled": true },
 
   "packageRules": [
     {
+      "description": "github actions",
+      "matchManagers": ["github-actions"],
+      "extends": ["group:allNonMajor"]
+    },
+    {
+      "description": "docker images",
+      "matchManagers": ["docker-compose"],
+      "extends": ["group:allNonMajor"],
+      "postUpgradeTasks": {
+        "commands": ["systems/*/*/**/compose.sh"],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "description": "flake input dependencies",
+      "matchManagers": ["nix"],
+      "extends": ["group:allDigest"],
+      "postUpgradeTasks": {
+        "commands": ["nix run github:fzakaria/nix-auto-follow -- -i"],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "description": "ignore flakehub dependencies",
+      "matchManagers": ["nix"],
       "matchPackageNames": ["https://flakehub.com/f/**"],
       "enabled": false
+    },
+    {
+      "description": "no automerge for core flake inputs",
+      "matchManagers": ["nix"],
+      "matchDepNames": ["nixpkgs", "home-manager"],
+      "groupName": null,
+      "automerge": false
     }
   ],
 
   "postUpgradeTasks": {
-    "commands": [
-      "nix run github:fzakaria/nix-auto-follow -- -i",
-      "systems/*/*/**/compose.sh",
-      "nix fmt"
-    ],
+    "commands": ["nix fmt"],
     "executionMode": "branch"
   }
 }
