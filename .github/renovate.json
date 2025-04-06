@@ -6,7 +6,7 @@
     "group:allNonMajor",
     "group:allDigest",
     ":automergeAll",
-    ":labels(automated,dependency)"
+    ":labels(automated,dependencies)"
   ],
 
   "pruneStaleBranches": false,
