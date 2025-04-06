@@ -4,7 +4,7 @@
 {
   imports = [
     ./github-runners
-    ./prometheus
+    ./metrics
     ./renovate
   ];
 }
