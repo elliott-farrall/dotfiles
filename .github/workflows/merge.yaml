@@ -99,17 +99,14 @@ jobs:
         run: echo "sha=$(git rev-parse ${{ github.sha }}^@ | grep -Fvx ${{ github.event.pull_request.head.sha }})" >> "$GITHUB_OUTPUT"
 
       - name: Get Version
-        uses: MeilCli/bump-release-action@v2
+        uses: fwilhe2/bump-version@0.1
         id: version
-        with:
-          bump: patch
-          dry_run: true
 
       - name: Create Release
         uses: ncipollo/release-action@v1.16.0
         with:
           commit: ${{ steps.commit.outputs.sha }}
-          tag: ${{ steps.version.outputs.next_version }}
+          tag: ${{ steps.version.outputs.newVersion }}
           bodyFile: body.md
 
   cleanup:
