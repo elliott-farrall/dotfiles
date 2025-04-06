@@ -32,7 +32,10 @@
       "description": "flake input dependencies",
       "matchManagers": ["nix"],
       "postUpgradeTasks": {
-        "commands": ["nix run github:fzakaria/nix-auto-follow -- -i"],
+        "commands": [
+          "nix run github:fzakaria/nix-auto-follow -- -i",
+          "nix flake lock"
+        ],
         "executionMode": "branch"
       }
     },
