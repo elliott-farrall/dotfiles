@@ -1,4 +1,4 @@
-name: Diff
+name: Merge
 
 on:
   pull_request:
@@ -105,6 +105,7 @@ jobs:
   cleanup:
     name: Cleanup
     runs-on: ubuntu-latest
+    if: always()
 
     needs: release
 
