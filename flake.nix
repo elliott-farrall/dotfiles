@@ -16,7 +16,6 @@
           devshell.overlays.default
           nix-auto-follow.overlays.default
           nix-vscode-extensions.overlays.default
-          rofi-plugins.overlays.default
         ];
 
         systems.modules.nixos = with inputs; [
@@ -160,7 +159,6 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     rclonix.url = "github:elliott-farrall/rclonix/legacy";
-    rofi-plugins.url = "github:elliott-farrall/rofi-plugins?rev=990fbb21bb5152ba116571704f1ba99d3dbb377f";
     snowfall-lib.url = "github:snowfallorg/lib";
     stylix.url = "github:danth/stylix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
