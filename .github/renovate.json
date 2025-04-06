@@ -46,7 +46,8 @@
       "description": "seperate core flake inputs",
       "matchManagers": ["nix"],
       "matchDepNames": ["nixpkgs", "home-manager"],
-      "ignorePresets": ["group:allDigest", ":automergeAll"]
+      "groupName": null,
+      "automerge": false
     }
   ],
 
