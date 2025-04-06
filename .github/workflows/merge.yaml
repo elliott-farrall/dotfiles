@@ -13,7 +13,7 @@ env:
 
 jobs:
   matrices:
-    name: Generate Matrices
+    name: Generate Matrix
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
 
@@ -84,20 +84,24 @@ jobs:
 
       - name: Prepare Diff
         run: |
+          echo "## Changes" > body.md
           for diff in ./changes/*/*.diff; do
-            attr=$(basename "$diff" .diff)
             {
-              echo "## Diff for $attr"
+              echo "#### $(basename "$diff" .diff)"
               echo "\`\`\`diff"
               cat "$diff"
               echo "\`\`\`"
             } >> body.md
           done
 
+      - name: Get Commit
+        id: commit
+        run: echo "sha=$(git rev-parse ${{ github.sha }}^@ | grep -Fvx ${{ github.event.pull_request.head.sha }})" >> "$GITHUB_OUTPUT"
+
       - name: Create Release
         uses: ncipollo/release-action@v1.16.0
         with:
-          commit: ${{ github.event.pull_request.head.ref }}
+          commit: ${{ steps.commit.outputs.sha }}
           tag: ${{ github.event.pull_request.head.ref }}
           name: ${{ github.event.pull_request.merged_at }}
           bodyFile: body.md
