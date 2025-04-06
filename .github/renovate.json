@@ -3,8 +3,10 @@
   "extends": [
     "config:recommended",
     "schedule:weekly",
+    "group:allNonMajor",
+    "group:allDigest",
     ":automergeAll",
-    ":label(renovate)"
+    ":labels(automated,dependency)"
   ],
 
   "pruneStaleBranches": false,
@@ -16,13 +18,11 @@
   "packageRules": [
     {
       "description": "github actions",
-      "matchManagers": ["github-actions"],
-      "extends": ["group:allNonMajor"]
+      "matchManagers": ["github-actions"]
     },
     {
       "description": "docker images",
       "matchManagers": ["docker-compose"],
-      "extends": ["group:allNonMajor"],
       "postUpgradeTasks": {
         "commands": ["systems/*/*/**/compose.sh"],
         "executionMode": "branch"
@@ -31,7 +31,6 @@
     {
       "description": "flake input dependencies",
       "matchManagers": ["nix"],
-      "extends": ["group:allDigest"],
       "postUpgradeTasks": {
         "commands": ["nix run github:fzakaria/nix-auto-follow -- -i"],
         "executionMode": "branch"
@@ -44,11 +43,10 @@
       "enabled": false
     },
     {
-      "description": "no automerge for core flake inputs",
+      "description": "seperate core flake inputs",
       "matchManagers": ["nix"],
       "matchDepNames": ["nixpkgs", "home-manager"],
-      "groupName": null,
-      "automerge": false
+      "ignorePresets": ["group:allDigest", ":automergeAll"]
     }
   ],
 
