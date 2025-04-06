@@ -682,7 +682,7 @@
     ];
   };
   virtualisation.oci-containers.containers."jellyseerr" = {
-    image = "docker.io/fallenbagel/jellyseerr:2.5.1";
+    image = "docker.io/fallenbagel/jellyseerr:2.5.2";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-jellyseerr:/app/config:rw"
@@ -1259,7 +1259,7 @@
     ];
   };
   virtualisation.oci-containers.containers."romm" = {
-    image = "docker.io/rommapp/romm:3.8.1";
+    image = "docker.io/rommapp/romm:3.8.2";
     environment = {
       "DB_HOST" = "romm-db";
       "DB_USER" = "romm-user";
