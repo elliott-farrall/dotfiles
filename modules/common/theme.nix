@@ -15,10 +15,6 @@ in
       default = "mocha";
       type = lib.types.enum [ "frappe" "latte" "macchiato" "mocha" ];
     };
-    accent = lib.mkOption {
-      default = "blue";
-      type = lib.types.enum [ "red" "peach" "yellow" "green" "teal" "blue" "mauve" "flamingo" ];
-    };
     accentBase16 = lib.mkOption {
       default = "blue";
       type = lib.types.enum [ "red" "orange" "yellow" "green" "cyan" "blue" "magenta" "brown" ];
@@ -28,6 +24,7 @@ in
   config = {
     catppuccin = {
       inherit flavour accent;
+      flavor = flavour;
       accentBase16 = {
         red = "red";
         peach = "orange";
@@ -66,7 +63,7 @@ in
           applications = 10;
           desktop = 10;
           popups = 10;
-          terminal = 12;
+          terminal = 11;
         };
       };
 

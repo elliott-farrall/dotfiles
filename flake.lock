@@ -103,21 +103,22 @@
         "type": "github"
       }
     },
-    "catppuccin-vsc": {
+    "catppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1731106889,
-        "narHash": "sha256-acq5Rbg2swreKyZDswqd9c9X1NtTNexMkKZNws/l4s8=",
-        "rev": "39e26a0e1bd5a84899c2b786b9119d6e9174297f",
-        "revCount": 523,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/catppuccin/vscode/3.16.0/01931044-41cd-79d3-882f-dd68e6ebfa38/source.tar.gz"
+        "lastModified": 1743801669,
+        "narHash": "sha256-RxQQQCGqywOPbdNrWGbFyFdcrdrXM4YBHW7vYt13OeI=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "07beb389d69a52c4dd5895da9553463c3740a26a",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/catppuccin/vscode/%2A.tar.gz"
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
       }
     },
     "code-insiders": {
@@ -1400,7 +1401,7 @@
       "inputs": {
         "agenix": "agenix",
         "agenix-substitutes": "agenix-substitutes",
-        "catppuccin-vsc": "catppuccin-vsc",
+        "catppuccin": "catppuccin",
         "code-insiders": "code-insiders",
         "comin": "comin",
         "deploy-rs": "deploy-rs",

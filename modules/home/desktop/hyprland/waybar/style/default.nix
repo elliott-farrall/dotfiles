@@ -14,7 +14,10 @@ let
 in
 {
   config = lib.mkIf enable {
-    stylix.targets.waybar.addCss = false;
+    stylix.targets.waybar = {
+      font = "sansSerif";
+      addCss = false;
+    };
 
     programs.waybar.style = /*css*/''
       @define-color accent #${accent};

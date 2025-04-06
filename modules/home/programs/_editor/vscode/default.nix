@@ -10,8 +10,6 @@ let
 
   name = lib.strings.removePrefix "vs" cfg;
 
-  inherit (config.catppuccin) accent;
-
   inherit (lib.internal) mkDefaultApplications;
 
   package = pkgs.${cfg}.overrideAttrs (attrs: {
@@ -39,18 +37,6 @@ in
       profiles.default = {
         enableExtensionUpdateCheck = false;
         extensions = with pkgs.vscode-marketplace; [
-          # Theme
-          (pkgs.vscode-extensions.catppuccin.catppuccin-vsc.override {
-            inherit accent;
-            boldKeywords = true;
-            italicComments = true;
-            italicKeywords = true;
-            extraBordersEnabled = false;
-            workbenchMode = "default";
-            bracketMode = "rainbow";
-            colorOverrides = { };
-            customUIColors = { };
-          })
           # Core
           ms-vscode.remote-explorer
           ms-vscode.remote-server
