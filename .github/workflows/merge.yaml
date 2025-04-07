@@ -109,6 +109,10 @@ jobs:
           tag: ${{ steps.version.outputs.newVersion }}
           bodyFile: body.md
 
+      - name: Show Stats
+        if: always()
+        run: df -h
+
   cleanup:
     name: Cleanup
     runs-on: ubuntu-latest
