@@ -33,7 +33,7 @@ jobs:
 
   diff:
     name: Diff Attributes
-    runs-on: ubuntu-latest
+    runs-on: runs-on=${{github.run_id}}/runner=2cpu-linux-x64/extras=s3-cache
     if: github.event.pull_request.merged == true
 
     needs: matrices
@@ -42,11 +42,30 @@ jobs:
         attr: ${{ fromJson(needs.matrices.outputs.attrs) }}
 
     steps:
+      - name: Enable Caching
+        uses: runs-on/action@v1
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v30
+        with:
+          nix_conf: |
+            accept-flake-config = true
+            build-users-group =
+
+      - name: Setup Cache
+        uses: nix-community/cache-nix-action@v6
+        if: ${{ ! fromJSON(env.ACT) }}
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 1G
+          purge: true
+          purge-prefixes: nix-${{ runner.os }}-
+          purge-created: 0
+          purge-primary-key: never
+
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Setup Environment
-        uses: ./.github/actions/setup
 
       - name: Build Attribute
         id: build
