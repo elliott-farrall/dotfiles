@@ -8,7 +8,10 @@ let
   cfg = config.programs.minecraft;
   inherit (cfg) enable;
 
-  icon = "${pkgs.minecraft.overrideAttrs(_: _: { meta.broken = false; })}/share/icons/hicolor/symbolic/apps/minecraft-launcher.svg";
+  icon = builtins.fetchurl {
+    url = "https://dotfiles.beannet.io/icons/minecraft.png";
+    sha256 = "sha256:0jwvbfvy52scgvz4s4gnfq79wc93kq2j4lrwgmgaz7ljm9ysy2y5";
+  };
 
   package = pkgs.symlinkJoin {
     name = "minecraft";
