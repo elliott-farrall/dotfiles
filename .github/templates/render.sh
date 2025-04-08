@@ -44,7 +44,15 @@ extract_comments() {
 
 clean_json() {
   local json="$1"
-  echo "$json" | jq 'walk(if type == "object" then with_entries(select(.value | length > 0)) else . end)'
+  echo "$json" | jq 'walk(
+    if type == "object" then
+      with_entries(select(.value | length > 0))
+    elif type == "array" then
+      sort
+    else
+      .
+    end
+  )'
 }
 
 generate_json() {
@@ -91,7 +99,7 @@ generate_json() {
         ModulesNix: $modules_nix_fixmes,
         ModulesHome: $modules_home_fixmes
       }
-  } | with_entries(select(.value | keys | length > 0))')
+  }')
 
   clean_json "$raw_json" >"$JSON_FILE"
 }
