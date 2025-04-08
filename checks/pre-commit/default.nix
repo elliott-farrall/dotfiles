@@ -9,6 +9,7 @@ lib.pre-commit-hooks.${system}.run {
   src = ./.;
 
   excludes = [
+    "README.md"
     ".*\\.age$"
     ".*\\.hash$"
     ".*\\.ppd$"
@@ -64,7 +65,7 @@ lib.pre-commit-hooks.${system}.run {
 
     compose2nix = {
       enable = true;
-      entry = "systems/*/*/**/compose.sh";
+      entry = "find systems -type f -path systems/*/*/**/compose.sh -exec {} \\;";
       files = "compose\\.yaml$";
       pass_filenames = false;
     };
