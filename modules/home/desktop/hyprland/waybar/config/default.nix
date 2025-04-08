@@ -88,7 +88,7 @@ in
         escape = true;
       };
 
-      "systemd-failed-units" = {
+      "systemd-failed-units" = { #FIXME - Does not work well with user units (see https://github.com/Alexays/Waybar/issues/3444)
         format = "󰒏 {nr_failed}";
         on-click = "${config.home.sessionVariables.TERMINAL} ${lib.getExe pkgs.systemctl-tui}";
       };

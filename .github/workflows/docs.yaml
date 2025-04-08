@@ -1,0 +1,33 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  actions: write
+
+env:
+  ACT: false
+
+jobs:
+  readme:
+    name: Update README
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
+      - name: Render Template
+        run: .github/templates/render.sh
+
+      - name: Format Repository
+        run: nix fmt
+
+      - name: Check for Changes
+        run: git diff --exit-code

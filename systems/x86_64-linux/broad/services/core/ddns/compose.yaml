@@ -3,7 +3,7 @@ services:
     container_name: ddns
     image: docker.io/favonia/cloudflare-ddns:1.15.1
     restart: unless-stopped
-    user: 0:0 # TODO: Find better way to read token
+    user: 0:0 #TODO - Find better way to read token for ddns
     volumes:
       - /etc/localtime:/etc/localtime:ro
 

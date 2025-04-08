@@ -1,29 +1,58 @@
-[![build](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2FElliottSullingeFarrall%2Fdotfiles%3Fbranch%3Dmain)](https://garnix.io/repo/ElliottSullingeFarrall/dotfiles) [![check](https://github.com/ElliottSullingeFarrall/dotfiles/actions/workflows/check.yaml/badge.svg)](https://github.com/ElliottSullingeFarrall/dotfiles)
+# DotFiles
 
-## Objectives
+This repository contains my dotfiles and configuration files for various applications and systems.
 
-### Broad
+- [:bug: Issues](#bug-issues)
+  - [:desktop_computer: Systems](#desktop_computer-systems)
+  - [:house_with_garden: Homes](#house_with_garden-homes)
+  - [:wrench: Modules (NixOS)](#wrench-modules-nixos)
+  - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-home-manager)
+  - [:test_tube: Checks](#test_tube-checks)
+- [:clipboard: To Do](#clipboard-todo)
+  - [:desktop_computer: Systems](#desktop_computer-systems-1)
+  - [:house_with_garden: Homes](#house_with_garden-homes-1)
+  - [:wrench: Modules (NixOS)](#wrench-modules-nixos-1)
+  - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-home-manager-1)
+  - [:test_tube: Checks](#test_tube-checks-1)
 
-Install to bare-metal.
+## :bug: Issues
 
-### Lima
+Below are a list of issues that need to be fixed.
 
-- [ ] Impermanance / Erase Your Darlings
+### :wrench: Modules (NixOS)
+
+#### **greeter**
+
+- [ ] Incorrect resolutions on multi-monitor setups
+
+### :screwdriver: Modules (Home Manager)
+
+#### **desktop**
+
+- [ ] Does not work well with user units (see https://github.com/Alexays/Waybar/issues/3444)
+
+## :clipboard: To Do
+
+Below are a list of of features that need to be added.
+
+### :desktop_computer: Systems
+
+#### **broad**
+
+- [ ] Find better way to read token for ddns
+
+#### **lima**
+
+- [ ] Migrate to impermanence
+
+### :screwdriver: Modules (Home Manager)
+
+#### **desktop**
+
 - [ ] Build AGS widgets
-- [ ] Fix kmscon
-- [ ] Fix waybar systemd module (issue [here](https://github.com/Alexays/Waybar/issues/3444)) or implement notification system for systemd units.
 
-### Runner
+### :test_tube: Checks
 
-Streamline deployment through `nixos-anywhere`, including automatic key setup.
+#### **pre-commit**
 
-### Sprout
-
-Start creating config.
-
-### Misc
-
-- [ ] Fix TTY resolutions on multi-monitor setup
-- [ ] Improve look of `tuigreet`
-- [ ] Implement better system for forcing xdg compliance
-- [ ] Modularise connections like git, ssh and rclone
+- [ ] Fix act pre-commit

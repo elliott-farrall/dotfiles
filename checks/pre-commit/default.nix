@@ -57,7 +57,7 @@ lib.pre-commit-hooks.${system}.run {
     /* --------------------------------- Custom --------------------------------- */
 
     act = {
-      enable = false; #TODO: Fix act pre-commit
+      enable = false; #TODO - Fix act pre-commit
       entry = "${lib.getExe pkgs.act} -nW";
       files = "^\\.github/workflows/.*\\.yaml$";
     };
@@ -66,6 +66,13 @@ lib.pre-commit-hooks.${system}.run {
       enable = true;
       entry = "systems/*/*/**/compose.sh";
       files = "compose\\.yaml$";
+      pass_filenames = false;
+    };
+
+    docs = {
+      enable = true;
+      entry = ".github/templates/render.sh";
+      files = "^(checks|modules|homes|systems)/.*$";
       pass_filenames = false;
     };
 

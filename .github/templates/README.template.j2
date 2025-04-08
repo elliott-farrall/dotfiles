@@ -1,0 +1,123 @@
+# DotFiles
+
+This repository contains my dotfiles and configuration files for various applications and systems.
+- [:bug: Issues](#bug-issues)
+    - [:desktop_computer: Systems](#desktop_computer-systems)
+    - [:house_with_garden: Homes](#house_with_garden-homes)
+    - [:wrench: Modules (NixOS)](#wrench-modules-nixos)
+    - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-home-manager)
+    - [:test_tube: Checks](#test_tube-checks)
+- [:clipboard: To Do](#clipboard-todo)
+    - [:desktop_computer: Systems](#desktop_computer-systems-1)
+    - [:house_with_garden: Homes](#house_with_garden-homes-1)
+    - [:wrench: Modules (NixOS)](#wrench-modules-nixos-1)
+    - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-home-manager-1)
+    - [:test_tube: Checks](#test_tube-checks-1)
+
+## :bug: Issues
+
+Below are a list of issues that need to be fixed.
+
+{% if FIXME.Systems -%}
+### :desktop_computer: Systems
+{% for system, tasks in FIXME.Systems.items() if tasks -%}
+#### **{{ system }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if FIXME.Homes -%}
+### :house_with_garden: Homes
+{% for home, tasks in FIXME.Homes.items() if tasks -%}
+#### **{{ home }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if FIXME.ModulesNix -%}
+### :wrench: Modules (NixOS)
+{% for module, tasks in FIXME.ModulesNix.items() if tasks -%}
+#### **{{ module }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if FIXME.ModulesHome -%}
+### :screwdriver: Modules (Home Manager)
+{% for module, tasks in FIXME.ModulesHome.items() if tasks -%}
+#### **{{ module }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if FIXME.Checks -%}
+### :test_tube: Checks
+{% for check, tasks in FIXME.Checks.items() if tasks -%}
+#### **{{ check }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+## :clipboard: To Do
+
+Below are a list of of features that need to be added.
+
+{% if TODO.Systems -%}
+### :desktop_computer: Systems
+{% for system, tasks in TODO.Systems.items() if tasks -%}
+#### **{{ system }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if TODO.Homes -%}
+### :house_with_garden: Homes
+{% for home, tasks in TODO.Homes.items() if tasks -%}
+#### **{{ home }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if TODO.ModulesNix -%}
+### :wrench: Modules (NixOS)
+{% for module, tasks in TODO.ModulesNix.items() if tasks -%}
+#### **{{ module }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if TODO.ModulesHome -%}
+### :screwdriver: Modules (Home Manager)
+{% for module, tasks in TODO.ModulesHome.items() if tasks -%}
+#### **{{ module }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}
+
+{% if TODO.Checks -%}
+### :test_tube: Checks
+{% for check, tasks in TODO.Checks.items() if tasks -%}
+#### **{{ check }}**
+{% for task in tasks -%}
+- [ ] {{ task }}
+{% endfor -%}
+{% endfor -%}
+{% endif -%}

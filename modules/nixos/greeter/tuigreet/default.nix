@@ -27,5 +27,6 @@ in
       --xsessions ${desktops}/share/xsessions \
       --theme 'border=${accent};prompt=${accent};action=${accent}'
     '';
+    #FIXME - Incorrect resolutions on multi-monitor setups
   };
 }
