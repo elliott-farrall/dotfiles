@@ -1,5 +1,4 @@
-{ lib
-, system
+{ system
 , host
 , ...
 }:
@@ -21,6 +20,4 @@
     };
   };
   age.identityPaths = [ "/var/garnix/keys/repo-key" ];
-
-  services.comin.enable = lib.mkForce false;
 }
