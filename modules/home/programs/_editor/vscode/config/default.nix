@@ -61,6 +61,8 @@ in
 
       "diffEditor.ignoreTrimWhitespace" = false;
 
+      "commentAnchors.workspace.excludeFiles" = "**/{node_modules,.git,.direnv,.idea,target,out,build,result,bin,obj,dist,vendor}/**/*";
+
       /* ----------------------------------- Git ---------------------------------- */
 
       "git.defaultCloneDirectory" = config.xdg.userDirs.extraConfig.XDG_REPO_DIR;

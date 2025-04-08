@@ -58,6 +58,9 @@ in
           vivaxy.vscode-conventional-commits
           exodiusstudios.comment-anchors
           stackbreak.comment-divider
+          bierner.markdown-preview-github-styles
+          bierner.markdown-checkbox
+          bierner.markdown-emoji
           # Languages
           jnoortheen.nix-ide
           redhat.vscode-yaml
