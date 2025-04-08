@@ -126,7 +126,7 @@ jobs:
         run: echo "sha=$(git rev-parse ${{ github.sha }}^@ | grep -Fvx ${{ github.event.pull_request.head.sha }})" >> "$GITHUB_OUTPUT"
 
       - name: Bump Version
-        uses: marier-nico/pr-bump@1.0
+        uses: marier-nico/pr-bump@v1.1.0
         id: version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
