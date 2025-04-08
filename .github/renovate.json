@@ -5,15 +5,13 @@
     "schedule:weekly",
     "group:allNonMajor",
     "group:allDigest",
-    ":automergeAll",
-    ":labels(automated,dependencies)"
+    ":automergeAll"
   ],
-
-  "pruneStaleBranches": false,
-  "pruneBranchAfterAutomerge": false,
 
   "enabledManagers": ["github-actions", "docker-compose", "nix"],
   "nix": { "enabled": true },
+
+  "labels": ["automated", "dependencies", "{{ updateType }}"],
 
   "packageRules": [
     {
@@ -29,7 +27,7 @@
       }
     },
     {
-      "description": "flake input dependencies",
+      "description": "flake inputs",
       "matchManagers": ["nix"],
       "postUpgradeTasks": {
         "commands": [
@@ -54,10 +52,11 @@
     }
   ],
 
-  "addLabels": ["{{ updateType }}"],
-
   "postUpgradeTasks": {
     "commands": ["nix fmt"],
     "executionMode": "branch"
-  }
+  },
+
+  "pruneStaleBranches": false,
+  "pruneBranchAfterAutomerge": false
 }
