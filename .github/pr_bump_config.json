@@ -1,0 +1,16 @@
+{
+  "categories": [
+    {
+      "labels": ["bug", "docs", "documentation", "fix", "patch", "digest"],
+      "semver_part": "patch"
+    },
+    {
+      "labels": ["enhancement", "feat", "feature", "minor"],
+      "semver_part": "minor"
+    },
+    {
+      "labels": ["breaking", "major"],
+      "semver_part": "major"
+    }
+  ]
+}

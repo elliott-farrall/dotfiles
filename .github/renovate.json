@@ -54,6 +54,8 @@
     }
   ],
 
+  "addLabels": ["{{ updateType }}"],
+
   "postUpgradeTasks": {
     "commands": ["nix fmt"],
     "executionMode": "branch"
