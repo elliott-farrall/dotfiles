@@ -33,6 +33,9 @@ Below are a list of of features that need to be added.
 - [ ] Find better way to read token for ddns
 #### **lima**
 - [ ] Migrate to impermanence
+### :house_with_garden: Homes
+#### **elliott@lima**
+- [ ] Organise tools
 ### :screwdriver: Modules (Home Manager)
 #### **desktop**
 - [ ] Build AGS widgets
