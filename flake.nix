@@ -68,6 +68,7 @@
 
             settings.global.excludes = [
               "LICENSE.md"
+              "README.md"
               ".editorconfig"
               "*.env"
               "*.ini"
@@ -109,7 +110,7 @@
               nixpkgs-fmt.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
               deadnix.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
               statix.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
-              shfmt.excludes = [ "modules/nixos/boot/silent/boot/*" ];
+              shfmt.excludes = [ "modules/nixos/boot/silent/boot/*" ".github/templates/render.sh" ];
               beautysh.excludes = [ "modules/nixos/boot/silent/boot/*" ];
             };
           };

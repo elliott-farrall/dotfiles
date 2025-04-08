@@ -66,17 +66,17 @@ generate_json() {
   modules_home_fixmes=$(extract_comments "$MODULES_HOME_DIR" "FIXME")
 
   raw_json=$(jq -n \
-    --argjson systems_todos "$systems_todos" \
-    --argjson homes_todos "$homes_todos" \
-    --argjson checks_todos "$checks_todos" \
-    --argjson modules_nix_todos "$modules_nix_todos" \
-    --argjson modules_home_todos "$modules_home_todos" \
-    --argjson systems_fixmes "$systems_fixmes" \
-    --argjson homes_fixmes "$homes_fixmes" \
-    --argjson checks_fixmes "$checks_fixmes" \
-    --argjson modules_nix_fixmes "$modules_nix_fixmes" \
-    --argjson modules_home_fixmes "$modules_home_fixmes" \
-    '{
+      --argjson systems_todos "$systems_todos" \
+      --argjson homes_todos "$homes_todos" \
+      --argjson checks_todos "$checks_todos" \
+      --argjson modules_nix_todos "$modules_nix_todos" \
+      --argjson modules_home_todos "$modules_home_todos" \
+      --argjson systems_fixmes "$systems_fixmes" \
+      --argjson homes_fixmes "$homes_fixmes" \
+      --argjson checks_fixmes "$checks_fixmes" \
+      --argjson modules_nix_fixmes "$modules_nix_fixmes" \
+      --argjson modules_home_fixmes "$modules_home_fixmes" \
+      '{
       TODO: {
         Systems: $systems_todos,
         Homes: $homes_todos,

@@ -9,7 +9,6 @@ lib.pre-commit-hooks.${system}.run {
   src = ./.;
 
   excludes = [
-    "README.md"
     ".*\\.age$"
     ".*\\.hash$"
     ".*\\.ppd$"
