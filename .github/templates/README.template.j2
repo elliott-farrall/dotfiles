@@ -20,9 +20,9 @@ Below are a list of issues that need to be fixed.
 
 {% if FIXME.Systems -%}
 ### :desktop_computer: Systems
-{% for system, tasks in FIXME.Systems.items() if tasks -%}
+{% for system, tasks in FIXME.Systems|dictsort if tasks -%}
 #### **{{ system }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -30,9 +30,9 @@ Below are a list of issues that need to be fixed.
 
 {% if FIXME.Homes -%}
 ### :house_with_garden: Homes
-{% for home, tasks in FIXME.Homes.items() if tasks -%}
+{% for home, tasks in FIXME.Homes|dictsort if tasks -%}
 #### **{{ home }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -40,9 +40,9 @@ Below are a list of issues that need to be fixed.
 
 {% if FIXME.ModulesNix -%}
 ### :wrench: Modules (NixOS)
-{% for module, tasks in FIXME.ModulesNix.items() if tasks -%}
+{% for module, tasks in FIXME.ModulesNix|dictsort if tasks -%}
 #### **{{ module }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -50,9 +50,9 @@ Below are a list of issues that need to be fixed.
 
 {% if FIXME.ModulesHome -%}
 ### :screwdriver: Modules (Home Manager)
-{% for module, tasks in FIXME.ModulesHome.items() if tasks -%}
+{% for module, tasks in FIXME.ModulesHome|dictsort if tasks -%}
 #### **{{ module }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -60,9 +60,9 @@ Below are a list of issues that need to be fixed.
 
 {% if FIXME.Checks -%}
 ### :test_tube: Checks
-{% for check, tasks in FIXME.Checks.items() if tasks -%}
+{% for check, tasks in FIXME.Checks|dictsort if tasks -%}
 #### **{{ check }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -74,9 +74,9 @@ Below are a list of of features that need to be added.
 
 {% if TODO.Systems -%}
 ### :desktop_computer: Systems
-{% for system, tasks in TODO.Systems.items() if tasks -%}
+{% for system, tasks in TODO.Systems|dictsort if tasks -%}
 #### **{{ system }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -84,9 +84,9 @@ Below are a list of of features that need to be added.
 
 {% if TODO.Homes -%}
 ### :house_with_garden: Homes
-{% for home, tasks in TODO.Homes.items() if tasks -%}
+{% for home, tasks in TODO.Homes|dictsort if tasks -%}
 #### **{{ home }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -94,9 +94,9 @@ Below are a list of of features that need to be added.
 
 {% if TODO.ModulesNix -%}
 ### :wrench: Modules (NixOS)
-{% for module, tasks in TODO.ModulesNix.items() if tasks -%}
+{% for module, tasks in TODO.ModulesNix|dictsort if tasks -%}
 #### **{{ module }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -104,9 +104,9 @@ Below are a list of of features that need to be added.
 
 {% if TODO.ModulesHome -%}
 ### :screwdriver: Modules (Home Manager)
-{% for module, tasks in TODO.ModulesHome.items() if tasks -%}
+{% for module, tasks in TODO.ModulesHome|dictsort if tasks -%}
 #### **{{ module }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
@@ -114,9 +114,9 @@ Below are a list of of features that need to be added.
 
 {% if TODO.Checks -%}
 ### :test_tube: Checks
-{% for check, tasks in TODO.Checks.items() if tasks -%}
+{% for check, tasks in TODO.Checks|dictsort if tasks -%}
 #### **{{ check }}**
-{% for task in tasks -%}
+{% for task in tasks|sort -%}
 - [ ] {{ task }}
 {% endfor -%}
 {% endfor -%}
