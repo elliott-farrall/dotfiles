@@ -11,15 +11,15 @@ This repository contains my dotfiles and configuration files for various applica
 ] -%}
 
 {% if FIXME -%}
-- [:bug: Issues](#bug-issues)
+- :bug: [Issues](#bug-issues)
 {%- for section in sections if FIXME[section.key] %}
-    - [{{ section.icon }} {{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }})
+    - {{ section.icon }} [{{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }})
 {%- endfor %}
 {%- endif %}
 {% if TODO -%}
-- [:clipboard: To Do](#clipboard-todo)
+- :clipboard: [To Do](#clipboard-todo)
 {%- for section in sections if TODO[section.key] %}
-    - [{{ section.icon }} {{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }}-1)
+    - {{ section.icon }} [{{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }}-1)
 {%- endfor %}
 {%- endif %}
 

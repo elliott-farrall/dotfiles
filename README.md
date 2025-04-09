@@ -2,14 +2,14 @@
 
 This repository contains my dotfiles and configuration files for various applications and systems.
 
-- [:bug: Issues](#bug-issues)
-    - [:wrench: Modules (NixOS)](#wrench-modules-(nixos))
-    - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-(home-manager))
-- [:clipboard: To Do](#clipboard-todo)
-    - [:desktop_computer: Systems](#desktop_computer-systems-1)
-    - [:house_with_garden: Homes](#house_with_garden-homes-1)
-    - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
-    - [:test_tube: Checks](#test_tube-checks-1)
+- :bug: [Issues](#bug-issues)
+    - :wrench: [Modules (NixOS)](#wrench-modules-(nixos))
+    - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager))
+- :clipboard: [To Do](#clipboard-todo)
+    - :desktop_computer: [Systems](#desktop_computer-systems-1)
+    - :house_with_garden: [Homes](#house_with_garden-homes-1)
+    - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
+    - :test_tube: [Checks](#test_tube-checks-1)
 
 ## :bug: Issues
 
