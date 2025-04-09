@@ -1,4 +1,11 @@
 let
+  nixpkgs = import <nixpkgs> {};
+  inherit (nixpkgs) lib;
+
+  ageFiles = lib.fileset.toList (
+    lib.fileset.fileFilter (file: file.hasExt "age") ./.
+  );
+
   hosts = {
     broad = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKmVhqowDJawyr/RWEbc3HEQuiPDYsBFUniOd24Le4CB"
@@ -27,94 +34,23 @@ let
     ];
   };
 
-  all = builtins.concatLists ((builtins.attrValues hosts) ++ (builtins.attrValues users));
-  broad = hosts.broad ++ users.elliott;
-  lima = hosts.lima ++ users.elliott;
-  runner = hosts.runner ++ users.elliott;
+  keys = {
+    all = builtins.concatLists ((builtins.attrValues hosts) ++ (builtins.attrValues users));
+    broad = hosts.broad ++ users.elliott;
+    lima = hosts.lima ++ users.elliott;
+    runner = hosts.runner ++ users.elliott;
+  };
+
+  getKeyName = path: 
+    if builtins.match "modules/.*" path != null then "all"
+    else if builtins.match "systems/x86_64-linux/broad/.*" path != null then "broad"
+    else if builtins.match "systems/x86_64-linux/lima/.*" path != null then "lima"
+    else if builtins.match "systems/x86_64-linux/runner/.*" path != null then "runner"
+    else if builtins.match "homes/x86_64-linux/elliott@lima/.*" path != null then "lima"
+    else "all";
+
 in
-{
-
-  /* --------------------------------- Docker --------------------------------- */
-
-  "modules/nixos/virtualisation/docker/username.age".publicKeys = all;
-  "modules/nixos/virtualisation/docker/password.age".publicKeys = all;
-
-  /* --------------------------------- GitHub --------------------------------- */
-
-  "modules/home/git/sign.age".publicKeys = all;
-  "modules/home/git/github/auth.age".publicKeys = all;
-  "modules/home/git/azure/auth.age".publicKeys = all;
-  
-
-  "modules/nixos/nix/settings/pat.age".publicKeys = all;
-
-  "systems/x86_64-linux/runner/services/github-runners/repos/dotfiles.age".publicKeys = runner;
-  "systems/x86_64-linux/runner/services/renovate/token.age".publicKeys = runner;
-
-  /* -------------------------------- Home Lab -------------------------------- */
-
-  "modules/home/networking/ssh/beannet/root.age".publicKeys = all;
-  "modules/home/networking/ssh/beannet/elliott.age".publicKeys = all;
-
-  "systems/x86_64-linux/broad/services/secret.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/password.age".publicKeys = broad;
-
-  "systems/x86_64-linux/broad/services/core/backup/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/backup/secret.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/backup/token.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/backup/cloudflare-url.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/backup/cloudflare-id.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/backup/cloudflare-key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/backup/auth.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/ddns/cloudflare.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/proxy/cloudflare.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/core/vpn/key.age".publicKeys = broad;
-
-  "systems/x86_64-linux/broad/services/games/romm/igdb-id.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/games/romm/igdb.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/games/romm/steamgriddb.age".publicKeys = broad;
-
-  "systems/x86_64-linux/broad/services/media/jellyfin/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/jellyseerr/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/prowlarr/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/prowlarr/indexers/nzbgeek.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/radarr/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/sabnzbd/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/sabnzbd/nzb.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/sonarr/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/media/tubearchivist/key.age".publicKeys = broad;
-
-  "systems/x86_64-linux/broad/services/monitor/portainer/key.age".publicKeys = broad;
-  "systems/x86_64-linux/broad/services/monitor/speedtest-tracker/key.age".publicKeys = broad;
-
-  /* ----------------------------- PythonAnywhere ----------------------------- */
-
-  "modules/home/networking/ssh/python-anywhere/key.age".publicKeys = all;
-
-  /* --------------------------------- rClone --------------------------------- */
-
-  "modules/home/rclone/DotFiles/url.age".publicKeys = lima;
-  "modules/home/rclone/DotFiles/id.age".publicKeys = lima;
-  "modules/home/rclone/DotFiles/key.age".publicKeys = lima;
-
-  "modules/home/rclone/DropBox/token.age".publicKeys = lima;
-
-  "modules/home/rclone/Google/token.age".publicKeys = lima;
-
-  "modules/home/rclone/OneDrive/id.age".publicKeys = lima;
-  "modules/home/rclone/OneDrive/token.age".publicKeys = lima;
-
-  "modules/home/rclone/Work/id.age".publicKeys = lima;
-  "modules/home/rclone/Work/token.age".publicKeys = lima;
-
-  /* -------------------------------- TailScale ------------------------------- */
-
-  "modules/nixos/networking/tailscale/auth.age".publicKeys = all;
-
-  /* ----------------------------------- UoS ---------------------------------- */
-
-  "modules/nixos/profiles/uos/networking/env.age".publicKeys = all;
-
-  "modules/home/profiles/uos/ssh/key.age".publicKeys = all;
-
-}
+builtins.listToAttrs (map (file: {
+  name = lib.path.removePrefix ./. file;
+  value.publicKeys = keys.${getKeyName (toString file)};
+}) ageFiles)
