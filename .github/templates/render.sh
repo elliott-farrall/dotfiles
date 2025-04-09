@@ -1,103 +1,109 @@
 #! /usr/bin/env nix
-#! nix shell nixpkgs#jinja2-cli nixpkgs#jq -c bash
+#! nix shell
+#! nix nixpkgs#jq
+#! nix nixpkgs#jinja2-cli
+#! nix nixpkgs#python312Packages.pre-commit-hooks
+#! nix --command bash
 
 TEMPLATE_PATH=".github/templates"
 TEMPLATE_FILE="$TEMPLATE_PATH/README.template.j2"
 JSON_FILE="$TEMPLATE_PATH/readme.json"
 OUTPUT_FILE="README.md"
 
-SYSTEMS_DIR="systems/x86_64-linux"
-HOMES_DIR="homes/x86_64-linux"
-CHECKS_DIR="checks"
-MODULES_NIX_DIR="modules/nixos"
-MODULES_HOME_DIR="modules/home"
+# Map top-level directories to JSON keys
+declare -A DIR_TO_KEY=(
+  ["systems/x86_64-linux"]="Systems"
+  ["homes/x86_64-linux"]="Homes"
+  ["modules/nixos"]="ModulesNix"
+  ["modules/home"]="ModulesHome"
+  ["checks"]="Checks"
+)
 
 extract_comments() {
-  local dir="$1"
+  local file="$1"
   local prefix="$2" # Prefix to search for (e.g., TODO, FIXME)
-  local comments="{}"
 
-  # Recursively find all files in the directory
-  while IFS= read -r -d '' file; do
-    # Extract the top-level subdirectory name as the key
-    local relative_path="${file#$dir/}"
-    local subdir="${relative_path%%/*}"
+  local comments="[]"
+  while IFS= read -r line; do
+    if [[ $line =~ \#$prefix\ -\ (.+) ]]; then
+      # Extract comment
+      local comment="${BASH_REMATCH[1]}"
+      echo "  Found $prefix in $file: $comment" >&2
+      comments=$(echo "$comments" | jq --arg comment "$comment" '. + [$comment]')
+    fi
+  done <"$file"
 
-    # Process the file for comments with the given prefix
-    local item_comments
-    item_comments=$(echo "$comments" | jq --arg subdir "$subdir" '.[$subdir] // []')
-
-    while IFS= read -r line; do
-      if [[ $line =~ \#$prefix\ -\ (.+) ]]; then
-        local comment="${BASH_REMATCH[1]}"
-        echo "  Found $prefix: $comment" >&2
-        item_comments=$(echo "$item_comments" | jq --arg comment "$comment" '. + [$comment]')
-      fi
-    done <"$file"
-
-    # Update the comments JSON with the new comments for the subdir
-    comments=$(echo "$comments" | jq --arg subdir "$subdir" --argjson tasks "$item_comments" '. + {($subdir): $tasks}')
-  done < <(find "$dir" -mindepth 2 -type f -print0)
-
-  echo $comments
+  echo "$comments" | jq '.'
 }
 
-clean_json() {
-  local json="$1"
-  echo "$json" | jq 'walk(if type == "object" then with_entries(select(.value | length > 0)) else . end)'
+process_file() {
+  local file="$1"
+
+  # Extract the relative path
+  local relative_path="${file#./}"
+
+  # Match the start of the relative path with DIR_TO_KEY
+  local key=""
+  for dir in "${!DIR_TO_KEY[@]}"; do
+    if [[ "$relative_path" == "$dir"* ]]; then
+      key="${DIR_TO_KEY["$dir"]}"
+      break
+    fi
+  done
+  if [[ -z "$key" ]]; then
+    echo "  Skipping $file: No mapping for $relative_path" >&2
+    echo '{"TODO": {}, "FIXME": {}}'
+    return
+  fi
+
+  # Extract the subdirectory (remaining part of the path after the matched directory)
+  local subdir="${relative_path#"$dir/"}"
+  subdir="${subdir%%/*}"
+
+  # Extract TODOs and FIXMEs
+  local file_todos file_fixmes
+  file_todos=$(extract_comments "$file" "TODO")
+  file_fixmes=$(extract_comments "$file" "FIXME")
+
+  # Add comments to the JSON structure
+  local todos="{}"
+  local fixmes="{}"
+  if [[ -n "$file_todos" && "$file_todos" != "[]" ]]; then
+    todos=$(echo "$todos" | jq --arg key "$key" --arg subdir "$subdir" --argjson comments "$file_todos" '.[$key][$subdir] = $comments')
+  fi
+  if [[ -n "$file_fixmes" && "$file_fixmes" != "[]" ]]; then
+    fixmes=$(echo "$fixmes" | jq --arg key "$key" --arg subdir "$subdir" --argjson comments "$file_fixmes" '.[$key][$subdir] = $comments')
+  fi
+
+  jq -n --argjson todos "$todos" --argjson fixmes "$fixmes" '{TODO: $todos, FIXME: $fixmes}'
 }
 
 generate_json() {
-  local systems_todos homes_todos checks_todos modules_nix_todos modules_home_todos
-  local systems_fixmes homes_fixmes checks_fixmes modules_nix_fixmes modules_home_fixmes
+  local raw_json='{"TODO": {}, "FIXME": {}}'
 
-  # Extract TODOs
-  systems_todos=$(extract_comments "$SYSTEMS_DIR" "TODO")
-  homes_todos=$(extract_comments "$HOMES_DIR" "TODO")
-  checks_todos=$(extract_comments "$CHECKS_DIR" "TODO")
-  modules_nix_todos=$(extract_comments "$MODULES_NIX_DIR" "TODO")
-  modules_home_todos=$(extract_comments "$MODULES_HOME_DIR" "TODO")
+  # Find all files in the directories specified in DIR_TO_KEY
+  local files=()
+  for dir in "${!DIR_TO_KEY[@]}"; do
+    while IFS= read -r file; do
+      files+=("$file")
+    done < <(find "$dir" -type f)
+  done
 
-  # Extract FIXMEs
-  systems_fixmes=$(extract_comments "$SYSTEMS_DIR" "FIXME")
-  homes_fixmes=$(extract_comments "$HOMES_DIR" "FIXME")
-  checks_fixmes=$(extract_comments "$CHECKS_DIR" "FIXME")
-  modules_nix_fixmes=$(extract_comments "$MODULES_NIX_DIR" "FIXME")
-  modules_home_fixmes=$(extract_comments "$MODULES_HOME_DIR" "FIXME")
+  for file in "${files[@]}"; do
+    if [[ -f "$file" ]]; then
+      local file_json
+      file_json=$(process_file "$file")
 
-  raw_json=$(jq -n \
-      --argjson systems_todos "$systems_todos" \
-      --argjson homes_todos "$homes_todos" \
-      --argjson checks_todos "$checks_todos" \
-      --argjson modules_nix_todos "$modules_nix_todos" \
-      --argjson modules_home_todos "$modules_home_todos" \
-      --argjson systems_fixmes "$systems_fixmes" \
-      --argjson homes_fixmes "$homes_fixmes" \
-      --argjson checks_fixmes "$checks_fixmes" \
-      --argjson modules_nix_fixmes "$modules_nix_fixmes" \
-      --argjson modules_home_fixmes "$modules_home_fixmes" \
-      '{
-      TODO: {
-        Systems: $systems_todos,
-        Homes: $homes_todos,
-        Checks: $checks_todos,
-        ModulesNix: $modules_nix_todos,
-        ModulesHome: $modules_home_todos
-      },
-      FIXME: {
-        Systems: $systems_fixmes,
-        Homes: $homes_fixmes,
-        Checks: $checks_fixmes,
-        ModulesNix: $modules_nix_fixmes,
-        ModulesHome: $modules_home_fixmes
-      }
-  } | with_entries(select(.value | keys | length > 0))')
+      # Merge file JSON into the global JSON
+      raw_json=$(echo -e "$raw_json\n$file_json" | jq -s 'reduce .[] as $item ({}; . * $item)')
+    fi
+  done
 
-  clean_json "$raw_json" >"$JSON_FILE"
+  echo "$raw_json" | jq '.'
 }
 
-# Generate JSON and render the template
-generate_json
+echo "Generating JSON..."
+generate_json > "$JSON_FILE"
 jinja2 "$TEMPLATE_FILE" "$JSON_FILE" -o "$OUTPUT_FILE"
-
+end-of-file-fixer "$OUTPUT_FILE"
 echo "Rendered $TEMPLATE_FILE to $OUTPUT_FILE"

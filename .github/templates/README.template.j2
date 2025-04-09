@@ -1,123 +1,56 @@
 # DotFiles
 
 This repository contains my dotfiles and configuration files for various applications and systems.
-- [:bug: Issues](#bug-issues)
-    - [:desktop_computer: Systems](#desktop_computer-systems)
-    - [:house_with_garden: Homes](#house_with_garden-homes)
-    - [:wrench: Modules (NixOS)](#wrench-modules-nixos)
-    - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-home-manager)
-    - [:test_tube: Checks](#test_tube-checks)
-- [:clipboard: To Do](#clipboard-todo)
-    - [:desktop_computer: Systems](#desktop_computer-systems-1)
-    - [:house_with_garden: Homes](#house_with_garden-homes-1)
-    - [:wrench: Modules (NixOS)](#wrench-modules-nixos-1)
-    - [:screwdriver: Modules (Home Manager)](#screwdriver-modules-home-manager-1)
-    - [:test_tube: Checks](#test_tube-checks-1)
 
+{% set sections = [
+    {"key": "Systems", "icon": ":desktop_computer:", "title": "Systems"},
+    {"key": "Homes", "icon": ":house_with_garden:", "title": "Homes"},
+    {"key": "ModulesNix", "icon": ":wrench:", "title": "Modules (NixOS)"},
+    {"key": "ModulesHome", "icon": ":screwdriver:", "title": "Modules (Home Manager)"},
+    {"key": "Checks", "icon": ":test_tube:", "title": "Checks"}
+] -%}
+
+{% if FIXME -%}
+- [:bug: Issues](#bug-issues)
+{%- for section in sections if FIXME[section.key] %}
+    - [{{ section.icon }} {{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }})
+{%- endfor %}
+{%- endif %}
+{% if TODO -%}
+- [:clipboard: To Do](#clipboard-todo)
+{%- for section in sections if TODO[section.key] %}
+    - [{{ section.icon }} {{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }}-1)
+{%- endfor %}
+{%- endif %}
+
+{% if FIXME -%}
 ## :bug: Issues
 
 Below are a list of issues that need to be fixed.
 
-{% if FIXME.Systems -%}
-### :desktop_computer: Systems
-{% for system, tasks in FIXME.Systems|dictsort if tasks -%}
-#### **{{ system }}**
-{% for task in tasks|sort -%}
+{% for section in sections if FIXME[section.key] -%}
+### {{ section.icon }} {{ section.title }}
+{% for item, tasks in FIXME[section.key]|dictsort if tasks %}
+#### **{{ item }}**
+{%- for task in tasks|sort %}
 - [ ] {{ task }}
+{%- endfor %}
+{% endfor %}
 {% endfor -%}
-{% endfor -%}
-{% endif -%}
+{%- endif %}
 
-{% if FIXME.Homes -%}
-### :house_with_garden: Homes
-{% for home, tasks in FIXME.Homes|dictsort if tasks -%}
-#### **{{ home }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
-
-{% if FIXME.ModulesNix -%}
-### :wrench: Modules (NixOS)
-{% for module, tasks in FIXME.ModulesNix|dictsort if tasks -%}
-#### **{{ module }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
-
-{% if FIXME.ModulesHome -%}
-### :screwdriver: Modules (Home Manager)
-{% for module, tasks in FIXME.ModulesHome|dictsort if tasks -%}
-#### **{{ module }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
-
-{% if FIXME.Checks -%}
-### :test_tube: Checks
-{% for check, tasks in FIXME.Checks|dictsort if tasks -%}
-#### **{{ check }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
-
+{%- if TODO -%}
 ## :clipboard: To Do
 
-Below are a list of of features that need to be added.
+Below are a list of features that need to be added.
 
-{% if TODO.Systems -%}
-### :desktop_computer: Systems
-{% for system, tasks in TODO.Systems|dictsort if tasks -%}
-#### **{{ system }}**
-{% for task in tasks|sort -%}
+{% for section in sections if TODO[section.key] -%}
+### {{ section.icon }} {{ section.title }}
+{% for item, tasks in TODO[section.key]|dictsort if tasks %}
+#### **{{ item }}**
+{%- for task in tasks|sort %}
 - [ ] {{ task }}
+{%- endfor %}
+{% endfor %}
 {% endfor -%}
-{% endfor -%}
-{% endif -%}
-
-{% if TODO.Homes -%}
-### :house_with_garden: Homes
-{% for home, tasks in TODO.Homes|dictsort if tasks -%}
-#### **{{ home }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
-
-{% if TODO.ModulesNix -%}
-### :wrench: Modules (NixOS)
-{% for module, tasks in TODO.ModulesNix|dictsort if tasks -%}
-#### **{{ module }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
-
-{% if TODO.ModulesHome -%}
-### :screwdriver: Modules (Home Manager)
-{% for module, tasks in TODO.ModulesHome|dictsort if tasks -%}
-#### **{{ module }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
-
-{% if TODO.Checks -%}
-### :test_tube: Checks
-{% for check, tasks in TODO.Checks|dictsort if tasks -%}
-#### **{{ check }}**
-{% for task in tasks|sort -%}
-- [ ] {{ task }}
-{% endfor -%}
-{% endfor -%}
-{% endif -%}
+{%- endif -%}
