@@ -11,7 +11,7 @@
   "enabledManagers": ["github-actions", "docker-compose", "nix"],
   "nix": { "enabled": true },
 
-  "labels": ["automated", "dependencies", "{{ updateType }}"],
+  "labels": ["automated", "dependencies"],
 
   "packageRules": [
     {
