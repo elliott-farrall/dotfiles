@@ -974,7 +974,7 @@
     ];
   };
   virtualisation.oci-containers.containers."prowlarr" = {
-    image = "docker.io/linuxserver/prowlarr:1.32.2";
+    image = "docker.io/linuxserver/prowlarr:1.33.3";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-prowlarr:/config:rw"
@@ -1259,7 +1259,7 @@
     ];
   };
   virtualisation.oci-containers.containers."romm" = {
-    image = "docker.io/rommapp/romm:3.8.2";
+    image = "docker.io/rommapp/romm:3.8.3";
     environment = {
       "DB_HOST" = "romm-db";
       "DB_USER" = "romm-user";
@@ -1547,7 +1547,7 @@
     ];
   };
   virtualisation.oci-containers.containers."speedtest-tracker" = {
-    image = "docker.io/linuxserver/speedtest-tracker:1.3.0";
+    image = "docker.io/linuxserver/speedtest-tracker:1.4.0";
     environment = {
       "APP_URL" = "https://speedtest-tracker.beannet.app";
       "DB_CONNECTION" = "sqlite";
