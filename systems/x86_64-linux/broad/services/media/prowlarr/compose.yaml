@@ -1,7 +1,7 @@
 services:
   prowlarr:
     container_name: prowlarr
-    image: docker.io/linuxserver/prowlarr:1.32.2
+    image: docker.io/linuxserver/prowlarr:1.33.3
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro

@@ -1,7 +1,7 @@
 services:
   romm:
     container_name: romm
-    image: docker.io/rommapp/romm:3.8.2
+    image: docker.io/rommapp/romm:3.8.3
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
