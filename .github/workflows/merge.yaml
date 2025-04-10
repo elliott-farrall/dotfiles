@@ -104,6 +104,9 @@ jobs:
     needs: diff
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Download Diff
         uses: actions/download-artifact@v4
         with:
@@ -126,12 +129,11 @@ jobs:
         run: echo "sha=$(git rev-parse ${{ github.sha }}^@ | grep -Fvx ${{ github.event.pull_request.head.sha }})" >> "$GITHUB_OUTPUT"
 
       - name: Bump Version
-        uses: marier-nico/pr-bump@v1.1.0
+        uses: MeilCli/bump-release-action@v2
         id: version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          configuration: .github/pr_bump_config.json
+          config_path: .github/bump.yaml
+          dry_run: true
 
       - name: Create Release
         uses: ncipollo/release-action@v1.16.0

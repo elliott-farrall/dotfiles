@@ -1,0 +1,14 @@
+branch:
+  base-branch: main
+  creat-majpr-version-branch: false
+  create-minor-version-branch: false
+bump:
+  major:
+    labels:
+      - "major"
+  minor:
+    labels:
+      - "minor"
+  patch:
+    labels:
+      - "patch"
