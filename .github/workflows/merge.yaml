@@ -77,8 +77,8 @@ jobs:
           flake_base: github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}
           flake_head: github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}
         run: |
-          echo "old=$(nix build --print-out-paths --no-link "$flake_base#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
-          echo "new=$(nix build --print-out-paths --no-link "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
+          echo "old=$(nix build --print-out-paths --no-link --fallback "$flake_base#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
+          echo "new=$(nix build --print-out-paths --no-link --fallback "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
 
       - name: Create Diff
         env:
