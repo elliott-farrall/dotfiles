@@ -46,6 +46,9 @@ jobs:
         attr: ${{ fromJson(needs.matrices.outputs.attrs) }}
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Enable Caching
         uses: runs-on/action@v1
 
@@ -68,17 +71,14 @@ jobs:
           purge-created: 0
           purge-primary-key: never
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Build Attribute
         id: build
         env:
           flake_base: github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}
           flake_head: github:${{ github.repository }}/${{ github.event.pull_request.head.ref }}
         run: |
-          echo "old=$(nix build --print-out-paths --no-link --fallback "$flake_base#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
-          echo "new=$(nix build --print-out-paths --no-link --fallback "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
+          echo "old=$(nix build --print-out-paths --no-link "$flake_base#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
+          echo "new=$(nix build --print-out-paths --no-link "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
 
       - name: Create Diff
         env:
@@ -91,10 +91,6 @@ jobs:
         with:
           name: ${{ matrix.attr }}
           path: ${{ matrix.attr }}.diff
-
-      - name: Show Stats
-        if: always()
-        run: df -h
 
   release:
     name: Create Release
