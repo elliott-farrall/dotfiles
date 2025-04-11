@@ -27,7 +27,7 @@
   programs = {
     discord.enable = true;
     libreoffice.enable = true;
-    mathematica.enable = true;
+    mathematica.enable = false;
     minecraft.enable = true;
     obsidian.enable = true;
     zotero.enable = true;
