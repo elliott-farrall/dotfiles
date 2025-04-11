@@ -1,14 +1,91 @@
+release:
+  commit-note-replacers:
+    - replace-prefix: "feat: "
+      new-prefix: ""
+    - replace-prefix: "fix: "
+      new-prefix: ""
+    - replace-prefix: "docs: "
+      new-prefix: ""
+    - replace-prefix: "style: "
+      new-prefix: ""
+    - replace-prefix: "refactor: "
+      new-prefix: ""
+    - replace-prefix: "perf: "
+      new-prefix: ""
+    - replace-prefix: "test: "
+      new-prefix: ""
+    - replace-prefix: "build: "
+      new-prefix: ""
+    - replace-prefix: "ci: "
+      new-prefix: ""
+    - replace-prefix: "chore: "
+      new-prefix: ""
+    - replace-prefix: "chore(deps): "
+      new-prefix: ""
+    - replace-prefix: "revert: "
+      new-prefix: ""
 branch:
   base-branch: main
   create-major-version-branch: false
   create-minor-version-branch: false
+categories:
+  - title: Changes
+    commits:
+      - "feat: "
+    changes-prefix: ":sparkles: "
+  - title: Fixes
+    commits:
+      - "fix: "
+    changes-prefix: ":ambulance: "
+  - title: Changes
+    commits:
+      - "docs: "
+    changes-prefix: ":memo: "
+  - title: Changes
+    commits:
+      - "style: "
+    changes-prefix: ":art: "
+  - title: Changes
+    commits:
+      - "refactor: "
+    changes-prefix: ":recycle: "
+  - title: Changes
+    commits:
+      - "perf: "
+    changes-prefix: ":zap: "
+  - title: Changes
+    commits:
+      - "test: "
+    changes-prefix: ":white_check_mark: "
+  - title: Changes
+    commits:
+      - "build: "
+    changes-prefix: ":package: "
+  - title: Changes
+    commits:
+      - "ci: "
+    changes-prefix: ":construction_worker: "
+  - title: Changes
+    commits:
+      - "chore: "
+    changes-prefix: ":wrench: "
+  - title: Dependency Updates
+    commits:
+      - "chore(deps): "
+    changes-prefix: ":arrow_up: "
 bump:
-  major:
-    labels:
-      - "major"
   minor:
-    labels:
-      - "minor"
+    commits:
+      - "feat: "
   patch:
-    labels:
-      - "patch"
+    commits:
+      - "fix: "
+      - "docs: "
+      - "style: "
+      - "refactor: "
+      - "perf: "
+      - "test: "
+      - "build: "
+      - "ci: "
+      - "chore: "
+      - "chore(deps): "

@@ -1,0 +1,127 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+env:
+  ACT: false
+
+jobs:
+  setup:
+    name: Prebuild Setup
+    runs-on:
+      - runs-on=${{ github.run_id }}
+      - runner=2cpu-linux-x64
+      - extras=s3-cache
+
+    outputs:
+      attrs: ${{ steps.attrs.outputs.attrs }}
+      old-tag: ${{ steps.version.outputs.current_version }}
+      new-tag: ${{ steps.version.outputs.next_version }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
+      - name: Get Attributes
+        id: attrs
+        run: echo "attrs=$(nix eval --json --apply builtins.attrNames .#toplevel)" >> "$GITHUB_OUTPUT"
+
+      - name: Bump Version
+        uses: MeilCli/bump-release-action@v2
+        id: version
+        with:
+          config_path: .github/bump.yaml
+          pre_release: true
+
+  diff:
+    name: Diff Attributes
+    runs-on:
+      - runs-on=${{ github.run_id }}
+      - runner=2cpu-linux-x64
+      - extras=s3-cache
+      - disk=large
+
+    needs: setup
+    strategy:
+      matrix:
+        attr: ${{ fromJson(needs.setup.outputs.attrs) }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
+      - name: Build Attribute
+        id: build
+        env:
+          flake_base: github:${{ github.repository }}?ref=refs/tags/${{ needs.setup.outputs.old-tag }}
+          flake_head: github:${{ github.repository }}?ref=refs/tags/${{ needs.setup.outputs.new-tag }}
+        run: |
+          echo "old=$(nix build --print-out-paths --no-link "$flake_base#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
+          echo "new=$(nix build --print-out-paths --no-link "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
+
+      - name: Create Diff
+        env:
+          old: ${{ steps.build.outputs.old }}
+          new: ${{ steps.build.outputs.new }}
+        run: nix run nixpkgs#nvd -- diff "$old" "$new" > ${{ matrix.attr }}.diff
+
+      - name: Upload Diff
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.attr }}
+          path: ${{ matrix.attr }}.diff
+
+  release:
+    name: Create Release
+    runs-on:
+      - runs-on=${{ github.run_id }}
+      - runner=2cpu-linux-x64
+      - extras=s3-cache
+
+    needs: [setup, diff]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Get Release
+        id: release
+        uses: KevinRohn/github-full-release-data@v2
+        with:
+          version: ${{ needs.setup.outputs.new-tag }}
+          body-markdown-file-path: body.md
+
+      - name: Download Diff
+        uses: actions/download-artifact@v4
+        with:
+          path: ./changes
+
+      - name: Prepare Diff
+        run: |
+          echo "## Updates" >> body.md
+          for diff in ./changes/*/*.diff; do
+            {
+              echo "#### $(basename "$diff" .diff)"
+              echo "\`\`\`diff"
+              cat "$diff"
+              echo "\`\`\`"
+            } >> body.md
+          done
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.16.0
+        with:
+          allowUpdates: true
+          tag: ${{ needs.setup.outputs.new-tag }}
+          bodyFile: body.md

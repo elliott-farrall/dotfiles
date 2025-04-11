@@ -5,16 +5,16 @@ on:
     branches: [main]
   pull_request:
 
-permissions:
-  actions: write
-
 env:
   ACT: false
 
 jobs:
   readme:
     name: Update README
-    runs-on: ubuntu-latest
+    runs-on:
+      - runs-on=${{ github.run_id }}
+      - runner=2cpu-linux-x64
+      - extras=s3-cache
 
     steps:
       - name: Checkout Repository

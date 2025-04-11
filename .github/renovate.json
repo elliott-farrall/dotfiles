@@ -16,13 +16,11 @@
   "packageRules": [
     {
       "description": "github actions",
-      "matchManagers": ["github-actions"],
-      "addLabels": ["patch"]
+      "matchManagers": ["github-actions"]
     },
     {
       "description": "docker images",
       "matchManagers": ["docker-compose"],
-      "addLabels": ["patch"],
       "postUpgradeTasks": {
         "commands": ["systems/*/*/**/compose.sh"],
         "executionMode": "branch"
@@ -31,7 +29,6 @@
     {
       "description": "flake inputs",
       "matchManagers": ["nix"],
-      "addLabels": ["patch"],
       "postUpgradeTasks": {
         "commands": [
           "nix run github:fzakaria/nix-auto-follow -- -i",
@@ -50,7 +47,6 @@
       "description": "seperate core flake inputs",
       "matchManagers": ["nix"],
       "matchDepNames": ["nixpkgs", "home-manager"],
-      "addLabels": ["minor"],
       "groupName": "Core Flake Inputs",
       "automerge": false
     }
@@ -59,8 +55,5 @@
   "postUpgradeTasks": {
     "commands": ["nix fmt"],
     "executionMode": "branch"
-  },
-
-  "pruneStaleBranches": false,
-  "pruneBranchAfterAutomerge": false
+  }
 }
