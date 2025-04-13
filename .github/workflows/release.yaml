@@ -1,8 +1,9 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *" # Monthly on the first day of the month
 
 permissions:
   contents: write
@@ -11,8 +12,8 @@ env:
   ACT: false
 
 jobs:
-  setup:
-    name: Setup
+  get:
+    name: Get Attributes
     runs-on:
       - runs-on=${{ github.run_id }}
       - runner=2cpu-linux-x64
@@ -41,18 +42,18 @@ jobs:
           config_path: .github/bump.yaml
           pre_release: true
 
-  diff:
-    name: Diff Attributes
+  build:
+    name: Build Attributes
     runs-on:
       - runs-on=${{ github.run_id }}
       - runner=2cpu-linux-x64
       - extras=s3-cache
       - disk=large
 
-    needs: setup
+    needs: get
     strategy:
       matrix:
-        attr: ${{ fromJson(needs.setup.outputs.attrs) }}
+        attr: ${{ fromJson(needs.get.outputs.attrs) }}
 
     steps:
       - name: Checkout Repository
@@ -64,23 +65,23 @@ jobs:
       - name: Build Attribute
         id: build
         env:
-          flake_base: github:${{ github.repository }}?ref=refs/tags/${{ needs.setup.outputs.old-tag }}
-          flake_head: github:${{ github.repository }}?ref=refs/tags/${{ needs.setup.outputs.new-tag }}
+          flake_base: github:${{ github.repository }}?ref=refs/tags/${{ needs.get.outputs.old-tag }}
+          flake_head: github:${{ github.repository }}?ref=refs/tags/${{ needs.get.outputs.new-tag }}
         run: |
-          echo "old=$(nix build --print-out-paths --no-link "$flake_base#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
-          echo "new=$(nix build --print-out-paths --no-link "$flake_head#toplevel.${{ matrix.attr }}")" >> "$GITHUB_OUTPUT"
+          nix build -o old "$flake_base#toplevel.${{ matrix.attr }}"
+          nix build -o new "$flake_head#toplevel.${{ matrix.attr }}"
 
-      - name: Create Diff
-        env:
-          old: ${{ steps.build.outputs.old }}
-          new: ${{ steps.build.outputs.new }}
-        run: nix run nixpkgs#nvd -- diff "$old" "$new" > ${{ matrix.attr }}.diff
+      - name: Diff Attribute
+        run: nix run nixpkgs#nvd -- diff old new > ${{ matrix.attr }}.diff
 
-      - name: Upload Diff
+      - name: Scan Attribute
+        run: nix run nixpkgs#vulnix new > ${{ matrix.attr }}.scan || exit 0
+
+      - name: Upload Assets
         uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.attr }}
-          path: ${{ matrix.attr }}.diff
+          path: ${{ matrix.attr }}.*
 
   release:
     name: Create Release
@@ -89,28 +90,31 @@ jobs:
       - runner=2cpu-linux-x64
       - extras=s3-cache
 
-    needs: [setup, diff]
+    needs: [get, build]
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Setup Environment
+        uses: ./.github/actions/setup
+
       - name: Get Release
         id: release
         uses: KevinRohn/github-full-release-data@v2
         with:
-          version: ${{ needs.setup.outputs.new-tag }}
+          version: ${{ needs.get.outputs.new-tag }}
           body-markdown-file-path: body.md
 
-      - name: Download Diff
+      - name: Download Assets
         uses: actions/download-artifact@v4.2.1
         with:
-          path: ./changes
+          path: ./assets
 
       - name: Create Body
         run: |
           echo "## Updates" >> body.md
-          for diff in ./changes/*/*.diff; do
+          for diff in ./assets/*/*.diff; do
             {
               echo "#### $(basename "$diff" .diff)"
               echo "\`\`\`diff"
@@ -119,9 +123,19 @@ jobs:
             } >> body.md
           done
 
+          echo "## Vulnerabilities" >> body.md
+          for scan in ./assets/*/*.scan; do
+            {
+              echo "#### $(basename "$scan" .scan)"
+              echo "\`\`\`"
+              cat "$scan"
+              echo "\`\`\`"
+            } >> body.md
+          done
+
       - name: Create Release
         uses: ncipollo/release-action@v1.16.0
         with:
           allowUpdates: true
-          tag: ${{ needs.setup.outputs.new-tag }}
+          tag: ${{ needs.get.outputs.new-tag }}
           bodyFile: body.md
