@@ -77,7 +77,7 @@ jobs:
         run: nix run nixpkgs#nvd -- diff "$old" "$new" > ${{ matrix.attr }}.diff
 
       - name: Upload Diff
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: ${{ matrix.attr }}
           path: ${{ matrix.attr }}.diff
@@ -103,7 +103,7 @@ jobs:
           body-markdown-file-path: body.md
 
       - name: Download Diff
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.2.1
         with:
           path: ./changes
 
