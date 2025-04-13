@@ -1,4 +1,5 @@
 release:
+  body-title: Commits
   commit-note-replacers:
     - replace-prefix: "feat: "
       new-prefix: ""
