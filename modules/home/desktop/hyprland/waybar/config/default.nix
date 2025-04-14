@@ -33,7 +33,7 @@ let
     ${pkgs.zscroll}/bin/zscroll \
       --delay 0.15 \
       --length 30 \
-      --match-command "${pkgs.playerctl}/bin/playerctl status" \
+      --match-command "${pkgs.playerctl}/bin/playerctl status 2> /dev/null" \
       --scroll-padding " | " \
       --match-text "Paused" "--before-text ' 󰏤 ' --scroll 0" \
       --match-text "Playing" "--before-text ' 󰐊 ' --scroll 1" \
@@ -53,7 +53,7 @@ in
       margin-left = 10;
       margin-right = 10;
 
-      modules-left = [ "hyprland/workspaces" "custom/media" ];
+      modules-left = [ "hyprland/workspaces" ]; #FIXME - waybar media module broken
       modules-center = [ "clock" ];
       modules-right = [ "group/system" "group/status" "group/menu" ];
 
@@ -89,7 +89,7 @@ in
       };
 
       "systemd-failed-units" = {
-        #FIXME - Does not work well with user units (see https://github.com/Alexays/Waybar/issues/3444)
+        #FIXME - waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
         format = "󰒏 {nr_failed}";
         on-click = "${config.home.sessionVariables.TERMINAL} ${lib.getExe pkgs.systemctl-tui}";
       };

@@ -23,7 +23,8 @@ Below are a list of issues that need to be fixed.
 ### :screwdriver: Modules (Home Manager)
 
 #### **desktop**
-- [ ] Does not work well with user units (see https://github.com/Alexays/Waybar/issues/3444)
+- [ ] waybar media module broken
+- [ ] waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
 
 ## :clipboard: To Do
 
