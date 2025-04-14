@@ -1,0 +1,10 @@
+{ ...
+}:
+
+{
+  imports = [
+    ./grafana
+    ./loki
+    ./prometheus
+  ];
+}

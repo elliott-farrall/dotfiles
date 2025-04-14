@@ -3,7 +3,7 @@
 
 {
   imports = [
-    ./grafana
+    ./metrics
     ./renovate
   ];
 
