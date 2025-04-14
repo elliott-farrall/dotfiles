@@ -16,7 +16,6 @@
 
     settings = {
       autodiscover = true;
-      autodiscoverFilter = [ "elliott-farrall/*" ];
       onboarding = false;
       allowedCommands = [ ".*" ];
     };
