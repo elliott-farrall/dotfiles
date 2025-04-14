@@ -865,7 +865,7 @@
     ];
   };
   virtualisation.oci-containers.containers."netalertx" = {
-    image = "docker.io/jokobsk/netalertx:25.4.1";
+    image = "docker.io/jokobsk/netalertx:25.4.14";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-netalertx:/app/db:rw"
@@ -1376,7 +1376,7 @@
     ];
   };
   virtualisation.oci-containers.containers."sabnzbd" = {
-    image = "docker.io/linuxserver/sabnzbd:4.5.0";
+    image = "docker.io/linuxserver/sabnzbd:4.5.1";
     volumes = [
       "/etc/broad/sabnzbd/config.ini:/config/sabnzbd.ini:ro"
       "/etc/localtime:/etc/localtime:ro"
