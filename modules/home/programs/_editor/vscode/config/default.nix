@@ -54,6 +54,7 @@ in
 
       "files.autoSave" = "afterDelay";
 
+      "editor.acceptSuggestionOnEnter" = "off";
       "github.copilot.editor.enableAutoCompletions" = true;
 
       "autoscroll.autoEnableForLogs" = true;
