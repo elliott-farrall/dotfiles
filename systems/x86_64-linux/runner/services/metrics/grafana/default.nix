@@ -3,10 +3,16 @@
 , ...
 }:
 
+let
+  inherit (config.services.grafana.settings) server;
+in
 {
   services.grafana = {
     enable = true;
-    settings.server.domain = "${host}.main.dotfiles.elliott-farrall.garnix.me";
+    settings = {
+      server.domain = "${host}.main.dotfiles.elliott-farrall.garnix.me";
+      smtp.enabled = true;
+    };
 
     provision = {
       enable = true;
@@ -26,8 +32,8 @@
     };
   };
 
-  services.nginx.virtualHosts.${config.services.grafana.settings.server.domain}.locations."/" = {
-    proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}";
+  services.nginx.virtualHosts.${server.domain}.locations."/" = {
+    proxyPass = "http://${toString server.http_addr}:${toString server.http_port}";
     proxyWebsockets = true;
     recommendedProxySettings = true;
   };
