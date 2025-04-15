@@ -10,6 +10,7 @@ This repository contains my dotfiles and configuration files for various applica
     - :house_with_garden: [Homes](#house_with_garden-homes-1)
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
     - :test_tube: [Checks](#test_tube-checks-1)
+- :rocket: [CI/CD](#rocket-cicd)
 
 ## :bug: Issues
 
@@ -52,3 +53,7 @@ Below are a list of features that need to be added.
 
 #### **pre-commit**
 - [ ] Fix act pre-commit
+
+## :rocket: CI/CD
+
+This repository uses GitHub Actions for CI/CD with runners provisoned using [RunsOn](https://runs-on.com).

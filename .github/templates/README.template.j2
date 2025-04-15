@@ -22,6 +22,7 @@ This repository contains my dotfiles and configuration files for various applica
     - {{ section.icon }} [{{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }}-1)
 {%- endfor %}
 {%- endif %}
+- :rocket: [CI/CD](#rocket-cicd)
 
 {% if FIXME -%}
 ## :bug: Issues
@@ -54,3 +55,7 @@ Below are a list of features that need to be added.
 {% endfor %}
 {% endfor -%}
 {%- endif -%}
+
+## :rocket: CI/CD
+
+This repository uses GitHub Actions for CI/CD with runners provisoned using [RunsOn](https://runs-on.com).
