@@ -10,6 +10,7 @@ This repository contains my dotfiles and configuration files for various applica
     - :house_with_garden: [Homes](#house_with_garden-homes-1)
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
     - :desktop_computer: [Systems](#desktop_computer-systems-1)
+    - :egg: [Shells](#egg-shells-1)
 - :rocket: [CI/CD](#rocket-cicd)
 
 ## :bug: Issues
@@ -56,6 +57,11 @@ Below are a list of features that need to be added.
 
 #### **runner**
 - [ ] Create lib for random UUIDs
+
+### :egg: Shells
+
+#### **default**
+- [ ] Rebuild devshell
 
 ## :rocket: CI/CD
 

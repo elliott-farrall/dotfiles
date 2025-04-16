@@ -4,6 +4,8 @@
 , ...
 }:
 
+#TODO - Rebuild devshell
+
 let
   inherit (pkgs.devshell) mkShell;
 in
