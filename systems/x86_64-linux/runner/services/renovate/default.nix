@@ -45,25 +45,10 @@ in
     "renovate/private_key".file = ./private_key.age;
   };
 
-  systemd.services.renovate-token = {
-    description = "Generate Renovate GitHub App Installation Token";
-    after = [ "network.target" ];
-    partOf = [ "renovate.service" ];
-    script = ''
-      export GITHUB_APP_ID=$(cat ${config.age.secrets."renovate/app_id".path})
-      export GITHUB_APP_INSTALLATION_ID=$(cat ${config.age.secrets."renovate/app_installation_id".path})
-      export GITHUB_APP_PRIVATE_KEY=$(cat ${config.age.secrets."renovate/private_key".path})
-
-      mkdir -p $(dirname ${config.services.renovate.credentials.RENOVATE_TOKEN})
-      ${create-token} > ${config.services.renovate.credentials.RENOVATE_TOKEN}
-    '';
-    path = with pkgs; [ openssl curl jq ];
-  };
-
   services.renovate = {
     enable = true;
     schedule = "*:0/5"; # Every 5 minutes
-    credentials.RENOVATE_TOKEN = "/etc/renovate/token";
+    credentials.RENOVATE_TOKEN = "/var/lib/renovate/token";
 
     runtimePackages = with pkgs; [ bash nix ];
 
@@ -74,9 +59,21 @@ in
     };
   };
 
-  # baseDir is owned by root
-  systemd.services.renovate.serviceConfig = {
-    User = lib.mkForce "root";
-    Group = lib.mkForce "root";
+  systemd.services.renovate = {
+    preStart = ''
+      export GITHUB_APP_ID=$(cat ${config.age.secrets."renovate/app_id".path})
+      export GITHUB_APP_INSTALLATION_ID=$(cat ${config.age.secrets."renovate/app_installation_id".path})
+      export GITHUB_APP_PRIVATE_KEY=$(cat ${config.age.secrets."renovate/private_key".path})
+
+      mkdir -p $(dirname ${config.services.renovate.credentials.RENOVATE_TOKEN})
+      ${create-token} > ${config.services.renovate.credentials.RENOVATE_TOKEN}
+    '';
+    path = with pkgs; [ openssl curl jq ];
+
+    serviceConfig = {
+      # baseDir is owned by root
+      User = lib.mkForce "root";
+      Group = lib.mkForce "root";
+    };
   };
 }
