@@ -1,5 +1,5 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i python3 -p "python312.withPackages (ps: with ps; [ jinja2 ])"
+#! /usr/bin/env nix
+#! nix shell github:tomberek/-#python3With.jinja2 -c python3
 
 import os
 import re
