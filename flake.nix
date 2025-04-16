@@ -78,7 +78,8 @@
               "*.ppd"
               "*.jpg"
               "templates/**"
-              "secrets.nix"
+              "**/hardware.nix"
+              "modules/nixos/boot/silent/boot/*"
             ];
 
             programs = {
@@ -99,29 +100,29 @@
               actionlint.enable = true;
 
               # Scripts
-              shfmt.enable = true;
+              shfmt.enable = false;
               beautysh.enable = true;
             };
 
             settings.formatter = {
               yamlfmt.options = [ "-formatter" "retain_line_breaks_single=true" ];
               actionlint.options = [ "-ignore" "label \".+\" is unknown" "-ignore" "\".+\" is potentially untrusted" ];
-
-              nixpkgs-fmt.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
-              deadnix.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
-              statix.excludes = [ "modules/nixos/boot/silent/boot/*" "**/hardware.nix" ];
-              shfmt.excludes = [ "modules/nixos/boot/silent/boot/*" ".github/templates/render.sh" ];
-              beautysh.excludes = [ "modules/nixos/boot/silent/boot/*" ];
             };
           };
         };
 
-        templates = {
-          overlay.description = "Overlay template for snowfall-lib.";
-        };
+        templates = lib.listToAttrs (map
+          (name: {
+            inherit name;
+            value.description = "${lib.removePrefix "snowfall-" name} template for snowfall-lib.";
+          })
+          (builtins.filter (name: lib.hasPrefix "snowfall-" name) (builtins.attrNames (builtins.readDir ./templates))));
 
       } // {
-      # schemas = inputs.flake-schemas.schemas // inputs.extra-schemas.schemas;
+      schemas = lib.mergeAttrsList (with inputs; [
+        flake-schemas.schemas
+        extra-schemas.schemas
+      ]); # For when https://github.com/NixOS/nix/pull/8892 gets merged
 
       toplevel = lib.mergeAttrsList [
         (lib.mapAttrs (_attr: cfg: cfg.config.system.build.toplevel) inputs.self.nixosConfigurations)
@@ -146,6 +147,8 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     devshell.url = "github:numtide/devshell";
     disko.url = "github:nix-community/disko";
+    extra-schemas.url = "github:elliott-farrall/extra-schemas";
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
     flox.url = "github:flox/flox";
     garnix-lib.url = "github:garnix-io/garnix-lib";
     github-nix-ci.url = "github:juspay/github-nix-ci";
@@ -165,11 +168,6 @@
     snowfall-lib.url = "github:snowfallorg/lib";
     stylix.url = "github:danth/stylix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
-
-    # Schemas
-    # For when https://github.com/NixOS/nix/pull/8892 gets merged
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
-    extra-schemas.url = "github:elliott-farrall/extra-schemas";
   };
 
   nixConfig = {

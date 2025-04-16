@@ -1,5 +1,5 @@
 let
-  nixpkgs = import <nixpkgs> {};
+  nixpkgs = import <nixpkgs> { };
   inherit (nixpkgs) lib;
 
   ageFiles = lib.fileset.toList (
@@ -37,7 +37,7 @@ let
     runner = hosts.runner ++ users.elliott;
   };
 
-  getKeyName = path: 
+  getKeyName = path:
     if builtins.match "templates/.*" path != null then "all"
     else if builtins.match "modules/.*" path != null then "all"
     else if builtins.match "systems/x86_64-linux/broad/.*" path != null then "broad"
@@ -47,7 +47,9 @@ let
     else "all";
 
 in
-builtins.listToAttrs (map (file: {
-  name = lib.removePrefix "./" (lib.path.removePrefix ./. file);
-  value.publicKeys = keys.${getKeyName (toString file)};
-}) ageFiles)
+builtins.listToAttrs (map
+  (file: {
+    name = lib.removePrefix "./" (lib.path.removePrefix ./. file);
+    value.publicKeys = keys.${getKeyName (toString file)};
+  })
+  ageFiles)
