@@ -5,8 +5,11 @@ This repository contains my dotfiles and configuration files for various applica
 {% set sections = [
     {"key": "Checks", "icon": ":test_tube:", "title": "Checks"},
     {"key": "Homes", "icon": ":house_with_garden:", "title": "Homes"},
+    {"key": "ModulesCommon", "icon": ":globe_with_meridians:", "title": "Modules (Common)"},
     {"key": "ModulesHome", "icon": ":screwdriver:", "title": "Modules (Home Manager)"},
     {"key": "ModulesNix", "icon": ":wrench:", "title": "Modules (NixOS)"},
+    {"key": "Overlays", "icon": ":page_facing_up:", "Overlays"},
+    {"key": "Packages", "icon": ":package:", "title": "Packages"},
     {"key": "Systems", "icon": ":desktop_computer:", "title": "Systems"},
     {"key": "Shells", "icon": ":egg:", "title": "Shells"}
 ] -%}
@@ -18,7 +21,7 @@ This repository contains my dotfiles and configuration files for various applica
 {%- endfor %}
 {%- endif %}
 {% if TODO -%}
-- :clipboard: [To Do](#clipboard-todo)
+- :construction: [To Do](#clipboard-todo)
 {%- for section in sections if TODO[section.key] %}
     - {{ section.icon }} [{{ section.title }}](#{{ section.icon.strip(':') }}-{{ section.title|lower|replace(' ', '-') }}-1)
 {%- endfor %}

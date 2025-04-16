@@ -16,6 +16,8 @@ declare -A DIR_TO_KEY=(
   ["homes/x86_64-linux"]="Homes"
   ["modules/home"]="ModulesHome"
   ["modules/nixos"]="ModulesNix"
+  ["packages"]="Packages"
+  ["overlays"]="Overlays"
   ["shells"]="Shells"
   ["systems/x86_64-linux"]="Systems"
 )
