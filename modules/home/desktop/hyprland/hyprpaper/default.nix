@@ -3,7 +3,7 @@
 , ...
 }:
 
-#TODO - implement dynamic wallpaper
+#TODO - Implement dynamic wallpaper
 
 let
   cfg = config.desktop.hyprland;

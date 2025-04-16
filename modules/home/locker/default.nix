@@ -3,7 +3,7 @@
 , ...
 }:
 
-#TODO - Betetr integration of lockers between nixos and home-manager
+#TODO - Better integration of lockers between nixos and home-manager
 
 {
   options = {

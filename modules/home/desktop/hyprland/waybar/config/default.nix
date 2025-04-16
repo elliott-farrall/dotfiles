@@ -53,7 +53,7 @@ in
       margin-left = 10;
       margin-right = 10;
 
-      modules-left = [ "hyprland/workspaces" ]; #FIXME - waybar media module broken
+      modules-left = [ "hyprland/workspaces" ]; #FIXME - Waybar media module broken
       modules-center = [ "clock" ];
       modules-right = [ "group/system" "group/status" "group/menu" ];
 
@@ -89,7 +89,7 @@ in
       };
 
       "systemd-failed-units" = {
-        #FIXME - waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
+        #FIXME - Waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
         format = "󰒏 {nr_failed}";
         on-click = "${config.home.sessionVariables.TERMINAL} ${lib.getExe pkgs.systemctl-tui}";
       };

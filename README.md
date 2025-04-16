@@ -38,14 +38,14 @@ Below are a list of features that need to be added.
 
 #### **desktop**
 - [ ] Build AGS widgets
-- [ ] implement dynamic wallpaper
+- [ ] Implement dynamic wallpaper
 - [ ] Organise hyprland style config
 
 #### **git**
 - [ ] Setup signed commits
 
 #### **locker**
-- [ ] Betetr integration of lockers between nixos and home-manager
+- [ ] Better integration of lockers between nixos and home-manager
 
 #### **networking**
 - [ ] Integrate ssh with bitwarden
@@ -100,7 +100,7 @@ Below are a list of features that need to be added.
 - [ ] Add WolframScript overlay
 
 #### **renovate**
-- [ ] remove when [PR](https://github.com/renovatebot/renovate/pull/33991) is merged
+- [ ] Remove when [PR](https://github.com/renovatebot/renovate/pull/33991) is merged
 
 #### **wpa_supplicant**
 - [ ] Is this still needed?

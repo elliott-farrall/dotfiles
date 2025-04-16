@@ -1,7 +1,7 @@
 { ...
 }:
 
-#TODO - remove when [PR](https://github.com/renovatebot/renovate/pull/33991) is merged
+#TODO - Remove when [PR](https://github.com/renovatebot/renovate/pull/33991) is merged
 
 _final: prev:
 {
