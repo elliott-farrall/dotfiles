@@ -1,5 +1,6 @@
 { lib
 , pkgs
+, inputs
 , config
 , ...
 }:
@@ -7,6 +8,10 @@
 let
   cfg = config.services.systemd-notifications;
   inherit (cfg) enable;
+
+  inherit (inputs.self.nixosConfigurations.runner.config.services.ntfy-sh) settings;
+  ntfy-url = "${settings.base-url}${settings.listen-http}";
+  ntfy-topic = "systemd";
 in
 {
   options = {
@@ -19,7 +24,14 @@ in
         Description = "Notify when a systemd service fails";
       };
       Service = {
-        ExecStart = "${pkgs.libnotify}/bin/notify-send 'Service Failed' '%i has failed.'";
+        ExecStart = "${pkgs.writeShellScript "systemd-notifications-failure" ''
+          ${pkgs.libnotify}/bin/notify-send 'Service Failed' "$1 has failed."
+
+          ${lib.getExe pkgs.curl} \
+            -H "Title: Service Failed" \
+            -d "$1 has failed." \
+          ${ntfy-url}/${ntfy-topic}
+        ''} %i";
       };
     };
 

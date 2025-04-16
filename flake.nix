@@ -160,6 +160,7 @@
     # nix-monitored.url = "github:ners/nix-monitored";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    rand-nix.url = "github:figsoda/rand-nix";
     rclonix.url = "github:elliott-farrall/rclonix/legacy";
     snowfall-lib.url = "github:snowfallorg/lib";
     stylix.url = "github:danth/stylix";

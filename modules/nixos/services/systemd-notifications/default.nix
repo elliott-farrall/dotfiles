@@ -1,5 +1,6 @@
 { lib
 , pkgs
+, inputs
 , config
 , ...
 }:
@@ -7,6 +8,10 @@
 let
   cfg = config.services.systemd-notifications;
   inherit (cfg) enable;
+
+  inherit (inputs.self.nixosConfigurations.runner.config.services.ntfy-sh) settings;
+  ntfy-url = "${settings.base-url}${settings.listen-http}";
+  ntfy-topic = "systemd";
 
   conf-pkg = pkgs.runCommandNoCC "systemd-notifications.conf"
     {
@@ -36,9 +41,10 @@ in
       ];
 
       script = ''
-        for user in $(getent group wheel | awk -F: '{print $4}'); do
-          sudo -u $user DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u $user)/bus" notify-send "Service Failed" "$1 has failed."
-        done
+        ${lib.getExe pkgs.curl} \
+          -H "Title: Service Failed" \
+          -d "$1 has failed." \
+        ${ntfy-url}/${ntfy-topic}
       '';
       scriptArgs = "%i";
     };
