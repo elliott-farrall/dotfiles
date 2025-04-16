@@ -21,7 +21,7 @@
     enable = true;
     settings = {
       ntfyUrl = "http://${host}:2586/grafana";
-      bauthPass = pkgs.writeText "grafana-to-ntfy-pass" (toString (inputs.rand-nix.rng.withSeed "${pkgs.runCommand "uuid" { } "uuidgen > $out"}").int);
+      bauthPass = pkgs.writeText "grafana-to-ntfy-pass" (toString (inputs.rand-nix.rng.withSeed "${pkgs.runCommand "uuid" { } "uuidgen > $out"}").int); #TODO - Create lib for random UUIDs
     };
   };
 }

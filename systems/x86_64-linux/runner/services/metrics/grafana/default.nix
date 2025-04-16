@@ -6,10 +6,7 @@
 {
   services.grafana = {
     enable = true;
-    settings = {
-      server.domain = "${host}.main.dotfiles.elliott-farrall.garnix.me";
-      smtp.enabled = true;
-    };
+    settings.server.domain = "${host}.main.dotfiles.elliott-farrall.garnix.me";
 
     provision = {
       enable = true;
