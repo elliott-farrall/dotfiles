@@ -37,7 +37,7 @@ Below are a list of features that need to be added.
 - [ ] Find better way to read token for ddns
 
 #### **lima**
-- [ ] Migrate to impermanence
+- [ ] Clean lima boot config
 
 #### **runner**
 - [ ] Create lib for random UUIDs

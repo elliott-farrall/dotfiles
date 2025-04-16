@@ -7,5 +7,5 @@
     ./hardware.nix
   ];
 
-  #TODO - Migrate to impermanence
+  #TODO - Migrate lima to impermanence + nixos-facter
 }

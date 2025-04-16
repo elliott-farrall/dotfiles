@@ -1,6 +1,8 @@
 { ...
 }:
 
+#TODO - Cleanup lima networking config
+
 {
   networking = {
     networkmanager.enable = true;
