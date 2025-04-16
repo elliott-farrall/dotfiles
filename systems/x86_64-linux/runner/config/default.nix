@@ -3,7 +3,6 @@
 
 {
   imports = [
-    ./config
-    ./services
+    ./networking
   ];
 }
