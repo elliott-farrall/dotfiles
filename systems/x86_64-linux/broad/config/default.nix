@@ -4,6 +4,5 @@
 {
   imports = [
     ./boot
-    ./podman
   ];
 }

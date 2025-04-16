@@ -1,9 +1,0 @@
-{ ...
-}:
-
-{
-  imports = [
-    ./container
-    ./volume
-  ];
-}

@@ -3,23 +3,18 @@
 This repository contains my dotfiles and configuration files for various applications and systems.
 
 - :bug: [Issues](#bug-issues)
-    - :wrench: [Modules (NixOS)](#wrench-modules-(nixos))
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager))
+    - :wrench: [Modules (NixOS)](#wrench-modules-(nixos))
 - :clipboard: [To Do](#clipboard-todo)
-    - :desktop_computer: [Systems](#desktop_computer-systems-1)
+    - :test_tube: [Checks](#test_tube-checks-1)
     - :house_with_garden: [Homes](#house_with_garden-homes-1)
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
-    - :test_tube: [Checks](#test_tube-checks-1)
+    - :desktop_computer: [Systems](#desktop_computer-systems-1)
 - :rocket: [CI/CD](#rocket-cicd)
 
 ## :bug: Issues
 
 Below are a list of issues that need to be fixed.
-
-### :wrench: Modules (NixOS)
-
-#### **greeter**
-- [ ] Incorrect resolutions on multi-monitor setups
 
 ### :screwdriver: Modules (Home Manager)
 
@@ -27,20 +22,19 @@ Below are a list of issues that need to be fixed.
 - [ ] waybar media module broken
 - [ ] waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
 
+### :wrench: Modules (NixOS)
+
+#### **greeter**
+- [ ] Incorrect resolutions on multi-monitor setups
+
 ## :clipboard: To Do
 
 Below are a list of features that need to be added.
 
-### :desktop_computer: Systems
+### :test_tube: Checks
 
-#### **broad**
-- [ ] Find better way to read token for ddns
-
-#### **lima**
-- [ ] Clean lima boot config
-
-#### **runner**
-- [ ] Create lib for random UUIDs
+#### **pre-commit**
+- [ ] Fix act pre-commit
 
 ### :house_with_garden: Homes
 
@@ -52,10 +46,16 @@ Below are a list of features that need to be added.
 #### **desktop**
 - [ ] Build AGS widgets
 
-### :test_tube: Checks
+### :desktop_computer: Systems
 
-#### **pre-commit**
-- [ ] Fix act pre-commit
+#### **broad**
+- [ ] Check broad boot config
+
+#### **lima**
+- [ ] Clean lima boot config
+
+#### **runner**
+- [ ] Create lib for random UUIDs
 
 ## :rocket: CI/CD
 
