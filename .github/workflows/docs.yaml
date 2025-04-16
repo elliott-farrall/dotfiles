@@ -24,7 +24,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Render Template
-        run: .github/templates/render.sh
+        run: .github/templates/render.py
 
       - name: Format Repository
         run: nix fmt

@@ -70,14 +70,17 @@ lib.pre-commit-hooks.${system}.run {
 
     docs = {
       enable = true;
-      entry = ".github/templates/render.sh";
-      files = "^(checks|modules|homes|shells|systems)/.*$";
+      entry = toString (pkgs.runCommand "docs"
+        {
+          nativeBuildInputs = with pkgs; [ (python3.withPackages (ps: with ps; [ jinja2 ])) ];
+        } "python3 .github/templates/render.py");
+      files = "^(checks|homes|modules|packages|overlays|shells|systems)/.*$";
       pass_filenames = false;
     };
 
     nix-auto-follow = {
       enable = true;
-      entry = builtins.toString (pkgs.writeShellScript "nix-auto-follow" ''
+      entry = toString (pkgs.writeShellScript "nix-auto-follow" ''
         set -e
         ${lib.getExe inputs.nix-auto-follow.packages.${system}.default} -i
         nix flake lock

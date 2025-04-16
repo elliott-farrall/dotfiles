@@ -1,7 +1,5 @@
 .direnv/
 .pre-commit-config.yaml
 
-.github/templates/readme.json
-
 result
 *.qcow2

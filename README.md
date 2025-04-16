@@ -3,12 +3,9 @@
 This repository contains my dotfiles and configuration files for various applications and systems.
 
 - :bug: [Issues](#bug-issues)
-    - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager))
     - :wrench: [Modules (NixOS)](#wrench-modules-(nixos))
     - :page_facing_up: [Overlays](#page_facing_up-overlays)
 - :construction: [To Do](#clipboard-todo)
-    - :test_tube: [Checks](#test_tube-checks-1)
-    - :house_with_garden: [Homes](#house_with_garden-homes-1)
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
     - :wrench: [Modules (NixOS)](#wrench-modules-(nixos)-1)
     - :page_facing_up: [Overlays](#page_facing_up-overlays-1)
@@ -20,16 +17,7 @@ This repository contains my dotfiles and configuration files for various applica
 
 Below are a list of issues that need to be fixed.
 
-### :screwdriver: Modules (Home Manager)
-
-#### **desktop**
-- [ ] waybar media module broken
-- [ ] waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
-
 ### :wrench: Modules (NixOS)
-
-#### **greeter**
-- [ ] Incorrect resolutions on multi-monitor setups
 
 #### **profiles**
 - [ ] Update uos printer config
@@ -43,17 +31,6 @@ Below are a list of issues that need to be fixed.
 
 Below are a list of features that need to be added.
 
-### :test_tube: Checks
-
-#### **pre-commit**
-- [ ] Fix act pre-commit
-- [ ] Remove when silent boot is fixed
-
-### :house_with_garden: Homes
-
-#### **elliott@lima**
-- [ ] Organise tools
-
 ### :screwdriver: Modules (Home Manager)
 
 #### **applications**
@@ -61,6 +38,8 @@ Below are a list of features that need to be added.
 
 #### **desktop**
 - [ ] Build AGS widgets
+- [ ] implement dynamic wallpaper
+- [ ] Organise hyprland style config
 
 #### **git**
 - [ ] Setup signed commits
@@ -90,9 +69,6 @@ Below are a list of features that need to be added.
 
 #### **greeter**
 - [ ] Is this fix still needed?
-
-#### **home-manager**
-- [ ] Look into alternative to path link
 
 #### **locale**
 - [ ] Simplify this module
@@ -131,14 +107,9 @@ Below are a list of features that need to be added.
 
 ### :desktop_computer: Systems
 
-#### **broad**
-- [ ] Check broad boot config
-
 #### **lima**
-- [ ] Clean lima boot config
-
-#### **runner**
-- [ ] Create lib for random UUIDs
+- [ ] Cleanup lima networking config
+- [ ] Does lima need openrazer?
 
 ### :egg: Shells
 
