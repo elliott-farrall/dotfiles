@@ -87,9 +87,13 @@ generate_json() {
   # Find all files in the directories specified in DIR_TO_KEY
   local files=()
   for dir in "${!DIR_TO_KEY[@]}"; do
-    while IFS= read -r file; do
-      files+=("$file")
-    done < <(find "$dir" -type f)
+    if [[ -d "$dir" ]]; then
+      while IFS= read -r file; do
+        files+=("$file")
+      done < <(find "$dir" -type f)
+    else
+      echo "Skipping non-existent directory: $dir" >&2
+    fi
   done
 
   for file in "${files[@]}"; do
