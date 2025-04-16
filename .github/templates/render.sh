@@ -12,11 +12,12 @@ OUTPUT_FILE="README.md"
 
 # Map top-level directories to JSON keys
 declare -A DIR_TO_KEY=(
-  ["systems/x86_64-linux"]="Systems"
-  ["homes/x86_64-linux"]="Homes"
-  ["modules/nixos"]="ModulesNix"
-  ["modules/home"]="ModulesHome"
   ["checks"]="Checks"
+  ["homes/x86_64-linux"]="Homes"
+  ["modules/home"]="ModulesHome"
+  ["modules/nixos"]="ModulesNix"
+  ["shells"]="Shells"
+  ["systems/x86_64-linux"]="Systems"
 )
 
 extract_comments() {
