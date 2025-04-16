@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Test systemd-lock-handler
+
 let
   cfg = config.locker;
   enable = cfg != null;

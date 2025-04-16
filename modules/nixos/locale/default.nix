@@ -2,6 +2,8 @@
 , ...
 }:
 
+#TODO - Simplify this module
+
 {
   imports = [
     ./locales/uk.nix

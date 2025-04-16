@@ -4,6 +4,7 @@
 
 {
   users.users.root = {
+    # TODO - Implement fix for updating /etc/shadow
     # There is a current bug in NixOS that prevents /etc/shadow
     # from being updated when the password is changed.
     #   https://github.com/NixOS/nixpkgs/issues/99433

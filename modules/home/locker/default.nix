@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Betetr integration of lockers between nixos and home-manager
+
 {
   options = {
     locker = lib.mkOption {

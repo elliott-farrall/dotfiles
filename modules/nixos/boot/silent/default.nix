@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Implement silent boot module
+
 let
   cfg = config.boot.silent;
   inherit (cfg) enable;

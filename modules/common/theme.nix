@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Better integration between stylix and catppuccin
+
 let
   flavour = "macchiato";
   accent = "mauve";

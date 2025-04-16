@@ -1,6 +1,8 @@
 { ...
 }:
 
+#TODO - Better handling of unwanted desktop items
+
 {
   environment.extraSetup = ''
     rm -f $out/share/applications/cups.desktop

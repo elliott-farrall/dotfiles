@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Make zsh default shell
+
 {
   imports = [
     ./_addons/starship.nix

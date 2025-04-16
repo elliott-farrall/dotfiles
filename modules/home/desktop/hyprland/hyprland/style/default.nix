@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Organise hyprland style config
+
 let
   cfg = config.desktop.hyprland;
   inherit (cfg) enable;

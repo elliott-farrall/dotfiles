@@ -4,6 +4,8 @@
 , ...
 }:
 
+#FIXME - Update uos printer config
+
 let
   cfg = config.profiles.uos;
   enable = cfg.enable && config.services.printing.enable;

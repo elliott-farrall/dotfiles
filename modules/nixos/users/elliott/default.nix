@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Migrate primary user to uid 1001
+
 {
   users.users.elliott = {
     isNormalUser = true; # Not required if uid > 1000

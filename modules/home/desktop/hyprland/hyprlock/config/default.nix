@@ -12,7 +12,6 @@ let
 
   accent = colors.${config.catppuccin.accentBase16};
 
-  # components
   layout = false;
   time = true;
   date = true;

@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Automate TailScale tagging
+
 {
   age.secrets."tailscale/auth".file = ./auth.age;
 

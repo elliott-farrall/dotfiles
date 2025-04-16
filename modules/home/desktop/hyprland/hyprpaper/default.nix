@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - implement dynamic wallpaper
+
 let
   cfg = config.desktop.hyprland;
   inherit (cfg) enable;

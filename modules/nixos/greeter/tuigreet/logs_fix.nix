@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Is this fix still needed?
+
 let
   cfg = config.greeter;
   enable = cfg == "tuigreet";

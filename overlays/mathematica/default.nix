@@ -1,6 +1,8 @@
 { ...
 }:
 
+#TODO - Add WolframScript overlay
+
 _final: prev:
 {
   mathematica = prev.mathematica.overrideAttrs (_attrs: rec {

@@ -4,6 +4,8 @@
 , ...
 }:
 
+#TODO - Make zsh default shell
+
 let
   cfg = config.shell;
 
@@ -12,7 +14,6 @@ in
 {
   imports = [
     ./_addons/starship.nix
-    # ./_addons/tty.nix
   ];
 
   options = {

@@ -1,6 +1,8 @@
 { ...
 }:
 
+#FIXME - Temporary fix for the rmview package
+
 _final: prev:
 {
   rmview = prev.rmview.overrideAttrs (attrs: {

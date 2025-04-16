@@ -3,6 +3,8 @@
 , ...
 }:
 
+#TODO - Migtrate from promtail to grfana-alloy
+
 let
   inherit (inputs.self.nixosConfigurations) runner;
 in

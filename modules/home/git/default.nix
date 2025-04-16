@@ -2,6 +2,8 @@
 , ...
 }:
 
+#TODO - Setup signed commits
+
 {
   age.secrets = {
     "github/auth".file = ./github/auth.age;
