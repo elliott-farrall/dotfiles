@@ -71,7 +71,7 @@ lib.pre-commit-hooks.${system}.run {
     docs = {
       enable = true;
       entry = ".github/templates/render.sh";
-      files = "^(checks|modules|homes|systems)/.*$";
+      files = "^(checks|modules|homes|shells|systems)/.*$";
       pass_filenames = false;
     };
 
