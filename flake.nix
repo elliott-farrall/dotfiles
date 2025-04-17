@@ -22,9 +22,11 @@
           agenix-substitutes.nixosModules.default
           catppuccin.nixosModules.catppuccin
           comin.nixosModules.comin
+          # disko.nixosModules.disko
           impermanence.nixosModules.impermanence
           nix-index-database.nixosModules.nix-index
           stylix.nixosModules.stylix
+          # nixos-facter-modules.nixosModules.facter
         ];
         homes.modules = with inputs; [
           agenix.homeManagerModules.default
@@ -54,10 +56,12 @@
               nixos-hardware.nixosModules.common-pc
               systems/x86_64-linux/runner/system
               garnix-lib.nixosModules.garnix
-              github-nix-ci.nixosModules.default
-              # Move to shared modules
-              # nixos-facter-modules.nixosModules.facter
-              # disko.nixosModules.disko
+            ];
+          };
+          sprout = {
+            modules = with inputs; [
+              nixos-hardware.nixosModules.common-pc
+              systems/x86_64-linux/sprout/system
             ];
           };
         };
@@ -151,7 +155,6 @@
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
     flox.url = "github:flox/flox";
     garnix-lib.url = "github:garnix-io/garnix-lib";
-    github-nix-ci.url = "github:juspay/github-nix-ci";
     home-manager.url = "github:nix-community/home-manager";
     impermanence.url = "github:nix-community/impermanence";
     nix-auto-follow.url = "github:fzakaria/nix-auto-follow";
