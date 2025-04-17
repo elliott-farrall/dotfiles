@@ -122,25 +122,24 @@
           })
           (builtins.filter (name: lib.hasPrefix "snowfall-" name) (builtins.attrNames (builtins.readDir ./templates))));
 
-      } // {
-      schemas = lib.mergeAttrsList (with inputs; [
-        flake-schemas.schemas
-        extra-schemas.schemas
-      ]); # For when https://github.com/NixOS/nix/pull/8892 gets merged
+        schemas = lib.mergeAttrsList (with inputs; [
+          flake-schemas.schemas
+          extra-schemas.schemas
+        ]); # For when https://github.com/NixOS/nix/pull/8892 gets merged
 
-      toplevel = lib.mergeAttrsList [
-        (lib.mapAttrs (_attr: cfg: cfg.config.system.build.toplevel) inputs.self.nixosConfigurations)
-        (lib.mapAttrs (_attr: cfg: cfg.activationPackage) inputs.self.homeConfigurations)
-      ];
+        toplevel = lib.mergeAttrsList [
+          (lib.mapAttrs (_attr: cfg: cfg.config.system.build.toplevel) inputs.self.nixosConfigurations)
+          (lib.mapAttrs (_attr: cfg: cfg.activationPackage) inputs.self.homeConfigurations)
+        ];
 
-      deploy.nodes = lib.mapAttrs
-        (hostname: cfg: {
-          inherit hostname;
-          sshUser = "root";
-          profiles.system.path = lib.deploy-rs.x86_64-linux.activate.nixos cfg;
-        })
-        inputs.self.nixosConfigurations;
-    };
+        deploy.nodes = lib.mapAttrs
+          (hostname: cfg: {
+            inherit hostname;
+            sshUser = "root";
+            profiles.system.path = lib.deploy-rs.x86_64-linux.activate.nixos cfg;
+          })
+          inputs.self.nixosConfigurations;
+      };
 
   inputs = {
     agenix.url = "github:ryantm/agenix";

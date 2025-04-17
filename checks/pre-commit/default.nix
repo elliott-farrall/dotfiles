@@ -70,10 +70,10 @@ lib.pre-commit-hooks.${system}.run {
 
     docs = {
       enable = true;
-      entry = toString (pkgs.runCommand "docs"
-        {
-          nativeBuildInputs = with pkgs; [ (python3.withPackages (ps: with ps; [ jinja2 ])) ];
-        } "python3 .github/templates/render.py");
+      entry = "${pkgs.writeShellScript "docs" ''
+        set -e
+        ${(pkgs.python3.withPackages (ps: with ps; [ jinja2 ])).interpreter} .github/templates/render.py -t $1 -o $2
+      ''} .github/templates/README.template.j2 README.md";
       files = "^(checks|homes|modules|packages|overlays|shells|systems)/.*$";
       pass_filenames = false;
     };

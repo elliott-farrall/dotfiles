@@ -3,13 +3,10 @@
 
 import os
 import re
+import sys
+import argparse
 from pathlib import Path
 from jinja2 import Template
-
-# Paths
-TEMPLATE_PATH = ".github/templates"
-TEMPLATE_FILE = f"{TEMPLATE_PATH}/README.template.j2"
-OUTPUT_FILE = "README.md"
 
 # Map top-level directories to JSON keys
 DIR_TO_KEY = {
@@ -34,7 +31,8 @@ def extract_comments(file_path, prefix):
             try:
                 # Decode the line, ignoring invalid characters
                 line = line.decode("utf-8", errors="ignore")
-                match = re.match(rf"#\s*{prefix}\s*-\s*(.+)", line)
+                # Match comments anywhere in the line
+                match = re.search(rf"#.*\b{prefix}\b\s*-\s*(.+)", line)
                 if match:
                     comment = match.group(1)
                     print(f"  Found {prefix} in {file_path}: {comment}")
@@ -47,12 +45,15 @@ def process_file(file_path):
     """
     Process a single file to extract TODO and FIXME comments and organize them into JSON.
     """
-    relative_path = str(file_path)
+    # Normalize the relative path
+    relative_path = os.path.relpath(file_path)
     key = None
 
     # Match the start of the relative path with DIR_TO_KEY
     for dir_path, dir_key in DIR_TO_KEY.items():
-        if relative_path.startswith(dir_path):
+        # Normalize the directory path for comparison
+        normalized_dir_path = os.path.normpath(dir_path)
+        if relative_path.startswith(normalized_dir_path):
             key = dir_key
             break
 
@@ -61,7 +62,7 @@ def process_file(file_path):
         return {"TODO": {}, "FIXME": {}}
 
     # Extract the subdirectory (remaining part of the path after the matched directory)
-    subdir = relative_path[len(dir_path):].lstrip("/").split("/")[0]
+    subdir = relative_path[len(normalized_dir_path):].lstrip("/").split("/")[0]
 
     # Extract TODOs and FIXMEs
     todos = extract_comments(file_path, "TODO")
@@ -117,17 +118,25 @@ def render_template(template_file, json_data, output_file):
         output_fp.write(rendered_content)
 
 def main():
+    parser = argparse.ArgumentParser(description="Render a Jinja2 template with extracted JSON data.")
+    parser.add_argument("-t", "--template", required=True, help="Path to the Jinja2 template file.")
+    parser.add_argument("-o", "--output", required=True, help="Path to the output file.")
+
+    args = parser.parse_args()
+    template_file = args.template
+    output_file = args.output
+
     print("Generating JSON...")
     json_data = generate_json()
 
     # Render the template directly with the generated JSON data
-    render_template(TEMPLATE_FILE, json_data, OUTPUT_FILE)
+    render_template(template_file, json_data, output_file)
 
     # Ensure the output file ends with a newline
-    with open(OUTPUT_FILE, "a") as output_fp:
+    with open(output_file, "a") as output_fp:
         output_fp.write("\n")
 
-    print(f"Rendered {TEMPLATE_FILE} to {OUTPUT_FILE}")
+    print(f"Rendered {template_file} to {output_file}")
 
 if __name__ == "__main__":
     main()

@@ -14,6 +14,7 @@
   programs.nix-index-database.comma.enable = true;
 
   environment.systemPackages = with pkgs; [
+    agenix
     nil
     nix-fast-build
     nix-info
