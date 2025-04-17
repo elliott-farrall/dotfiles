@@ -24,7 +24,10 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Render Template
-        run: .github/templates/render.py
+        env:
+          TEMPLATE: .github/templates/README.template.j2
+          OUTPUT: README.md
+        run: .github/templates/render.py -t "$TEMPLATE" -o "$OUTPUT"
 
       - name: Format Repository
         run: nix fmt
