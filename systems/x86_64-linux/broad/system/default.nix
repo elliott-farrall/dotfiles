@@ -3,6 +3,6 @@
 
 {
   imports = [
-    ./hardware.nix
+    # ...
   ];
 }
