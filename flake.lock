@@ -821,11 +821,11 @@
         "nixpkgs": "nixpkgs_15"
       },
       "locked": {
-        "lastModified": 1745200883,
-        "narHash": "sha256-7PTvotxaArVaLe7pWdBHuEcowA4XQVFMfrFa/JLIcsI=",
+        "lastModified": 1745268622,
+        "narHash": "sha256-f2HC1mSxFdIjdYeLU3fDzYQxUuawW9JYV7jgwRfUvt8=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "b7f544876a121a4905f9ca3bf1b3092a652f8770",
+        "rev": "8c989dc7d77574ea8e9462f354bfbe0f3613a442",
         "type": "github"
       },
       "original": {

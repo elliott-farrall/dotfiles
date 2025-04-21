@@ -21,7 +21,7 @@
 
   terminal = "kitty";
   file-manager = "nemo";
-  editor = "vscode-insiders";
+  editor = "vscode";
   browser = "firefox";
 
   programs = {

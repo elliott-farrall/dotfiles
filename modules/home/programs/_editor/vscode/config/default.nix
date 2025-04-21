@@ -54,6 +54,8 @@ in
 
       "files.autoSave" = "afterDelay";
 
+      "direnv.restart.automatic" = true;
+
       "editor.acceptSuggestionOnEnter" = "off";
       "github.copilot.editor.enableAutoCompletions" = true;
 

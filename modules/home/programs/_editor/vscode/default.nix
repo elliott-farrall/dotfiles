@@ -36,7 +36,10 @@ in
       mutableExtensionsDir = false;
       profiles.default = {
         enableExtensionUpdateCheck = false;
-        extensions = with pkgs.vscode-marketplace; [
+        extensions = (with pkgs.vscode-extensions; [
+          github.copilot
+          github.copilot-chat
+        ]) ++ (with pkgs.vscode-marketplace; [
           # Core
           ms-vscode.remote-explorer
           ms-vscode.remote-server
@@ -49,8 +52,6 @@ in
           ms-azuretools.vscode-azureterraform
           ms-kubernetes-tools.vscode-kubernetes-tools
           hashicorp.terraform
-          github.copilot
-          github.copilot-chat
           # Environment
           henriquebruno.github-repository-manager
           mkhl.direnv
@@ -62,11 +63,12 @@ in
           bierner.markdown-checkbox
           bierner.markdown-emoji
           # Languages
-          jnoortheen.nix-ide
-          redhat.vscode-yaml
-          tamasfe.even-better-toml
-          samuelcolvin.jinjahtml
-        ];
+          jnoortheen.nix-ide # Nix
+          redhat.vscode-yaml # YAML
+          tamasfe.even-better-toml # TOML
+          samuelcolvin.jinjahtml # Jinja
+          ms-python.python # Python
+        ]);
       };
     };
 
