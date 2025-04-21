@@ -918,7 +918,7 @@
     ];
   };
   virtualisation.oci-containers.containers."portainer" = {
-    image = "docker.io/portainer/portainer-ce:2.28.1-alpine";
+    image = "docker.io/portainer/portainer-ce:2.29.0-alpine";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
@@ -974,7 +974,7 @@
     ];
   };
   virtualisation.oci-containers.containers."prowlarr" = {
-    image = "docker.io/linuxserver/prowlarr:1.33.3";
+    image = "docker.io/linuxserver/prowlarr:1.34.1";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-prowlarr:/config:rw"
@@ -1028,7 +1028,7 @@
     ];
   };
   virtualisation.oci-containers.containers."proxy" = {
-    image = "docker.io/traefik:v3.3.5";
+    image = "docker.io/traefik:v3.3.6";
     environment = {
       "CF_API_EMAIL" = "elliott.chalford@gmail.com";
       "CF_API_KEY_FILE" = "/key";
@@ -1547,7 +1547,7 @@
     ];
   };
   virtualisation.oci-containers.containers."speedtest-tracker" = {
-    image = "docker.io/linuxserver/speedtest-tracker:1.4.0";
+    image = "docker.io/linuxserver/speedtest-tracker:1.4.2";
     environment = {
       "APP_URL" = "https://speedtest-tracker.beannet.app";
       "DB_CONNECTION" = "sqlite";
@@ -1675,7 +1675,7 @@
     ];
   };
   virtualisation.oci-containers.containers."tubearchivist-es" = {
-    image = "docker.io/elasticsearch:8.17.4";
+    image = "docker.io/elasticsearch:8.18.0";
     environment = {
       "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";
       "discovery.type" = "single-node";
