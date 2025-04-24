@@ -99,6 +99,19 @@ in
         };
       };
 
+      /* -------------------------------- Terraform ------------------------------- */
+
+      "[terraform]" = {
+        "editor.defaultFormatter" = "hashicorp.terraform";
+        "editor.formatOnSave" = true;
+        "editor.formatOnSaveMode" = "file";
+      };
+      "[terraform-vars]" = {
+        "editor.defaultFormatter" = "hashicorp.terraform";
+        "editor.formatOnSave" = true;
+        "editor.formatOnSaveMode" = "file";
+      };
+
       /* ---------------------------------- LaTeX --------------------------------- */
 
       "latex-workshop.latex.autoBuild.run" = "onSave";
