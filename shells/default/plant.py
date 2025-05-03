@@ -38,7 +38,7 @@ class Spinner:
         self.thread = None
 
     def _spin(self):
-        """Spins the spinner while the message is running."""
+        """Continuously logs a spinning animation until stopped."""
         for char in itertools.cycle(self.spinner_chars):
             if not self.spinner_running:
                 break
