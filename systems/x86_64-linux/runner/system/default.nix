@@ -7,7 +7,10 @@
 {
   nixpkgs.hostPlatform = { inherit system; };
 
-  boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+  boot.loader = {
+    grub.efiSupport = lib.mkForce false;
+    efi.canTouchEfiVariables = lib.mkForce false;
+  };
 
   garnix.server = {
     enable = true;
