@@ -51,6 +51,7 @@ in
           ms-azuretools.vscode-docker
           ms-azuretools.vscode-azureterraform
           ms-kubernetes-tools.vscode-kubernetes-tools
+          github.vscode-github-actions
           hashicorp.terraform
           # Environment
           henriquebruno.github-repository-manager
