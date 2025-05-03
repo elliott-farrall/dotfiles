@@ -62,6 +62,7 @@ in
           bierner.markdown-preview-github-styles
           bierner.markdown-checkbox
           bierner.markdown-emoji
+          njpwerner.autodocstring
           # Languages
           jnoortheen.nix-ide # Nix
           redhat.vscode-yaml # YAML

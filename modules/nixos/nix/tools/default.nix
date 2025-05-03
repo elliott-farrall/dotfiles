@@ -1,9 +1,11 @@
-{ pkgs
+{ lib
+, pkgs
+, format
 , ...
 }:
 
 {
-  programs.nh = {
+  programs.nh = lib.mkIf (format == "linux") {
     enable = true;
     clean = {
       enable = true;
@@ -26,5 +28,6 @@
     nix-update
     nixd
     nixpkgs-hammering
+    nixos-facter
   ];
 }

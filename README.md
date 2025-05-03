@@ -13,7 +13,6 @@ This repository contains my dotfiles and configuration files for various applica
     - :wrench: [Modules (NixOS)](#wrench-modules-(nixos)-1)
     - :page_facing_up: [Overlays](#page_facing_up-overlays-1)
     - :desktop_computer: [Systems](#desktop_computer-systems-1)
-    - :egg: [Shells](#egg-shells-1)
 - :rocket: [CI/CD](#rocket-cicd)
 
 ## :bug: Issues
@@ -109,6 +108,9 @@ Below are a list of features that need to be added.
 #### **networking**
 - [ ] Automate TailScale tagging
 
+#### **nix**
+- [ ] Come up with better auto update solution
+
 #### **shell**
 - [ ] Make zsh default shell
 
@@ -147,11 +149,6 @@ Below are a list of features that need to be added.
 #### **runner**
 - [ ] Create lib for random UUIDs
 - [ ] Remove custom grafana-to-ntfy module once merged upstream
-
-### :egg: Shells
-
-#### **default**
-- [ ] Rebuild devshell
 
 ## :rocket: CI/CD
 

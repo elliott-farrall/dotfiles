@@ -1,6 +1,7 @@
 { lib
 , pkgs
 , inputs
+, format
 , config
 , ...
 }:
@@ -25,7 +26,7 @@ let
 in
 {
   options = {
-    services.systemd-notifications.enable = lib.mkEnableOption "notifications for systemd services" // { default = true; };
+    services.systemd-notifications.enable = lib.mkEnableOption "notifications for systemd services" // { default = format == "linux"; };
   };
 
   config = lib.mkIf enable {

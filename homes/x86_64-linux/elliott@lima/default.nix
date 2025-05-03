@@ -44,7 +44,7 @@
   /* ----------------------------- Personalisation ---------------------------- */
 
   home.sessionVariables = {
-    FLAKE = "${config.xdg.userDirs.extraConfig.XDG_REPO_DIR}/dotfiles";
+    NH_FLAKE = "${config.xdg.userDirs.extraConfig.XDG_REPO_DIR}/dotfiles";
   };
 
   gtk.gtk3.bookmarks = [

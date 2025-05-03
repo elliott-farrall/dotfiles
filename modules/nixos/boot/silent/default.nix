@@ -10,14 +10,14 @@ let
   inherit (cfg) enable;
 in
 {
-  disabledModules = [
-    "system/boot/stage-1.nix"
-    "system/boot/stage-2.nix"
-  ];
-  imports = [
-    ./boot/stage-1.nix
-    ./boot/stage-2.nix
-  ];
+  # disabledModules = [
+  #   "system/boot/stage-1.nix"
+  #   "system/boot/stage-2.nix"
+  # ];
+  # imports = [
+  #   ./boot/stage-1.nix
+  #   ./boot/stage-2.nix
+  # ];
 
   options = {
     boot.silent.enable = lib.mkEnableOption "silent boot";

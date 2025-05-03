@@ -18,6 +18,10 @@ let
     runner = [
       "age1mvvydcq686dprhhwrmr48kd7k60g4tjpw9yk9ndt8emjr3k4jfdsq2ttl6"
     ];
+    sprout = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPij0zWwqEyhN0Qud8bTd0LEKFm4/K9HMjGWjprTxEcm"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCFVrqF729O9JDMgcfbSgu8pM5ZxlQ3Kij24tV9iowWIMimPH9Z9GLhz02Hyu+5M89WTDHNjdWHYX0aMuPc9XW97nsY6fWOKVyDDlqLaSz3XAV/CA3PRiRWcvKNSDq4efeWxNkJq3G8wcq/C/ElLFrgyvdOlsc1/ZDzzP0lGvmWvCduffwl+r71LhhuzmxUh1343DIey+z0S1m0Y4Rl8jrSjP6ykVLE2g2OJ2RDar00arALFVLvVUZQsykVrpu4TNjUis164Mo/zvF+tmFCRPR5GfjUGd5IymiJjX1WxUaYA5hiyIPOGbhOLu8jWkDg605KJYCJiQxJNBdrGLGfB1dwwyHIPiDRVzQj1G1LpoD+acVkt8391L2GmhDHT7NqtOFDeNFYMKaQiLhfn4W7FvkmLY8sZnXUotassl4LLLSC7XE7ELi7B5OovQ9ihqM4wq9ltJLQ7/u5YXTlneWDImXnl7CavSIJZJtpD/aBHbYyccIVmpZCLYpMLIopjz0G/UpPUFU8wcw8As2COYywBmQi4zS/Pf/n4qZnnHBLRMs97Ii5tBdzCG63JWLGIaZRja6s57PGXuUjb/oo4jCO6STwztkNxVkWKVG66LBH4KHInAtzxAh3qt9CYlAWM8PFH5XVtK8ngMNK8nOHeiWjTtALmPoHm4ZW1ZTGTOHMgaf/Rw=="
+    ];
   };
   users = {
     elliott = [
@@ -35,6 +39,7 @@ let
     broad = hosts.broad ++ users.elliott;
     lima = hosts.lima ++ users.elliott;
     runner = hosts.runner ++ users.elliott;
+    sprout = hosts.sprout ++ users.elliott;
   };
 
   getKeyName = path:
@@ -43,6 +48,7 @@ let
     else if builtins.match "systems/x86_64-linux/broad/.*" path != null then "broad"
     else if builtins.match "systems/x86_64-linux/lima/.*" path != null then "lima"
     else if builtins.match "systems/x86_64-linux/runner/.*" path != null then "runner"
+    else if builtins.match "systems/x86_64-linux/sprout/.*" path != null then "sprout"
     else if builtins.match "homes/x86_64-linux/elliott@lima/.*" path != null then "lima"
     else "all";
 

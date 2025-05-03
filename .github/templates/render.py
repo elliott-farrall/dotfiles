@@ -1,11 +1,12 @@
 #! /usr/bin/env nix
 #! nix shell github:tomberek/-#python3With.jinja2 -c python3
 
+import argparse
 import os
 import re
 import sys
-import argparse
 from pathlib import Path
+
 from jinja2 import Template
 
 # Map top-level directories to JSON keys
@@ -20,11 +21,8 @@ DIR_TO_KEY = {
     "systems/x86_64-linux": "Systems",
 }
 
+
 def extract_comments(file_path, prefix):
-    """
-    Extract comments with a specific prefix (e.g., TODO, FIXME) from a file.
-    Handles files with invalid UTF-8 characters gracefully.
-    """
     comments = []
     with open(file_path, "rb") as file:  # Open in binary mode
         for line in file:
@@ -41,10 +39,8 @@ def extract_comments(file_path, prefix):
                 print(f"  Skipping invalid line in {file_path}")
     return comments
 
+
 def process_file(file_path):
-    """
-    Process a single file to extract TODO and FIXME comments and organize them into JSON.
-    """
     # Normalize the relative path
     relative_path = os.path.relpath(file_path)
     key = None
@@ -62,7 +58,7 @@ def process_file(file_path):
         return {"TODO": {}, "FIXME": {}}
 
     # Extract the subdirectory (remaining part of the path after the matched directory)
-    subdir = relative_path[len(normalized_dir_path):].lstrip("/").split("/")[0]
+    subdir = relative_path[len(normalized_dir_path) :].lstrip("/").split("/")[0]
 
     # Extract TODOs and FIXMEs
     todos = extract_comments(file_path, "TODO")
@@ -77,10 +73,8 @@ def process_file(file_path):
 
     return result
 
+
 def generate_json():
-    """
-    Generate a JSON object by processing all files in the specified directories.
-    """
     raw_json = {"TODO": {}, "FIXME": {}}
 
     for dir_path, dir_key in DIR_TO_KEY.items():
@@ -105,10 +99,8 @@ def generate_json():
 
     return raw_json
 
+
 def render_template(template_file, json_data, output_file):
-    """
-    Render the Jinja2 template using the generated JSON data.
-    """
     with open(template_file, "r") as template_fp:
         template = Template(template_fp.read())
 
@@ -116,6 +108,7 @@ def render_template(template_file, json_data, output_file):
 
     with open(output_file, "w") as output_fp:
         output_fp.write(rendered_content)
+
 
 def main():
     parser = argparse.ArgumentParser(description="Render a Jinja2 template with extracted JSON data.")
@@ -137,6 +130,7 @@ def main():
         output_fp.write("\n")
 
     print(f"Rendered {template_file} to {output_file}")
+
 
 if __name__ == "__main__":
     main()

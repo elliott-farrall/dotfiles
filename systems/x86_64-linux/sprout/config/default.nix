@@ -3,9 +3,9 @@
 
 {
   imports = [
-    ./boot
     ./dns
     ./network
-    # ./pppoe
+    ./pppoe
+    ./routing
   ];
 }

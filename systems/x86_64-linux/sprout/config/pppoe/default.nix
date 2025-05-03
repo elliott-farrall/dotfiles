@@ -3,39 +3,45 @@
 
 {
   age.secrets = {
-    # Get pppoe credentials from ISP
-    "pppoe/username" = {
+    "isp/username" = {
       file = ./username.age;
-      substitutes = [ "/etc/ppp/options" ];
+      substitutions = [
+        "/etc/ppp/peers/isp"
+        "/etc/ppp/pap-secrets"
+        "/etc/ppp/chap-secrets"
+      ];
     };
-    "pppoe/password" = {
+    "isp/password" = {
       file = ./password.age;
-      substitutes = [ "/etc/ppp/options" ];
+      substitutions = [
+        "/etc/ppp/pap-secrets"
+        "/etc/ppp/chap-secrets"
+      ];
     };
   };
 
-  environment.etc."ppp/options".text = ''
-    name "@pppoe/username@"
-    password "@pppoe/password@"
-  '';
+  environment.etc = {
+    "ppp/pap-secrets" = {
+      text = "@username@ * @password@";
+      mode = "0600";
+    };
+    "ppp/chap-secrets" = {
+      text = "@username@ * @password@";
+      mode = "0600";
+    };
+  };
 
   services.pppd = {
     enable = true;
 
-    peers."isp" = {
-      enable = true;
-      autostart = true;
+    peers."isp".config = ''
+      plugin pppoe.so ont
+      ifname wan
 
-      config = ''
-        plugin rp-pppoe.so wan
+      name "@username@"
+      mtu 1492
 
-        persist
-        maxfail 0
-        holdoff 5
-
-        noipdefault
-        defaultroute
-      '';
-    };
+      defaultroute
+    '';
   };
 }

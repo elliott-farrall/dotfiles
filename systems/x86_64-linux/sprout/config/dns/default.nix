@@ -1,33 +1,35 @@
 { host
-, config
 , ...
 }:
 
-let
-  inherit (config.network) lan-ip dhcp-ip;
-in
 {
   services.dnsmasq = {
     enable = true;
+
     settings = {
-      server = [ "79.79.79.79" "79.79.79.80" ];
+      server = [
+        "1.1.1.1" # Cloudflare
+        "1.0.0.1" # Cloudflare
+        "8.8.8.8" # Google
+        "8.8.4.4" # Google
+      ];
 
-      domain-needed = true;
-      bogus-priv = true;
-      no-resolv = true;
+      local = "/beannet.local/";
+      domain = "beannet.local";
 
-      cache-size = 1000;
+      address = [
+        "/${host}.beannet.local/10.0.0.1"
+      ];
 
-      dhcp-range = [ "br-lan,${dhcp-ip.min},${dhcp-ip.max},24h" ];
-      interface = "br-lan";
-      dhcp-host = lan-ip;
-
-      local = "/lan/";
-      domain = "lan";
-      expand-hosts = true;
-
-      no-hosts = true;
-      address = "/${host}.lan/${lan-ip}";
+      dhcp-range = [ "set:lan,10.0.0.101,10.0.0.254,255.255.254.0" ];
+      dhcp-option = [ "tag:lan,option:dns-server,10.0.0.1" ];
     };
   };
+
+  networking.firewall.interfaces."lan" = {
+    allowedUDPPorts = [ 53 67 ];
+    allowedTCPPorts = [ 53 ];
+  };
+
+  services.resolved.enable = false;
 }

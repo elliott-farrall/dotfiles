@@ -2,10 +2,6 @@
 }:
 
 {
-  imports = [
-    ./efi.nix
-  ];
-
   #TODO - Clean lima boot config
 
   boot = {

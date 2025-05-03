@@ -1,4 +1,5 @@
 { lib
+, format
 , ...
 }:
 
@@ -16,7 +17,7 @@ in
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "root" "@wheel" ];
-    access-tokens = "github.com=@github/pat@";
+    access-tokens = lib.mkIf (format == "linux") "github.com=@github/pat@";
 
     accept-flake-config = true;
     substituters = lib.mkBefore [

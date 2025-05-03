@@ -35,6 +35,10 @@ lib.pre-commit-hooks.${system}.run {
     check-executables-have-shebangs.enable = true;
     check-shebang-scripts-are-executable.enable = true;
 
+    check-python.enable = true;
+    check-builtin-literals.enable = true;
+    check-docstring-first.enable = true;
+
     /* --------------------------------- Format --------------------------------- */
 
     treefmt = {
