@@ -1,4 +1,5 @@
-{ system
+{ lib
+, system
 , host
 , ...
 }:
@@ -6,7 +7,10 @@
 {
   nixpkgs.hostPlatform = { inherit system; };
 
-  boot.loader.efi.efiSysMountPoint = "/efi";
+  boot.loader = {
+    grub.efiSupport = lib.mkForce false;
+    efi.canTouchEfiVariables = lib.mkForce false;
+  };
 
   garnix.server = {
     enable = true;

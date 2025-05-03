@@ -17,8 +17,8 @@ import sys
 import tempfile
 import itertools
 import threading
-import time
 from pathlib import Path
+from time import sleep
 from typing import Dict, Optional
 
 
@@ -42,7 +42,7 @@ class Spinner:
             if not self.spinner_running:
                 break
             logging.info(f"{self.message} {char}")
-            time.sleep(0.1)
+            sleep(0.1)
             clear_prev()
 
     def __enter__(self):
@@ -240,7 +240,7 @@ def install(src: str, dst: str, identity: Path, files: Path, dry_run: bool = Fal
 
         with Spinner("Installing NixOS"):
             if dry_run:
-                time.sleep(5)
+                sleep(5)
             else:
                 subprocess.run(
                     [
