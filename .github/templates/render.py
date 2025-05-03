@@ -23,6 +23,7 @@ DIR_TO_KEY = {
 
 
 def extract_comments(file_path, prefix):
+    """Extracts comments from a file that contain the specified prefix."""
     comments = []
     with open(file_path, "rb") as file:  # Open in binary mode
         for line in file:
@@ -42,6 +43,10 @@ def extract_comments(file_path, prefix):
 
 def process_file(file_path):
     # Normalize the relative path
+    """Processes a file to extract TODO and FIXME comments based on directory mappings.
+    
+    Args:
+        file_path (str): The path to the file to be processed."""
     relative_path = os.path.relpath(file_path)
     key = None
 
@@ -75,6 +80,14 @@ def process_file(file_path):
 
 
 def generate_json():
+    """Generate a JSON object summarizing TODOs and FIXMEs from specified directories.
+    
+    This function iterates over predefined directory paths, processes each file to extract TODOs and FIXMEs, and aggregates
+    these into a single JSON structure. It skips non-existent directories and prints a message for each one skipped. The
+    JSON structure organizes comments by key (TODO or FIXME), sub-key (e.g., file name), and sub-directory.
+    
+    Returns:
+        dict: A dictionary representing the aggregated TODOs and FIXMEs with nested structures."""
     raw_json = {"TODO": {}, "FIXME": {}}
 
     for dir_path, dir_key in DIR_TO_KEY.items():
@@ -101,6 +114,7 @@ def generate_json():
 
 
 def render_template(template_file, json_data, output_file):
+    """Render a template file with JSON data and write to an output file."""
     with open(template_file, "r") as template_fp:
         template = Template(template_fp.read())
 
@@ -111,6 +125,7 @@ def render_template(template_file, json_data, output_file):
 
 
 def main():
+    """Parse command-line arguments, generate JSON, render a Jinja2 template, and save the output."""
     parser = argparse.ArgumentParser(description="Render a Jinja2 template with extracted JSON data.")
     parser.add_argument("-t", "--template", required=True, help="Path to the Jinja2 template file.")
     parser.add_argument("-o", "--output", required=True, help="Path to the output file.")
