@@ -22,10 +22,11 @@
           agenix-substitutes.nixosModules.default
           catppuccin.nixosModules.catppuccin
           comin.nixosModules.comin
+          # disko.nixosModules.disko
           impermanence.nixosModules.impermanence
           nix-index-database.nixosModules.nix-index
           stylix.nixosModules.stylix
-
+          # nixos-facter-modules.nixosModules.facter
         ];
         homes.modules = with inputs; [
           agenix.homeManagerModules.default
@@ -61,8 +62,6 @@
             modules = with inputs; [
               nixos-hardware.nixosModules.common-pc
               systems/x86_64-linux/sprout/system
-              disko.nixosModules.disko
-              nixos-facter-modules.nixosModules.facter
             ];
           };
         };
@@ -107,10 +106,6 @@
               # Scripts
               shfmt.enable = false;
               beautysh.enable = true;
-              ruff-format = {
-                enable = true;
-                lineLength = 120;
-              };
             };
 
             settings.formatter = {
