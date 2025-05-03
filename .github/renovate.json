@@ -22,7 +22,7 @@
       "description": "docker images",
       "matchManagers": ["docker-compose"],
       "postUpgradeTasks": {
-        "commands": ["systems/*/*/**/compose.sh"],
+        "commands": ["exec systems/*/*/**/compose.sh"],
         "executionMode": "branch"
       }
     },
