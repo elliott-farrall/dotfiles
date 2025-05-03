@@ -38,6 +38,7 @@ class Spinner:
         self.thread = None
 
     def _spin(self):
+        """Spins the spinner by cycling through characters and logging the message."""
         for char in itertools.cycle(self.spinner_chars):
             if not self.spinner_running:
                 break
@@ -71,17 +72,20 @@ class Bitwarden:
         self.lock()
 
     def ask_input(self, prompt: str) -> str:
+        """Prompt user for input and clear previous output."""
         output = input(prompt)
         clear_prev()
         return output
 
     def ask_secret(self, prompt: str) -> str:
+        """Prompt user for a secret and clear previous input."""
         output = getpass.getpass(prompt)
         clear_prev()
         return output
 
     @property
     def is_logged_in(self) -> bool:
+        """Check if the user is logged into Bitwarden."""
         try:
             status_output = subprocess.check_output(["bw", "status"], text=True)
             logging.debug(f"Bitwarden status output: {status_output}")
@@ -91,6 +95,7 @@ class Bitwarden:
             return False
 
     def login(self):
+        """Logs in to Bitwarden using provided credentials and 2FA code."""
         if not self.is_logged_in:
             logging.info("Starting Bitwarden login...")
             self.email = self.ask_input("Enter your Bitwarden email: ")
@@ -114,6 +119,7 @@ class Bitwarden:
 
     @property
     def is_unlocked(self) -> bool:
+        """Check if the Bitwarden vault is unlocked."""
         try:
             status_output = subprocess.check_output(["bw", "status"], text=True)
             logging.debug(f"Bitwarden vault status output: {status_output}")
@@ -123,6 +129,7 @@ class Bitwarden:
             return False
 
     def unlock(self):
+        """Unlock the Bitwarden vault using the stored or prompted password."""
         if not self.is_unlocked:
             logging.info("Starting Bitwarden vault unlock...")
 
@@ -146,6 +153,7 @@ class Bitwarden:
             logging.debug("Bitwarden vault is already unlocked.")
 
     def lock(self):
+        """Relocks the Bitwarden vault."""
         logging.info("Relocking Bitwarden vault...")
         try:
             subprocess.run(["bw", "lock"], check=True, stdout=subprocess.DEVNULL)
@@ -154,6 +162,7 @@ class Bitwarden:
             raise RuntimeError("Failed to relock Bitwarden vault.")
 
     def get_key(self, host: str, key_type: str = "private", key_format: str = "ed25519") -> str:
+        """Fetches SSH key from Bitwarden for a given host."""
         logging.info(f"Getting {key_type} {key_format} key for {host} from Bitwarden...")
         try:
             raw_output = subprocess.check_output(
@@ -232,6 +241,7 @@ class TemporaryDirectory:
 
 
 def install(src: str, dst: str, identity: Path, files: Path, dry_run: bool = False) -> None:
+    """Install NixOS on a target host using nixos-anywhere."""
     try:
         if dry_run:
             logging.info("Dry run enabled. Skipping actual installation.")
@@ -268,6 +278,13 @@ def install(src: str, dst: str, identity: Path, files: Path, dry_run: bool = Fal
 
 
 def main() -> int:
+    """Parses command-line arguments and executes a remote NixOS installation script.
+    
+    Args:
+        host (str): The name of the host to install.
+        dest (str?): The destination for the installation. Defaults to None.
+        debug (bool?): Enable debug logging. Defaults to False.
+        dry_run (bool?): Enable dry run mode (no actual installation). Defaults to False."""
     parser = argparse.ArgumentParser(description="Remote installer script for NixOS.")
     parser.add_argument("host", help="The name of the host to install.")
     parser.add_argument("-d", "--dest", default=None, help="The destination for the installation.")
