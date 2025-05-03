@@ -6,6 +6,8 @@
 {
   nixpkgs.hostPlatform = { inherit system; };
 
+  boot.loader.efi.efiSysMountPoint = "/efi";
+
   garnix.server = {
     enable = true;
     persistence = {
