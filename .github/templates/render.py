@@ -6,7 +6,6 @@ import os
 import re
 import sys
 from pathlib import Path
-
 from jinja2 import Template
 
 # Map top-level directories to JSON keys
