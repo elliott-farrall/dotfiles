@@ -21,6 +21,8 @@
         "/${host}.beannet.local/10.0.0.1"
       ];
 
+      no-dhcpv6-interface = "lan";
+
       dhcp-range = [ "set:lan,10.0.0.101,10.0.0.254,255.255.254.0" ];
       dhcp-option = [ "tag:lan,option:dns-server,10.0.0.1" ];
     };
