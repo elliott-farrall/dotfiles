@@ -38,6 +38,7 @@ class Spinner:
         self.thread = None
 
     def _spin(self):
+        """Spins the spinner while the message is running."""
         for char in itertools.cycle(self.spinner_chars):
             if not self.spinner_running:
                 break
@@ -232,6 +233,7 @@ class TemporaryDirectory:
 
 
 def install(src: str, dst: str, identity: Path, files: Path, dry_run: bool = False) -> None:
+    """Install NixOS on a target host using nixos-anywhere."""
     try:
         if dry_run:
             logging.info("Dry run enabled. Skipping actual installation.")
