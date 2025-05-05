@@ -9,9 +9,19 @@ let
 in
 {
   age.secrets = {
-    "rclone/DotFiles/url".file = ./url.age;
-    "rclone/DotFiles/id".file = ./id.age;
-    "rclone/DotFiles/key".file = ./key.age;
+    "rclone/DotFiles/url" = {
+      file = ./url.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/DotFiles/url";
+    };
+
+    "rclone/DotFiles/id" = {
+      file = ./id.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/DotFiles/id";
+    };
+    "rclone/DotFiles/key" = {
+      file = ./key.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/DotFiles/key";
+    };
   };
 
   programs.rclone.remotes.DotFiles = {

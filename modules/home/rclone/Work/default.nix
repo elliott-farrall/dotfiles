@@ -9,8 +9,14 @@ let
 in
 {
   age.secrets = {
-    "rclone/Work/id".file = ./id.age;
-    "rclone/Work/token".file = ./token.age;
+    "rclone/Work/id" = {
+      file = ./id.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/Work/id";
+    };
+    "rclone/Work/token" = {
+      file = ./token.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/Work/token";
+    };
   };
 
   programs.rclone.remotes.Work = {

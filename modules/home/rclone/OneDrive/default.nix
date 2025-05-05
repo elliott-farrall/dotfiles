@@ -9,8 +9,14 @@ let
 in
 {
   age.secrets = {
-    "rclone/OneDrive/id".file = ./id.age;
-    "rclone/OneDrive/token".file = ./token.age;
+    "rclone/OneDrive/id" = {
+      file = ./id.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/OneDrive/id";
+    };
+    "rclone/OneDrive/token" = {
+      file = ./token.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/OneDrive/token";
+    };
   };
 
   programs.rclone.remotes.OneDrive = {

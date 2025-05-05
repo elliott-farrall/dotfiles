@@ -9,7 +9,7 @@
     }: {
       Unit = {
         Description = "Mount for ${name}";
-        X-SwitchMethod = "stop-start";
+        X-SwitchMethod = "keep-old"; #TODO - Come up with better fix for rclone mounts failing on login
       };
       Service = {
         Type = "notify";

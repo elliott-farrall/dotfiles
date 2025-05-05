@@ -9,7 +9,10 @@ let
 in
 {
   age.secrets = {
-    "rclone/DropBox/token".file = ./token.age;
+    "rclone/DropBox/token" = {
+      file = ./token.age;
+      path = "${config.home.homeDirectory}/.config/rclone/secrets/DropBox/token";
+    };
   };
 
   programs.rclone.remotes.DropBox = {
