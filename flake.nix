@@ -13,6 +13,7 @@
           agenix.overlays.default
           code-insiders.overlays.default
           devshell.overlays.default
+          nix4vscode.overlays.forVscode
           nix-auto-follow.overlays.default
           nix-vscode-extensions.overlays.default
         ];
@@ -161,6 +162,7 @@
     garnix-lib.url = "github:garnix-io/garnix-lib";
     home-manager.url = "github:nix-community/home-manager";
     impermanence.url = "github:nix-community/impermanence";
+    nix4vscode.url = "github:nix-community/nix4vscode";
     nix-auto-follow.url = "github:fzakaria/nix-auto-follow";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

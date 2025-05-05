@@ -36,9 +36,9 @@ in
       mutableExtensionsDir = false;
       profiles.default = {
         enableExtensionUpdateCheck = false;
-        extensions = (with pkgs.vscode-extensions; [
-          github.copilot
-          github.copilot-chat
+        extensions = (pkgs.nix4vscode.forVscode [
+          "github.copilot"
+          "github.copilot-chat"
         ]) ++ (with pkgs.vscode-marketplace; [
           # Core
           ms-vscode.remote-explorer
