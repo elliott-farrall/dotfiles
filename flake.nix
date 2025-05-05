@@ -34,7 +34,6 @@
           catppuccin.homeModules.catppuccin
           impermanence.homeManagerModules.impermanence
           nix-index-database.hmModules.nix-index
-          rclonix.homeModules.default
           stylix.homeManagerModules.stylix
         ];
 
@@ -173,7 +172,6 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     rand-nix.url = "github:figsoda/rand-nix";
-    rclonix.url = "github:elliott-farrall/rclonix/legacy";
     snowfall-lib.url = "github:snowfallorg/lib";
     stylix.url = "github:danth/stylix";
     treefmt-nix.url = "github:numtide/treefmt-nix";

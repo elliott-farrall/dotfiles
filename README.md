@@ -73,9 +73,6 @@ Below are a list of features that need to be added.
 #### **networking**
 - [ ] Integrate ssh with bitwarden
 
-#### **rclone**
-- [ ] Use builtin rclone module
-
 #### **shell**
 - [ ] Make zsh default shell
 
