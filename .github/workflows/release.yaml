@@ -107,7 +107,7 @@ jobs:
           body-markdown-file-path: body.md
 
       - name: Download Assets
-        uses: actions/download-artifact@v4.2.1
+        uses: actions/download-artifact@v4.3.0
         with:
           path: ./assets
 
