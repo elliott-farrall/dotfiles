@@ -84,7 +84,6 @@
               "*.jpg"
               "templates/**"
               "**/hardware.nix"
-              "modules/nixos/boot/silent/boot/*"
             ];
 
             programs = {

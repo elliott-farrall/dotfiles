@@ -46,7 +46,6 @@ Below are a list of features that need to be added.
 
 #### **pre-commit**
 - [ ] Fix act pre-commit
-- [ ] Remove when silent boot is fixed
 
 ### :house_with_garden: Homes
 
@@ -79,9 +78,6 @@ Below are a list of features that need to be added.
 
 #### **applications**
 - [ ] Better handling of unwanted desktop items
-
-#### **boot**
-- [ ] Implement silent boot module
 
 #### **greeter**
 - [ ] Is this fix still needed?

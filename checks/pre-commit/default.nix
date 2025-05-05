@@ -14,7 +14,6 @@ lib.pre-commit-hooks.${system}.run {
     ".*\\.ppd$"
     "^templates/[^/]+$"
     ".*hardware\\.nix$"
-    "^modules/nixos/boot/silent/boot/[^/]+$" #TODO - Remove when silent boot is fixed
   ];
 
   hooks = {

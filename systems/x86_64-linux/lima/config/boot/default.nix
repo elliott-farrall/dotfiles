@@ -4,6 +4,8 @@
 {
   #TODO - Clean lima boot config
 
+  # systemd.watchdog.rebootTime = "15s";
+
   boot = {
     kernelParams = [
       "boot.shell_on_fail" # Allows for root shell if failure to boot. Requires root password.
