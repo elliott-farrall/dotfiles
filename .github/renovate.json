@@ -50,10 +50,5 @@
       "groupName": "Core Flake Inputs",
       "automerge": false
     }
-  ],
-
-  "postUpgradeTasks": {
-    "commands": ["nix fmt"],
-    "executionMode": "branch"
-  }
+  ]
 }
