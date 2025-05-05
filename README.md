@@ -112,7 +112,6 @@ Below are a list of features that need to be added.
 - [ ] Find better way to read token for ddns
 
 #### **lima**
-- [ ] Clean lima boot config
 - [ ] Cleanup lima networking config
 - [ ] Does lima need openrazer?
 - [ ] Migrate lima to impermanence + nixos-facter
