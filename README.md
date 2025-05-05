@@ -61,14 +61,10 @@ Below are a list of features that need to be added.
 #### **desktop**
 - [ ] Build AGS widgets
 - [ ] Implement dynamic wallpaper
-- [ ] Implement lock on idle
 - [ ] Organise hyprland style config
 
 #### **git**
 - [ ] Setup signed commits
-
-#### **locker**
-- [ ] Better integration of lockers between nixos and home-manager
 
 #### **networking**
 - [ ] Integrate ssh with bitwarden
@@ -95,9 +91,6 @@ Below are a list of features that need to be added.
 
 #### **locale**
 - [ ] Simplify this module
-
-#### **locker**
-- [ ] Test systemd-lock-handler
 
 #### **metrics**
 - [ ] Migtrate from promtail to grfana-alloy

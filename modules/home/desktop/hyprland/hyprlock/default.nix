@@ -9,6 +9,8 @@ let
 in
 {
   config = lib.mkIf enable {
+    programs.hyprlock.enable = true;
+
     stylix.targets.hyprlock.useWallpaper = false;
   };
 }
