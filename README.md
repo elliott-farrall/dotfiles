@@ -8,7 +8,6 @@ This repository contains my dotfiles and configuration files for various applica
     - :page_facing_up: [Overlays](#page_facing_up-overlays)
 - :construction: [To Do](#clipboard-todo)
     - :test_tube: [Checks](#test_tube-checks-1)
-    - :house_with_garden: [Homes](#house_with_garden-homes-1)
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
     - :wrench: [Modules (NixOS)](#wrench-modules-(nixos)-1)
     - :page_facing_up: [Overlays](#page_facing_up-overlays-1)
@@ -46,11 +45,6 @@ Below are a list of features that need to be added.
 
 #### **pre-commit**
 - [ ] Fix act pre-commit
-
-### :house_with_garden: Homes
-
-#### **elliott@lima**
-- [ ] Organise tools
 
 ### :screwdriver: Modules (Home Manager)
 

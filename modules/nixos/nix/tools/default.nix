@@ -17,6 +17,8 @@
 
   environment.systemPackages = with pkgs; [
     agenix
+    devbox
+    devenv
     nil
     nix-fast-build
     nix-info

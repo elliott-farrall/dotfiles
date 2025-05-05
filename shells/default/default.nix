@@ -13,6 +13,7 @@ mkShell {
     startup = {
       pre-commit.text = inputs.self.checks.${system}.pre-commit.shellHook;
     };
+    packages = with pkgs; [ act ];
   };
   commands = [
     {

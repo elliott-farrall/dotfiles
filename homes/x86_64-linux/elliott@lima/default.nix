@@ -1,5 +1,4 @@
-{ pkgs
-, config
+{ config
 , ...
 }:
 
@@ -32,14 +31,6 @@
     obsidian.enable = true;
     zotero.enable = true;
   };
-
-  #TODO - Organise tools
-  home.packages = with pkgs; [
-    act
-    devbox
-    devenv
-    # flox
-  ];
 
   /* ----------------------------- Personalisation ---------------------------- */
 
