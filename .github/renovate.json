@@ -22,8 +22,7 @@
       "description": "docker images",
       "matchManagers": ["docker-compose"],
       "postUpgradeTasks": {
-        "commands": ["systems/x86_64-linux/broad/services/compose.sh"],
-        "executionMode": "branch"
+        "commands": ["systems/x86_64-linux/broad/services/compose.sh"]
       }
     },
     {
@@ -50,5 +49,10 @@
       "groupName": "Core Flake Inputs",
       "automerge": false
     }
-  ]
+  ],
+
+  "postUpgradeTasks": {
+    "commands": ["nix fmt"],
+    "executionMode": "branch"
+  }
 }
