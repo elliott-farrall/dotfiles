@@ -1,10 +1,14 @@
-{ config
+{ lib
+, config
 , ...
 }:
 
+let
+  cfg = config.shell;
+  enable = cfg == "bash";
+in
 {
-  programs.bash = {
-    enable = true;
-    historyFile = "${config.xdg.stateHome}/bash/history";
+  config = lib.mkIf enable {
+    programs.bash.enable = true;
   };
 }

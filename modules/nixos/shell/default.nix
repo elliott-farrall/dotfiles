@@ -4,22 +4,18 @@
 , ...
 }:
 
-#TODO - Make zsh default shell
-
 let
   cfg = config.shell;
-
-  shells = [ "zsh" ];
 in
 {
   imports = [
-    ./_addons/starship.nix
+    ./prompt.nix
   ];
 
   options = {
     shell = lib.mkOption {
-      type = lib.types.enum (shells ++ [ "bash" ]);
-      default = "bash";
+      type = lib.types.enum [ "bash" "zsh" ];
+      default = "zsh";
       description = "The shell to use.";
     };
   };

@@ -62,9 +62,6 @@ Below are a list of features that need to be added.
 #### **networking**
 - [ ] Integrate ssh with bitwarden
 
-#### **shell**
-- [ ] Make zsh default shell
-
 #### **xdg**
 - [ ] Needs a lot of work
 
@@ -90,9 +87,6 @@ Below are a list of features that need to be added.
 
 #### **nix**
 - [ ] Come up with better auto update solution
-
-#### **shell**
-- [ ] Make zsh default shell
 
 #### **users**
 - [ ] Implement fix for updating /etc/shadow
