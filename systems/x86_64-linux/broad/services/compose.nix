@@ -408,7 +408,7 @@
     ];
   };
   virtualisation.oci-containers.containers."fileflows" = {
-    image = "docker.io/revenz/fileflows:25.04";
+    image = "docker.io/revenz/fileflows:25.05";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
     ];
@@ -548,7 +548,7 @@
     ];
   };
   virtualisation.oci-containers.containers."homepage" = {
-    image = "ghcr.io/gethomepage/homepage:v1.1.1";
+    image = "ghcr.io/gethomepage/homepage:v1.2.0";
     environment = {
       "HOMEPAGE_FILE_JELLYFIN_KEY" = "/keys/jellyfin";
       "HOMEPAGE_FILE_JELLYSEERR_KEY" = "/keys/jellyseerr";
@@ -918,7 +918,7 @@
     ];
   };
   virtualisation.oci-containers.containers."portainer" = {
-    image = "docker.io/portainer/portainer-ce:2.29.0-alpine";
+    image = "docker.io/portainer/portainer-ce:2.29.2-alpine";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
@@ -974,7 +974,7 @@
     ];
   };
   virtualisation.oci-containers.containers."prowlarr" = {
-    image = "docker.io/linuxserver/prowlarr:1.34.1";
+    image = "docker.io/linuxserver/prowlarr:1.35.1";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-prowlarr:/config:rw"
@@ -1158,7 +1158,7 @@
     ];
   };
   virtualisation.oci-containers.containers."radarr" = {
-    image = "docker.io/linuxserver/radarr:5.21.1";
+    image = "docker.io/linuxserver/radarr:5.22.4";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-radarr:/config:rw"
@@ -1259,7 +1259,7 @@
     ];
   };
   virtualisation.oci-containers.containers."romm" = {
-    image = "docker.io/rommapp/romm:3.8.3";
+    image = "docker.io/rommapp/romm:3.9.0";
     environment = {
       "DB_HOST" = "romm-db";
       "DB_USER" = "romm-user";
@@ -1547,7 +1547,7 @@
     ];
   };
   virtualisation.oci-containers.containers."speedtest-tracker" = {
-    image = "docker.io/linuxserver/speedtest-tracker:1.4.2";
+    image = "docker.io/linuxserver/speedtest-tracker:1.5.0";
     environment = {
       "APP_URL" = "https://speedtest-tracker.beannet.app";
       "DB_CONNECTION" = "sqlite";
