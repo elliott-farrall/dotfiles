@@ -76,9 +76,6 @@ Below are a list of features that need to be added.
 #### **home-manager**
 - [ ] Look into alternative to path link
 
-#### **locale**
-- [ ] Simplify this module
-
 #### **metrics**
 - [ ] Migtrate from promtail to grfana-alloy
 

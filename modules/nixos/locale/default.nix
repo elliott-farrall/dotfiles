@@ -1,26 +1,11 @@
-{ lib
-, ...
+{ ...
 }:
 
-#TODO - Simplify this module
-
 {
-  imports = [
-    ./locales/uk.nix
-  ];
+  console.useXkbConfig = true;
+  services.kmscon.useXkbConfig = true;
 
-  options = {
-    locale = lib.mkOption {
-      description = "The locale to use.";
-      type = lib.types.enum [
-        "uk"
-      ];
-      default = "uk";
-    };
-  };
-
-  config = {
-    console.useXkbConfig = true;
-    services.kmscon.useXkbConfig = true;
-  };
+  time.timeZone = "Europe/London";
+  i18n.defaultLocale = "en_GB.UTF-8";
+  services.xserver.xkb.layout = "gb";
 }
