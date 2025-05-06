@@ -44,9 +44,9 @@
 
   wayland.windowManager.hyprland.settings = {
     exec-once = [
-      "[workspace 1 silent] $VISUAL"
-      "[workspace 2 silent] $BROWSER"
-      "[workspace special:terminal silent] $TERMINAL"
+      "[workspace 1 silent] ${config.home.sessionVariables.VISUAL or null}"
+      "[workspace 2 silent] ${config.home.sessionVariables.BROWSER or null}"
+      "[workspace special:terminal silent] ${config.home.sessionVariables.TERMINAL or null}"
     ];
   };
 
