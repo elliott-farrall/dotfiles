@@ -29,9 +29,6 @@ Below are a list of issues that need to be fixed.
 #### **greeter**
 - [ ] Incorrect resolutions on multi-monitor setups
 
-#### **profiles**
-- [ ] Update uos printer config
-
 ### :page_facing_up: Overlays
 
 #### **rmview**

@@ -1,14 +1,11 @@
 { lib
 , config
+, osConfig ? null
 , ...
 }:
 
-let
-  cfg = config.profiles.uos;
-  inherit (cfg) enable;
-in
 {
-  config = lib.mkIf enable {
+  config = lib.mkIf (osConfig.profiles.uos.enable or false) {
     age.secrets."profiles/uos/key".file = ./key.age;
 
     programs.ssh.matchBlocks = {

@@ -4,8 +4,6 @@
 , ...
 }:
 
-#FIXME - Update uos printer config
-
 let
   cfg = config.profiles.uos;
   enable = cfg.enable && config.services.printing.enable;
@@ -19,10 +17,23 @@ in
     hardware.printers.ensurePrinters = [
       {
         name = "SurreyPrint";
-        description = "Surrey Print Service";
+        description = "Surrey Print Service (Old)";
         location = "University of Surrey";
 
         deviceUri = "lpd://es00569@printservice.surrey.ac.uk/surreyprint";
+        model = "Samsung_X7600_Series.ppd";
+        ppdOptions = {
+          Option1 = "True"; # Duplexer
+          Duplex = "DuplexNoTumble";
+          PageSize = "A4";
+        };
+      }
+      {
+        name = "PrintSurrey";
+        description = "Surrey Print Service (New)";
+        location = "University of Surrey";
+
+        deviceUri = "lpd://es00569@printservice.surrey.ac.uk/printsurrey";
         model = "Samsung_X7600_Series.ppd";
         ppdOptions = {
           Option1 = "True"; # Duplexer
