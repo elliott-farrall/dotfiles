@@ -5,7 +5,7 @@
 
 let
   cfg = config.profiles.uos;
-  inherit (cfg) enable;
+  enable = cfg.enable && config.display.enable;
 
   inherit (config.display) output;
 in
