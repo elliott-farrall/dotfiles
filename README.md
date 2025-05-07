@@ -73,9 +73,6 @@ Below are a list of features that need to be added.
 #### **metrics**
 - [ ] Migtrate from promtail to grfana-alloy
 
-#### **networking**
-- [ ] Automate TailScale tagging
-
 #### **nix**
 - [ ] Come up with better auto update solution
 

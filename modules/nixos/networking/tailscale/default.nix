@@ -5,8 +5,6 @@
 , ...
 }:
 
-#TODO - Automate TailScale tagging
-
 let
   enable = format == "linux";
 in
@@ -17,7 +15,7 @@ in
     services.tailscale = {
       enable = true;
       authKeyFile = config.age.secrets."tailscale/auth".path;
-      extraUpFlags = [ "--ssh" "--hostname" host ];
+      extraUpFlags = [ "--hostname" host "--advertise-tags" "tag:node" "--ssh" ];
     };
   };
 }
