@@ -4,8 +4,6 @@
 , ...
 }:
 
-#TODO - Cleanup automated dockerhub login
-
 let
   cfg = config.virtualisation;
   enable = cfg.podman.enable || cfg.docker.enable;

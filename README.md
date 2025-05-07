@@ -92,9 +92,6 @@ Below are a list of features that need to be added.
 #### **vfs**
 - [ ] Test autotrash
 
-#### **virtualisation**
-- [ ] Cleanup automated dockerhub login
-
 ### :page_facing_up: Overlays
 
 #### **mathematica**
