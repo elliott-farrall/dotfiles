@@ -70,9 +70,6 @@ Below are a list of features that need to be added.
 #### **applications**
 - [ ] Better handling of unwanted desktop items
 
-#### **greeter**
-- [ ] Is this fix still needed?
-
 #### **home-manager**
 - [ ] Look into alternative to path link
 

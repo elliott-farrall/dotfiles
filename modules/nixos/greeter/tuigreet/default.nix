@@ -13,10 +13,6 @@ let
   accent = config.catppuccin.accentBase16;
 in
 {
-  imports = [
-    ./logs_fix.nix
-  ];
-
   config = lib.mkIf enable {
     services.greetd.settings.default_session.command = ''${lib.getExe pkgs.greetd.tuigreet} \
       --remember \
