@@ -83,9 +83,6 @@ in
           "SUPER, mouse:272, movewindow"
           "SUPER, mouse:273, resizewindow"
         ];
-        bindl = [
-          ", switch:Lid Switch, exec, loginctl lock-session"
-        ];
 
         misc = {
           disable_hyprland_logo = true;
