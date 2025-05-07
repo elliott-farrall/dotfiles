@@ -103,16 +103,12 @@ Below are a list of features that need to be added.
 #### **renovate**
 - [ ] Remove when [PR](https://github.com/renovatebot/renovate/pull/33991) is merged
 
-#### **wpa_supplicant**
-- [ ] Is this still needed?
-
 ### :desktop_computer: Systems
 
 #### **broad**
 - [ ] Find better way to read token for ddns
 
 #### **lima**
-- [ ] Does lima need openrazer?
 - [ ] Migrate lima to impermanence + nixos-facter
 
 #### **runner**

@@ -8,7 +8,6 @@
     ./boot
     ./gaming
     ./networking
-    ./peripherals
     ./printing
     ./virtualisation
   ];
