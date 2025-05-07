@@ -22,7 +22,6 @@ Below are a list of issues that need to be fixed.
 
 #### **desktop**
 - [ ] Waybar media module broken
-- [ ] Waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
 
 ### :wrench: Modules (NixOS)
 

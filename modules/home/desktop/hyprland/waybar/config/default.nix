@@ -88,12 +88,6 @@ in
         escape = true;
       };
 
-      "systemd-failed-units" = {
-        #FIXME - Waybar systemd module does not work with user units (see https://github.com/Alexays/Waybar/issues/3444)
-        format = "󰒏 {nr_failed}";
-        on-click = "${config.home.sessionVariables.TERMINAL} ${lib.getExe pkgs.systemctl-tui}";
-      };
-
       "group/logout" = {
         orientation = "inherit";
         modules = [
