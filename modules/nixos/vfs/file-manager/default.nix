@@ -1,4 +1,5 @@
 { lib
+, pkgs
 , format
 , ...
 }:
@@ -13,5 +14,11 @@ in
 
     # Issues with org.gtk.vfs.UDisks2VolumeMonitor, causes slow file-managers
     environment.sessionVariables.GVFS_REMOTE_VOLUME_MONITOR_IGNORE = "true";
+
+    # Enable automated trash emptying
+    services.cron = {
+      enable = true;
+      systemCronJobs = [ "@hourly ${pkgs.trash-cli}/bin/trash-empty --all-users -f 30" ];
+    };
   };
 }

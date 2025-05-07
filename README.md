@@ -89,9 +89,6 @@ Below are a list of features that need to be added.
 - [ ] Implement fix for updating /etc/shadow
 - [ ] Migrate primary user to uid 1001
 
-#### **vfs**
-- [ ] Test autotrash
-
 ### :page_facing_up: Overlays
 
 #### **mathematica**
