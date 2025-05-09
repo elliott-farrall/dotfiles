@@ -72,7 +72,6 @@ in
       }
 
       #custom-notification,
-      #systemd-failed-units,
       #idle_inhibitor,
       #custom-logout,
       #battery.status,
@@ -93,7 +92,6 @@ in
         border-radius: 1rem;
       }
       #custom-notification:hover,
-      #systemd-failed-units:hover,
       #idle_inhibitor:hover,
       #custom-logout:hover,
       #battery.status:hover,
