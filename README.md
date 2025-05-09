@@ -5,7 +5,6 @@ This repository contains my dotfiles and configuration files for various applica
 - :bug: [Issues](#bug-issues)
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager))
     - :wrench: [Modules (NixOS)](#wrench-modules-(nixos))
-    - :page_facing_up: [Overlays](#page_facing_up-overlays)
 - :construction: [To Do](#clipboard-todo)
     - :test_tube: [Checks](#test_tube-checks-1)
     - :screwdriver: [Modules (Home Manager)](#screwdriver-modules-(home-manager)-1)
@@ -27,11 +26,6 @@ Below are a list of issues that need to be fixed.
 
 #### **greeter**
 - [ ] Incorrect resolutions on multi-monitor setups
-
-### :page_facing_up: Overlays
-
-#### **rmview**
-- [ ] Temporary fix for the rmview package
 
 ## :clipboard: To Do
 
