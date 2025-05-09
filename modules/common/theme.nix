@@ -44,6 +44,8 @@ in
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-${flavour}.yaml";
       image = ./wallpaper.jpg;
 
+      polarity = if flavour == "latte" then "light" else "dark";
+
       fonts = {
         serif = {
           name = "Ubuntu Nerd Font";
