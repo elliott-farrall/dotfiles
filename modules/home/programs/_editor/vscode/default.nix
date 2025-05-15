@@ -55,6 +55,7 @@ in
           hashicorp.terraform
           # Environment
           henriquebruno.github-repository-manager
+          mhutchie.git-graph
           mkhl.direnv
           # Editor
           vivaxy.vscode-conventional-commits
