@@ -21,7 +21,7 @@
 
   # Containers
   virtualisation.oci-containers.containers."auth" = {
-    image = "docker.io/authelia/authelia:4.39.1";
+    image = "docker.io/authelia/authelia:4.39.3";
     volumes = [
       "/etc/broad/auth/config.yaml:/config/configuration.yml:ro"
       "/etc/localtime:/etc/localtime:ro"
@@ -918,7 +918,7 @@
     ];
   };
   virtualisation.oci-containers.containers."portainer" = {
-    image = "docker.io/portainer/portainer-ce:2.29.2-alpine";
+    image = "docker.io/portainer/portainer-ce:2.30.0-alpine";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/var/run/docker.sock:/var/run/docker.sock:ro"
@@ -1028,7 +1028,7 @@
     ];
   };
   virtualisation.oci-containers.containers."proxy" = {
-    image = "docker.io/traefik:v3.3.6";
+    image = "docker.io/traefik:v3.4.0";
     environment = {
       "CF_API_EMAIL" = "elliott.chalford@gmail.com";
       "CF_API_KEY_FILE" = "/key";
@@ -1158,7 +1158,7 @@
     ];
   };
   virtualisation.oci-containers.containers."radarr" = {
-    image = "docker.io/linuxserver/radarr:5.22.4";
+    image = "docker.io/linuxserver/radarr:5.23.3";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "data-radarr:/config:rw"
@@ -1605,7 +1605,7 @@
     ];
   };
   virtualisation.oci-containers.containers."tubearchivist" = {
-    image = "docker.io/bbilly1/tubearchivist:v0.5.1";
+    image = "docker.io/bbilly1/tubearchivist:v0.5.2";
     environment = {
       "ES_URL" = "http://tubearchivist-es:9200";
       "REDIS_HOST" = "tubearchivist-redis";
@@ -1675,7 +1675,7 @@
     ];
   };
   virtualisation.oci-containers.containers."tubearchivist-es" = {
-    image = "docker.io/elasticsearch:8.18.0";
+    image = "docker.io/elasticsearch:8.18.1";
     environment = {
       "ES_JAVA_OPTS" = "-Xms1g -Xmx1g";
       "discovery.type" = "single-node";
