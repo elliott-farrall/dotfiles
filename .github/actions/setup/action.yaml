@@ -9,7 +9,7 @@ runs:
       uses: runs-on/action@v1
 
     - name: Install Nix
-      uses: nixbuild/nix-quick-install-action@v30
+      uses: nixbuild/nix-quick-install-action@v32
       with:
         nix_conf: |
           accept-flake-config = true
