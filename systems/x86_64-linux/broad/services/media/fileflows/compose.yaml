@@ -1,7 +1,7 @@
 services:
   fileflows:
     container_name: fileflows
-    image: docker.io/revenz/fileflows:25.05
+    image: docker.io/revenz/fileflows:25.07
     restart: unless-stopped
     # runtime: nvidia
     # environment:
