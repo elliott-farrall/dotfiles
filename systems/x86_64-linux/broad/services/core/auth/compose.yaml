@@ -1,7 +1,7 @@
 services:
   auth:
     container_name: auth
-    image: docker.io/authelia/authelia:4.39.1
+    image: docker.io/authelia/authelia:4.39.5
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
