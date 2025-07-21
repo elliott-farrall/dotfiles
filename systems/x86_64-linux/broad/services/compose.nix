@@ -1259,7 +1259,7 @@
     ];
   };
   virtualisation.oci-containers.containers."romm" = {
-    image = "docker.io/rommapp/romm:3.9.0";
+    image = "docker.io/rommapp/romm:4.0.0";
     environment = {
       "DB_HOST" = "romm-db";
       "DB_USER" = "romm-user";
