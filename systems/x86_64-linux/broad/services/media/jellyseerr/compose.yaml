@@ -1,7 +1,7 @@
 services:
   jellyseerr:
     container_name: jellyseerr
-    image: docker.io/fallenbagel/jellyseerr:2.5.2
+    image: docker.io/fallenbagel/jellyseerr:2.7.2
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
