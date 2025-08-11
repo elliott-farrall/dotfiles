@@ -28,7 +28,7 @@ services:
 
   jellyseerr-check:
     container_name: jellyseerr-check
-    image: docker.io/jwilder/dockerize:v0.9.3
+    image: docker.io/jwilder/dockerize:v0.9.5
     restart: no
     command: dockerize -wait=http://jellyseerr:5055 -timeout 180s
     labels:
